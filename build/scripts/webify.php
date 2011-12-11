@@ -15,7 +15,7 @@ function webify_directory($directory, $edition)
 
     $_editions = '';
     //$base_url = 'http://www.phpunit.de/manual';
-    $base_url = 'http://phpunit-doc.verber.kh.ua/';
+    $base_url = 'http://phpunit-doc.verber.kh.ua';
     $editions  = array(
       'en' => array('3.6', '3.5', /*'3.4', '3.3', '3.2', '3.1', '3.0', '2.3'*/),
       'ja' => array('3.6', '3.5', /*'3.4', '3.3', '3.2', '3.1', '3.0', '2.3'*/),

@@ -178,6 +178,13 @@
     </antcall>
   </target>
 
+  <target name="build-ru-3.7">
+    <antcall target="build">
+      <param name="language" value="ru"/>
+      <param name="version" value="3.7"/>
+    </antcall>
+  </target>
+
   <target name="build-fr-3.6">
     <antcall target="build">
       <param name="language" value="fr"/>

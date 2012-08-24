@@ -197,7 +197,7 @@
        lowUpperBound="35" highLowerBound="70"/>
   <log type="coverage-clover" target="/tmp/coverage.xml"/>
   <log type="coverage-php" target="/tmp/coverage.serialized"/>
-  <log type="coverage-clover" target="php://stdout" showUncoveredFiles="false"/>
+  <log type="coverage-text" target="php://stdout" showUncoveredFiles="false"/>
   <log type="json" target="/tmp/logfile.json"/>
   <log type="tap" target="/tmp/logfile.tap"/>
   <log type="junit" target="/tmp/logfile.xml" logIncompleteSkipped="false"/>
@@ -242,7 +242,7 @@
         <literal>highlight: When set to true, the code in your coverage reports is syntax highlighted.</literal>
       </para></listitem>
       <listitem><para><literal>lowUpperBound: Maximum coverage percentage to be considered 'lowly' covered.</literal></para></listitem>
-      <listitem><para><literal>highUpperBound: Minimum coverage percentage to be considered 'highly' covered.</literal></para></listitem>
+      <listitem><para><literal>highLowerBound: Minimum coverage percentage to be considered 'highly' covered.</literal></para></listitem>
       <listitem><para>
         <literal>showUncoveredFiles: 
         Show all whitelisted files in --coverage-text output not just the ones with coverage information.</literal>

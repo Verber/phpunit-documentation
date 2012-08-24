@@ -7,7 +7,7 @@
     <indexterm><primary>PHPUnit_Framework_TestCase</primary></indexterm>
 
     <xref linkend="writing-tests-for-phpunit.examples.StackTest.php" /> shows
-    how we can write tests using PHPUnit that exercice PHP's array operations.
+    how we can write tests using PHPUnit that exercise PHP's array operations.
     The example introduces the basic conventions and steps for writing tests
     with PHPUnit:
   </para>
@@ -1109,7 +1109,7 @@ Tests: 3, Assertions: 3, Failures: 3.]]></screen>
 
       <para><literal>assertEquals(float $expected, float $actual[, string $message = '', float $delta = 0])</literal></para>
       <para>Reports an error identified by <literal>$message</literal> if the two floats <literal>$expected</literal> and <literal>$actual</literal> are not within <literal>$delta</literal> of each other.</para>
-      <para>Please read about <ulink url="http://en.wikipedia.org/wiki/IEEE_754#Comparing_floating-point_numbers">comparing floating-point numbers</ulink> to understand why <literal>$delta</literal> is neccessary.</para>
+      <para>Please read "<ulink url="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About Floating-Point Arithmetic</ulink>" to understand why <literal>$delta</literal> is neccessary.</para>
       <example id="writing-tests-for-phpunit.assertions.assertEquals.example2">
         <title>Usage of assertEquals() with floats</title>
         <programlisting><![CDATA[<?php
@@ -2265,7 +2265,7 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <para><literal>$matcher</literal> is an associative array that specifies the match criteria for the assertion:</para>
       <itemizedlist>
         <listitem><literal>id</literal>: The node with the given <literal>id</literal> attribute must match the corresponsing value.</listitem>
-        <listitem><literal>tags</literal>: The node type must match the corresponding value.</listitem>
+        <listitem><literal>tag</literal>: The node type must match the corresponding value.</listitem>
         <listitem><literal>attributes</literal>: The node's attributes must match the corresponsing values in the <literal>$attributes</literal> associative array.</listitem>
         <listitem><literal>content</literal>: The text content must match the given value.</listitem>
         <listitem><literal>parent</literal>: The node's parent must match the <literal>$parent</literal> associative array.</listitem>

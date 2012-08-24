@@ -68,7 +68,7 @@ class StackTest extends PHPUnit_Framework_TestCase
         implementation scenario of a test.
       </para>
       <para>
-        ユニットテストを書くそもそもの目的は、バグを発見と修正や
+        ユニットテストを書くそもそもの目的は、バグの発見と修正や
         コードのリファクタリングを開発者がやりやすくすること。
         そしてテスト対象のソフトウェアのドキュメントとしての役割を果たすことだ。
         これらの目的を達成するためには、
@@ -479,20 +479,20 @@ class ExceptionTest extends PHPUnit_Framework_TestCase
 }
 ?>]]></programlisting>
       <screen><userinput>phpunit ExceptionTest</userinput><![CDATA[
-PHPUnit 3.6.0 by Sebastian Bergmann.
+PHPUnit 3.6.6 by Sebastian Bergmann.
 
 FF
 
-Time: 0 seconds, Memory: 5.25Mb
+Time: 0 seconds, Memory: 3.00Mb
 
 There were 2 failures:
 
 1) ExceptionTest::testExceptionHasRightMessage
-Failed asserting that 'Some Message' contains "Right Message".
+Failed asserting that exception message 'Some Message' contains 'Right Message'.
 
 
 2) ExceptionTest::testExceptionHasRightCode
-Failed asserting that 10 matches expected 20.
+Failed asserting that expected exception code 20 is equal to 10.
 
 
 FAILURES!
@@ -531,32 +531,30 @@ class ExceptionTest extends PHPUnit_Framework_TestCase
         );
         throw new InvalidArgumentException('The Right Message', 10);
     }
-}
-?>]]></programlisting>
+}?>]]></programlisting>
       <screen><userinput>phpunit ExceptionTest</userinput><![CDATA[
-PHPUnit 3.6.0 by Sebastian Bergmann.
+PHPUnit 3.6.6 by Sebastian Bergmann.
 
 FFF
 
-Time: 0 seconds, Memory: 5.25Mb
+Time: 0 seconds, Memory: 3.00Mb
 
 There were 3 failures:
 
 1) ExceptionTest::testException
 Expected exception InvalidArgumentException
 
-/home/sb/ExceptionTest.php:6
 
 2) ExceptionTest::testExceptionHasRightMessage
-Failed asserting that 'Some Message' contains "Right Message".
+Failed asserting that exception message 'Some Message' contains 'Right Message'.
 
 
 3) ExceptionTest::testExceptionHasRightCode
-Failed asserting that 10 matches expected 20.
+Failed asserting that expected exception code 20 is equal to 10.
 
 
 FAILURES!
-Tests: 3, Assertions: 4, Failures: 3.]]></screen>
+Tests: 3, Assertions: 6, Failures: 3.]]></screen>
     </example>
 
     <para>
@@ -576,7 +574,7 @@ Tests: 3, Assertions: 4, Failures: 3.]]></screen>
         </thead>
         <tbody>
           <row>
-            <entry><literal>void setExpectedException(string $exceptionName[, string $exceptionMessage = '', integer $exceptionCode = 0])</literal></entry>
+            <entry><literal>void setExpectedException(string $exceptionName[, string $exceptionMessage = '', integer $exceptionCode = NULL])</literal></entry>
             <entry>期待する <literal>$exceptionName</literal>、<literal>$exceptionMessage</literal> および <literal>$exceptionCode</literal> を設定します。</entry>
           </row>
           <row>
@@ -830,7 +828,7 @@ Tests: 2, Assertions: 2, Failures: 1.</screen>
     <title>アサーション</title>
 
     <para>
-      この節では、利用可能なアサーションメソッドのの一覧を示します。
+      この節では、利用可能なアサーションメソッドの一覧を示します。
     </para>
 
     <section id="writing-tests-for-phpunit.assertions.assertArrayHasKey">
@@ -1317,7 +1315,7 @@ Tests: 3, Assertions: 3, Failures: 3.</screen>
 
       <para><literal>assertEquals(float $expected, float $actual[, string $message = '', float $delta = 0])</literal></para>
       <para>2 つの float 値 <literal>$expected</literal> と <literal>$actual</literal> の誤差が <literal>$delta</literal> より大きい場合にエラー <literal>$message</literal> を報告します。</para>
-      <para>なぜ <literal>$delta</literal> が必要となるのかについては <ulink url="http://en.wikipedia.org/wiki/IEEE_754#Comparing_floating-point_numbers">comparing floating-point numbers</ulink> を参照ください。</para>
+      <para>なぜ <literal>$delta</literal> が必要となるのかについては "<ulink url="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About Floating-Point Arithmetic</ulink>" を参照ください。</para>
       <example id="writing-tests-for-phpunit.assertions.assertEquals.example2">
         <title>float 値での assertEquals() の使用法</title>
         <programlisting><![CDATA[<?php
@@ -2462,7 +2460,7 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <para><literal>$matcher</literal> は連想配列で、アサーションに使用するマッチ条件を指定します。</para>
       <itemizedlist>
         <listitem><literal>id</literal>: 指定した <literal>id</literal> 属性のノードが対応する値にマッチすること。</listitem>
-        <listitem><literal>tags</literal>: ノードの型が対応する値にマッチすること。</listitem>
+        <listitem><literal>tag</literal>: ノードの型が対応する値にマッチすること。</listitem>
         <listitem><literal>attributes</literal>: ノードの属性が、対応する値の連想配列 <literal>$attributes</literal> にマッチすること。</listitem>
         <listitem><literal>content</literal>: テキストの内容が指定した値にマッチすること。</listitem>
         <listitem><literal>parent</literal>: ノードの親が連想配列 <literal>$parent</literal> にマッチすること。</listitem>

@@ -27,14 +27,22 @@
     
     <para>
       PHPUnit_Selenium がサポートしている唯一のシナリオは、
-      Selenium 2.x サーバへのアクセスを 1.0 から存在する
-      古い形式の Selenium RC API で行うというものです。
+      Selenium 2.x サーバを使うものです。
+      Selenium 2.x サーバにアクセスするには、1.0 から存在する古い形式の Selenium RC API を使うか、
+      あるいは PHPUnit_Selenium 1.2 で一部実装済みの WebDriver API を使います。
+    </para>
+    <para>
       なぜそうしたかというと、Selenium 2 には後方互換性があり、
       Selenium RC がもうメンテナンスされていないからです。
     </para>
 
+	</section>
+	
+	<section id="selenium.installation">
+    <title>インストール</title>
+
     <para>
-      Selenium Server のインストール手順は、次のようになります。
+      まず、Selenium Server をインストールします。
     </para>
 
     <orderedlist>
@@ -43,10 +51,80 @@
       <listitem><userinput>java -jar /usr/local/bin/selenium-server-standalone-2.9.0.jar</userinput> などのようにして Selenium RC サーバを起動する。</listitem>
     </orderedlist>
 
+		<para>
+      次に PHPUnit_Selenium パッケージをインストールします。これは、PHPUnit から Selenium Server へネイティブにアクセスするために必要です。
+      <screen><userinput>pear install phpunit/PHPUnit_Selenium</userinput></screen>
+      を実行しましょう。
+    </para>
+
     <para>
       これで、クライアント/サーバ プロトコルを用いて
       Selenium Server にコマンドを送信できるようになりました。
     </para>
+  </section>
+
+  <section id="selenium.selenium2testcase">
+    <title>PHPUnit_Extensions_Selenium2TestCase</title>
+
+    <para>
+      <indexterm><primary><literal>PHPUnit_Extensions_Selenium2TestCase</literal></primary></indexterm>
+
+      <literal>PHPUnit_Extensions_Selenium2TestCase</literal> テストケースは、
+      WebDriver API を利用します (実装しているのはその一部だけです)。
+    </para>
+
+    <para>
+      <xref linkend="selenium.selenium2testcase.examples.WebTest.php" /> は、
+      ウェブサイト <systemitem role="URL">http://www.example.com/</systemitem>
+      の <literal><![CDATA[<title>]]></literal> 要素の内容をテストする方法を示したものです。
+    </para>
+    <example id="selenium.selenium2testcase.examples.WebTest.php">
+      <title>PHPUnit_Extensions_Selenium2TestCase の使用例</title>
+      <programlisting><![CDATA[<?php
+class WebTest extends PHPUnit_Extensions_Selenium2TestCase
+{
+    protected function setUp()
+    {
+        $this->setBrowser('firefox');
+        $this->setBrowserUrl('http://www.example.com/');
+    }
+
+    public function testTitle()
+    {
+        $this->url('http://www.example.com/');
+        $this->assertEquals('Example WWW Page', $this->title());
+    }
+
+}
+?>]]></programlisting>
+      <screen><userinput>phpunit WebTest</userinput><![CDATA[
+PHPUnit 3.6.10 by Sebastian Bergmann.
+
+F
+
+Time: 28 seconds, Memory: 3.00Mb
+
+There was 1 failure:
+
+1) WebTest::testTitle
+Failed asserting that two strings are equal.
+--- Expected
++++ Actual
+@@ @@
+-'Example WWW Page'
++'IANA — Example domains'
+
+/home/giorgio/WebTest.php:13
+
+FAILURES!
+Tests: 1, Assertions: 1, Failures: 1.]]></screen></example>
+
+  <para>    
+    Selenium2TestCare のコマンドは __call() を使って実装しています。
+    サポートする機能の一覧は
+    <ulink url="https://github.com/sebastianbergmann/phpunit-selenium/blob/master/Tests/Selenium2TestCaseTest.php">PHPUnit_Extensions_Selenium2TestCase のエンドツーエンドテスト</ulink>
+    を参照ください。
+  </para>
   </section>
 
   <section id="selenium.seleniumtestcase">
@@ -57,10 +135,8 @@
 
       <literal>PHPUnit_Extensions_SeleniumTestCase</literal>
       は、Selenium Server と通信するための クライアント/サーバ プロトコルを実装したものです。
-      また、ウェブのテスト用に特化したアサーションメソッドも提供します。次のようにインストールします。
+      また、ウェブのテスト用に特化したアサーションメソッドも提供します。
     </para>
-
-    <screen><userinput>pear install phpunit/PHPUnit_Selenium</userinput></screen>
 
     <para>
       <xref linkend="selenium.seleniumtestcase.examples.WebTest.php" /> は、

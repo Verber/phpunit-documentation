@@ -7,7 +7,7 @@
     <indexterm><primary>PHPUnit_Framework_TestCase</primary></indexterm>
 
     <xref linkend="writing-tests-for-phpunit.examples.StackTest.php" /> shows
-    how we can write tests using PHPUnit that exercice PHP's array operations.
+    how we can write tests using PHPUnit that exercise PHP's array operations.
     The example introduces the basic conventions and steps for writing tests
     with PHPUnit:
   </para>
@@ -461,24 +461,24 @@ class ExceptionTest extends PHPUnit_Framework_TestCase
 }
 ?>]]></programlisting>
       <screen><userinput>phpunit ExceptionTest</userinput><![CDATA[
-PHPUnit 3.6.0 by Sebastian Bergmann.
+PHPUnit 3.6.6 by Sebastian Bergmann.
 
 FF
 
-Time: 0 seconds, Memory: 5.25Mb
+Time: 0 seconds, Memory: 3.00Mb
 
 There were 2 failures:
 
 1) ExceptionTest::testExceptionHasRightMessage
-Failed asserting that 'Some Message' contains "Right Message".
+Failed asserting that exception message 'Some Message' contains 'Right Message'.
 
 
 2) ExceptionTest::testExceptionHasRightCode
-Failed asserting that 10 matches expected 20.
+Failed asserting that expected exception code 20 is equal to 10.
 
 
 FAILURES!
-Tests: 2, Assertions: 2, Failures: 2.]]></screen>
+Tests: 2, Assertions: 4, Failures: 2.]]></screen>
     </example>
 
     <para>
@@ -511,32 +511,30 @@ class ExceptionTest extends PHPUnit_Framework_TestCase
         );
         throw new InvalidArgumentException('The Right Message', 10);
     }
-}
-?>]]></programlisting>
+}?>]]></programlisting>
       <screen><userinput>phpunit ExceptionTest</userinput><![CDATA[
-PHPUnit 3.6.0 by Sebastian Bergmann.
+PHPUnit 3.6.6 by Sebastian Bergmann.
 
 FFF
 
-Time: 0 seconds, Memory: 5.25Mb
+Time: 0 seconds, Memory: 3.00Mb
 
 There were 3 failures:
 
 1) ExceptionTest::testException
 Expected exception InvalidArgumentException
 
-/home/sb/ExceptionTest.php:6
 
 2) ExceptionTest::testExceptionHasRightMessage
-Failed asserting that 'Some Message' contains "Right Message".
+Failed asserting that exception message 'Some Message' contains 'Right Message'.
 
 
 3) ExceptionTest::testExceptionHasRightCode
-Failed asserting that 10 matches expected 20.
+Failed asserting that expected exception code 20 is equal to 10.
 
 
 FAILURES!
-Tests: 3, Assertions: 4, Failures: 3.]]></screen>
+Tests: 3, Assertions: 6, Failures: 3.]]></screen>
     </example>
 
     <para>
@@ -556,7 +554,7 @@ Tests: 3, Assertions: 4, Failures: 3.]]></screen>
         </thead>
         <tbody>
           <row>
-            <entry><literal>void setExpectedException(string $exceptionName[, string $exceptionMessage = '', integer $exceptionCode = 0])</literal></entry>
+            <entry><literal>void setExpectedException(string $exceptionName[, string $exceptionMessage = '', integer $exceptionCode = NULL])</literal></entry>
             <entry>Set the expected <literal>$exceptionName</literal>, <literal>$exceptionMessage</literal>, and <literal>$exceptionCode.</literal></entry>
           </row>
           <row>
@@ -1296,7 +1294,7 @@ Tests: 3, Assertions: 3, Failures: 3.</screen>
 
       <para><literal>assertEquals(float $expected, float $actual[, string $message = '', float $delta = 0])</literal></para>
       <para>Reports an error identified by <literal>$message</literal> if the two floats <literal>$expected</literal> and <literal>$actual</literal> are not within <literal>$delta</literal> of each other.</para>
-      <para>Please read about <ulink url="http://en.wikipedia.org/wiki/IEEE_754#Comparing_floating-point_numbers">comparing floating-point numbers</ulink> to understand why <literal>$delta</literal> is neccessary.</para>
+      <para>Please read "<ulink url="http://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About Floating-Point Arithmetic</ulink>" to understand why <literal>$delta</literal> is neccessary.</para>
       <example id="writing-tests-for-phpunit.assertions.assertEquals.example2">
         <title>Usage of assertEquals() with floats</title>
         <programlisting><![CDATA[<?php
@@ -2441,7 +2439,7 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <para><literal>$matcher</literal> is an associative array that specifies the match criteria for the assertion:</para>
       <itemizedlist>
         <listitem><literal>id</literal>: The node with the given <literal>id</literal> attribute must match the corresponsing value.</listitem>
-        <listitem><literal>tags</literal>: The node type must match the corresponding value.</listitem>
+        <listitem><literal>tag</literal>: The node type must match the corresponding value.</listitem>
         <listitem><literal>attributes</literal>: The node's attributes must match the corresponsing values in the <literal>$attributes</literal> associative array.</listitem>
         <listitem><literal>content</literal>: The text content must match the given value.</listitem>
         <listitem><literal>parent</literal>: The node's parent must match the <literal>$parent</literal> associative array.</listitem>

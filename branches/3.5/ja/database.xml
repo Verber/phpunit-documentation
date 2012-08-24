@@ -298,7 +298,7 @@ class MyGuestbookTest extends PHPUnit_Extensions_Database_TestCase
         を使って XML 形式のデータセットを表しました。
       </para>
     </section>
-    <section id="what-about-the-datatabase-schema-ddl">
+    <section id="what-about-the-database-schema-ddl">
       <title>データベーススキーマ (DDL) とは?</title>
       <para>
         PHPUnit は、テストの実行前にデータベーススキーマ
@@ -341,7 +341,7 @@ class MyGuestbookTest extends PHPUnit_Extensions_Database_TestCase
       <screen>
 require_once &quot;PHPUnit/Extensions/Database/TestCase.php&quot;;
 
-abstract class MyApp_Tests_DatabaseTestCase extends PHPUnit_Framework_TestCase
+abstract class MyApp_Tests_DatabaseTestCase extends PHPUnit_Extensions_Database_TestCase
 {
     // PDO のインスタンス生成は、クリーンアップおよびフィクスチャ読み込みのときに一度だけ
     static private $pdo = null;
@@ -349,7 +349,7 @@ abstract class MyApp_Tests_DatabaseTestCase extends PHPUnit_Framework_TestCase
     // PHPUnit_Extensions_Database_DB_IDatabaseConnection のインスタンス生成は、テストごとに一度だけ
     private $conn = null;
 
-    final public fucntion getConnection()
+    final public function getConnection()
     {
         if ($this-&gt;conn === null) {
             if (self::$pdo == null) {
@@ -386,7 +386,7 @@ abstract class MyApp_Tests_DatabaseTestCase extends PHPUnit_Framework_TestCase
         テストケースはこのように書き直せます。
       </para>
       <screen>
-abstract class Generic_Tests_DatabaseTestCase extends PHPUnit_Framework_TestCase
+abstract class Generic_Tests_DatabaseTestCase extends PHPUnit_Extensions_Database_TestCase
 {
     // PDO のインスタンス生成は、クリーンアップおよびフィクスチャ読み込みのときに一度だけ
     static private $pdo = null;
@@ -394,7 +394,7 @@ abstract class Generic_Tests_DatabaseTestCase extends PHPUnit_Framework_TestCase
     // PHPUnit_Extensions_Database_DB_IDatabaseConnection のインスタンス生成は、テストごとに一度だけ
     private $conn = null;
 
-    final public fucntion getConnection()
+    final public function getConnection()
     {
         if ($this-&gt;conn === null) {
             if (self::$pdo == null) {
@@ -632,7 +632,7 @@ class MyTestCase extends PHPUnit_Extensions_Database_TestCase
           <literal>&lt;column&gt;</literal>、<literal>&lt;row&gt;</literal>、
           <literal>&lt;value&gt;</literal> そして
           <literal>&lt;null /&gt;</literal> です。
-          先に定義した Guestbook のフラット XML と同様のデータセットは、ｋのようになります。
+          先に定義した Guestbook のフラット XML と同様のデータセットは、このようになります。
         </para>
         <screen>
 &lt;?xml version=&quot;1.0&quot; ?&gt;
@@ -680,6 +680,35 @@ class MyTestCase extends PHPUnit_Extensions_Database_TestCase
     public function getDataSet()
     {
         return $this-&gt;createXMLDataSet('myXmlFixture.yml');
+    }
+}
+</screen>
+      </section>
+      <section id="mysql-xml-dataset">
+        <title>MySQL XML データセット</title>
+        <para>
+          この新しい XML フォーマットは、
+          <ulink url="http://www.mysql.com">MySQL データベース</ulink> 専用です。
+          PHPUnit 3.5 以降で対応します。この形式のファイルを生成するには、
+          <ulink url="http://dev.mysql.com/doc/refman/5.0/en/mysqldump.html"><literal>mysqldump</literal></ulink>
+          を使います。<literal>mysqldump</literal> では CSV データセットも対応していますが、
+          それとは違ってこの XML 形式の場合はひとつのファイルに複数のテーブルを含めることができます。
+          この形式のファイルを作るには、
+          <literal>mysqldump</literal> を次のように実行します。
+        </para>
+        <screen>
+mysqldump --xml -t -u [username] --password=[password] [database] > /path/to/file.xml
+        </screen>
+        <para>
+          このファイルを Database TestCase で使うには、
+          <literal>createMySQLXMLDataSet($filename)</literal> メソッドをコールします。
+        </para>
+        <screen>
+class MyTestCase extends PHPUnit_Extensions_Database_TestCase
+{
+    public function getDataSet()
+    {
+        return $this-&gt;createMySQLXMLDataSet('/path/to/file.xml');
     }
 }
 </screen>
@@ -790,7 +819,6 @@ class ArrayGuestbookTest extends PHPUnit_Extensions_Database_TestCase
 </screen>
         <para>
           PHP の DataSet には、これまでのファイルベースのデータセットに比べて明らかな利点があります。
-          datasets:
         </para>
         <itemizedlist>
           <listitem>
@@ -915,7 +943,7 @@ $ds-&gt;addTable('guestbook', 'SELECT id, content FROM guestbook ORDER BY create
           <literal>testFilteredGuestbook()</literal> メソッドのようにします。
         </para>
         <screen>
-class MySqlGuestbookTest extends PHPUnit_Framework_TestCase
+class MySqlGuestbookTest extends PHPUnit_Extensions_Database_TestCase
 {
     /**
      * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
@@ -1322,7 +1350,6 @@ class GuestbookTest extends PHPUnit_Extensions_Database_TestCase
         <emphasis>2010–05–01 21:47:08</emphasis> に実行したときだけになります。
         日付はデータベースのテストでいつも問題になるものなので、それを回避する手段として
         <quote>created</quote> カラムをアサーションで無視させることができます。
-        assertion.
       </para>
       <para>
         調整後のフラット XML ファイル <emphasis>expectedBook.xml</emphasis>
@@ -1465,4 +1492,3 @@ class DataSetAssertionsTest extends PHPUnit_Extensions_Database_TestCase
     </section>
   </section>
 </chapter>
-

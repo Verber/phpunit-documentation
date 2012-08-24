@@ -4,66 +4,62 @@
   <title>Автоматизация Тестирования</title>
 
   <para>
-    Даже хорошие программисты ошибаются.
-
-    Even good programmers make mistakes. The difference between a good
-    programmer and a bad programmer is that the good programmer uses tests
-    to detect his mistakes as soon as possible. The sooner you test for a
-    mistake the greater your chance of finding it and the less it will cost
-    to find and fix. This explains why leaving testing until just before
-    releasing software is so problematic. Most errors do not get caught at
-    all, and the cost of fixing the ones you do catch is so high that you
-    have to perform triage with the errors because you just cannot afford
-    to fix them all.
+    Даже хорошие программисты ошибаются. Разница между хорошим и плохим
+    программистом в том, что хороший программист использует тесты, чтобы
+    обнаружить свои ошибки как можно раньше. Чем раньше вы проверите свой код
+    на наличие ошибки тем больше ваши шансы найти её и тем меньше будет стоить
+    её поиск и исправление. Это объясняет почему тестирование становится большой
+    проблемой если его откладывать до релиза. Большинство ошибок не будут найдены
+    совсем, а цена исправления тех, которые были пойманы, будет так высока, что вам
+    придётся отобрать (и исправить) только некоторые из них, потому что вы просто
+    не сможете себе позволить исправить их все.
   </para>
 
   <para>
-    <indexterm><primary>Unit Test</primary></indexterm>
+    <indexterm><primary>юнит-тест</primary></indexterm>
 
-    Testing with PHPUnit is not a totally different activity from what you
-    should already be doing. It is just a different way of doing it. The
-    difference is between <emphasis>testing</emphasis>, that is, checking
-    that your program behaves as expected, and <emphasis>performing a battery
-    of tests</emphasis>, runnable code-fragments that automatically test the
-    correctness of parts (units) of the software. These runnable
-    code-fragments are called unit tests.
+    Тестирование с помощью PHPUnit не слишком отличается от того, что
+    вы уже, должно быть, делаете. Это всего лишь другой способ делать это.
+    Разница между <emphasis>тестированием</emphasis>, то есть, проверкой того,
+    что ваша програма ведёт себя так как ожидалось, и <emphasis>выполнением набора
+    тестов</emphasis>, выполняемых фрагментов кода, которые автоматически проверяют
+    правильность частей (модулей или юнитов) ПО. Эти исполняемые фрагменты кода и
+    есть юнит-тесты.
   </para>
 
   <para>
-    In this chapter we will go from simple <literal>print</literal>-based
-    testing code to a fully automated test. Imagine that we have been asked
-    to test PHP's built-in <literal>array</literal>. One bit of functionality
-    to test is the function <literal>count()</literal>. For a newly created
-    array we expect the <literal>count()</literal> function to return
-    <literal>0</literal>. After we add an element, <literal>count()</literal>
-    should return <literal>1</literal>.
-    <xref linkend="automating-tests.examples.array-test.php" /> shows what
-    we want to test.
+    В этой главе мы перейдём от простого тестового кода основанного на
+    <literal>print</literal>-ах к полностью автоматизированому тесту. Представьте себе
+    что вас попросили протестировать встроенный в PHP <literal>array</literal>.
+    Одна из частей функциональности, которую нужно протестировать - функция
+    <literal>count()</literal>. Для только что созданного массива мы ожидаем что функция
+    <literal>count()</literal> вернёт <literal>0</literal>. После добавления одного элемента
+    <literal>count()</literal> должна вернуть <literal>1</literal>.
+    <xref linkend="automating-tests.examples.array-test.php" /> демонстрирует то что мы
+    хотим протестировать.
   </para>
 
   <example id="automating-tests.examples.array-test.php">
-    <title>Testing array operations</title>
+    <title>Тестирование работы с массивами</title>
     <programlisting><![CDATA[<?php
 $fixture = array();
-// $fixture is expected to be empty.
+// ожидается, что $fixture будет пустой.
 
 $fixture[] = 'element';
-// $fixture is expected to contain one element.
+// ожидается, что $fixture содержит один элемент
 ?>]]></programlisting>
   </example>
 
   <para>
-    A really simple way to check whether we are getting the results we
-    expect is to print the result of <literal>count()</literal> before
-    and after adding the element (see
-    <xref linkend="automating-tests.examples.array-test2.php" />).
-    If we get <literal>0</literal> and then <literal>1</literal>,
-    <literal>array</literal> and <literal>count()</literal> behave as
-    expected.
+    Самый простой способ проверить что мы получаем в результате то что
+    мы ожидали - это распечатать результат <literal>count()</literal> до
+    и после добавления элемента (см. <xref linkend="automating-tests.examples.array-test2.php" />).
+    Если мы получим <literal>0</literal> а затем <literal>1</literal>,
+    <literal>array</literal> и <literal>count()</literal> работают так как ожидалось.
   </para>
 
   <example id="automating-tests.examples.array-test2.php">
-    <title>Using print to test array operations</title>
+    <title>Используем print для проверки операций с массивами</title>
     <programlisting><![CDATA[<?php
 $fixture = array();
 print count($fixture) . "\n";

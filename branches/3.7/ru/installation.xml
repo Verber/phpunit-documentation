@@ -1,39 +1,40 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <chapter id="installation">
-  <title>Installing PHPUnit</title>
+  <title>Установка PHPUnit</title>
 
   <para>
-    PHPUnit should be installed using the PEAR Installer, the backbone of the
+    PHPUnit нужно уостанавливать ч помощью установщика PEAR, основы
     <ulink url="http://pear.php.net/">PHP Extension and Application
-    Repository</ulink> that provides a distribution system for PHP packages.
+      Repository</ulink> (Репозиторий расширений и приложений для PHP)
+    который предоставляет систему для распространения PHP пакетов.
   </para>
 
   <caution>
     <para>
-      Depending on your OS distribution and/or your PHP environment, you may
-      need to install PEAR or update your existing PEAR installation before
-      you can proceed with the instructions in this chapter.
+      В зависимости от дистрибутива вашей ОС и/или окружения PHP, вам возможно
+      понадобиться установить PEAR или обновить текущую инсталляцию PEAR перед тем
+      как продолжить установку по инструкции из этого раздела
     </para>
 
     <para>
-      <userinput>sudo pear upgrade PEAR</userinput> usually suffices to
-      upgrade an existing PEAR installation. The <ulink
-      url="http://pear.php.net/manual/en/installation.getting.php">PEAR
-      Manual</ulink> explains how to perform a fresh installation of PEAR.
+      <userinput>sudo pear upgrade PEAR</userinput> обычно достаточно для того
+      чтобы обновить существующую версию PEAR. <ulink
+      url="http://pear.php.net/manual/en/installation.getting.php">Инструкция к PEAR</ulink>
+      объясняет как выполнить установку PEAR с нуля.
     </para>
   </caution>
 
   <note>
     <para>
-      PHPUnit 3.7 requires PHP 5.3.3 (or later) but PHP 5.4.0 (or later) is
-      highly recommended.
+      PHPUnit 3.7 требует PHP 5.3.3 (или новее) однако настоятельно
+      рекомендуется использовать PHP 5.4.0 (или новее).
     </para>
 
     <para>
-      PHP_CodeCoverage, the library that is used by PHPUnit to collect and
-      process code coverage information, depends on Xdebug 2.0.5 (or later) but
-      Xdebug 2.2.0 (or later) is highly recommended.
+      Библитека PHP_CodeCoverage, которая используется PHPUnit для сбора и
+      обработки информации о покрытии кода тестами, завист от Xdebug 2.0.5 (или новее),
+      однако настоятельно рекомендуется Xdebug 2.2.0 (или новее)
     </para>
   </note>
 

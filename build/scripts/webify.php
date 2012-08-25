@@ -20,6 +20,7 @@ function webify_directory($directory, $edition)
       'en' => array('3.7', '3.6', /*'3.5', '3.4', '3.3', '3.2', '3.1', '3.0', '2.3'*/),
       'ja' => array('3.7', '3.6', /*'3.5', '3.4', '3.3', '3.2', '3.1', '3.0', '2.3'*/),
       'fr' => array('3.7', '3.6', /*'3.5', '3.4', '3.3', '3.2', '3.1', '3.0', '2.3'*/),
+      'ru' => array('3.7', /*'3.6', '3.5', '3.4', '3.3', '3.2', '3.1', '3.0', '2.3'*/),
       /*'de' => array('2.3')*/
     );
 
@@ -44,6 +45,11 @@ function webify_directory($directory, $edition)
 
                 case 'fr': {
                     $_language = 'French';
+                }
+                break;
+
+                case 'ru': {
+                    $_language = 'Russian';
                 }
                 break;
 

@@ -21,7 +21,7 @@
     Тестирование с помощью PHPUnit не слишком отличается от того, что
     вы уже, должно быть, делаете. Это всего лишь другой способ делать это.
     Разница между <emphasis>тестированием</emphasis>, то есть, проверкой того,
-    что ваша програма ведёт себя так как ожидалось, и <emphasis>выполнением набора
+    что ваша программа ведёт себя так как ожидалось, и <emphasis>выполнением набора
     тестов</emphasis>, выполняемых фрагментов кода, которые автоматически проверяют
     правильность частей (модулей или юнитов) ПО. Эти исполняемые фрагменты кода и
     есть юнит-тесты.
@@ -29,7 +29,7 @@
 
   <para>
     В этой главе мы перейдём от простого тестового кода основанного на
-    <literal>print</literal>-ах к полностью автоматизированому тесту. Представьте себе
+    <literal>print</literal>-ах к полностью автоматизированному тесту. Представьте себе
     что вас попросили протестировать встроенный в PHP <literal>array</literal>.
     Одна из частей функциональности, которую нужно протестировать - функция
     <literal>count()</literal>. Для только что созданного массива мы ожидаем что функция
@@ -72,16 +72,15 @@ print count($fixture) . "\n";
   </example>
 
   <para>
-    Now, we would like to move from tests that require manual interpretation
-    to tests that can run automatically. In
-    <xref linkend="automating-tests.examples.array-test3.php" />, we write
-    the comparison of the expected and actual values into the test code and
-    print <literal>ok</literal> if the values are equal. If we ever see a
-    <literal>not ok</literal> message, we know something is wrong.
+    Теперь, нам бы хотелось перейти от тестов, которые требуют интерпретации в ручном режиме,
+    к тестам, которые мы сможем запускать автоматически. В <xref linkend="automating-tests.examples.array-test3.php" />
+    мы дописали сравнение ожидаемых и реальных значений в тестовом коде и выводим <literal>ok</literal>
+    если значения равны. Если мы когда-нибудь увидим сообщение <literal>not ok</literal>,
+    мы будем знать что что-то пошло не так
   </para>
 
   <example id="automating-tests.examples.array-test3.php">
-    <title>Comparing expected and actual values to test array operations</title>
+    <title>Сравнение ожидаемого и реального значения для тестирования операций с массивами</title>
     <programlisting><![CDATA[<?php
 $fixture = array();
 print count($fixture) == 0 ? "ok\n" : "not ok\n";
@@ -94,17 +93,16 @@ ok</screen>
   </example>
 
   <para>
-    <indexterm><primary>Assertions</primary></indexterm>
-
-    We now factor out the comparison of expected and actual values into a
-    function that raises an Exception when there is a discrepancy
-    (<xref linkend="automating-tests.examples.array-test4.php" />). This
-    gives us two benefits: the writing of tests becomes easier and we only
-    get output when something is wrong.
+    <indexterm><primary>Утверждения - Assertions</primary></indexterm>
+    Теперь мы выделим сравнение ожидаемых и полученных значений в функцию,
+    которая поднимет исключение когда обнаруживает несоответствие
+    (<xref linkend="automating-tests.examples.array-test4.php" />). Это
+    даёт нам два преимущества: написание тестов упрощается и мы получаем
+    сообщение когда что-то не так.
   </para>
 
   <example id="automating-tests.examples.array-test4.php">
-    <title>Using an assertion function to test array operations</title>
+    <title>Использование функции-утверждения (assertion function) для тестирования операций с массивами</title>
     <programlisting><![CDATA[<?php
 $fixture = array();
 assertTrue(count($fixture) == 0);
@@ -122,22 +120,20 @@ function assertTrue($condition)
   </example>
 
   <para>
-    <indexterm><primary>Automated Test</primary></indexterm>
-
-    The test is now completely automated. Instead of just
-    <emphasis>testing</emphasis> as we did with our first version,
-    with this version we have an <emphasis>automated test</emphasis>.
+    <indexterm><primary>Автоматизированый тест</primary></indexterm>
+    Тест теперь полностью автоматизирован. Теперь вместо
+    <emphasis>тестирования</emphasis> которое мы выполняли в нашей первой версии,
+    в этой версии мы имеем <emphasis>автоматизированый тест</emphasis>.
   </para>
 
   <para>
-    The goal of using automated tests is to make fewer mistakes. While your
-    code will still not be perfect, even with excellent tests, you will
-    likely see a dramatic reduction in defects once you start automating
-    tests. Automated tests give you justified confidence in your code. You
-    can use this confidence to take more daring leaps in design
-    (Refactoring), get along with your teammates better (Cross-Team Tests),
-    improve relations with your customers, and go home every night with
-    proof that the system is better now than it was this morning because of
-    your efforts.
+    Цель использования автоматических тестов в том чтобы делать меньше ошибок. И хотя
+    ваш код всё еще будет несовершенен, даже при отличных тестах, вы скорее всего увидите
+    разительное снижение количества дефектов как только вы начнёте автоматизировать тесты.
+    Автоматизированные тесты дают вам обоснованную уверенность в коде. Вы можете использовать
+    эту уверенность для того, чтобы предпринимать более смелые шаги в дизайне (Рефакторинг),
+    лучше работать с товарищами по команде (Командное Тестирование [Cross-Team Tests]),
+    улучшить отношения с вашими клиентами, и каждый раз вечером уходить домой с уверенностью
+    что система стала лучше чем она была утром благодаря вашим усилиям.
   </para>
 </chapter>

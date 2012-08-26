@@ -25,105 +25,104 @@
 
   <variablelist>
     <varlistentry>
-      <term><emphasis>Easy to learn to write.</emphasis></term>
+      <term><emphasis>Простыми в изучении.</emphasis></term>
       <listitem>
         <para>
-          If it's hard to learn how to write tests, developers will not learn
-          to write them.
+          Если будет сложно нучиться писать тесты, разработчики не будут учиться как писать тесты.
         </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term><emphasis>Easy to write.</emphasis></term>
+      <term><emphasis>Простыми в написании.</emphasis></term>
       <listitem>
         <para>
-          If tests are not easy to write, developers will not write them.
+          Если тесты будут сложными при написании, разработчики нестанут их писать.
         </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term><emphasis>Easy to read.</emphasis></term>
+      <term><emphasis>Легко читаемыми.</emphasis></term>
       <listitem>
         <para>
-          Test code should contain no extraneous overhead so that the test
-          itself does not get lost in noise that surrounds it.
+          Тестовый код не должен содержать дополнительной сложности, так чтобы
+          тест сам по себе не потерялся в шуме который его окружает.
         </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term><emphasis>Easy to execute.</emphasis></term>
+      <term><emphasis>Легко выполнимыми.</emphasis></term>
       <listitem>
         <para>
-          The tests should run at the touch of a button and present their
-          results in a clear and unambiguous format.
+          Тесты должны запускаться по нажатию одной кнопки и представлять
+          результат и ясном и недвусмысленном формате.
         </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term><emphasis>Quick to execute.</emphasis></term>
+      <term><emphasis>Быстро выполнимыми.</emphasis></term>
       <listitem>
         <para>
-          Tests should run fast so so they can be run hundreds or thousands
-          of times a day.
+          Тесты должны выполняться быстро чтобы их можно было запускать сотни
+          или даже тысячи раз в день.
         </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term><emphasis>Isolated.</emphasis></term>
+      <term><emphasis>Изолированными.</emphasis></term>
       <listitem>
         <para>
-          The tests should not affect each other. If the order in which the
-          tests are run changes, the results of the tests should not change.
+          Тесты не должны влиять друг на друга. Если порядок запуска тестов
+          меняется результат тестов должен оставться неизменным.
         </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term><emphasis>Composable.</emphasis></term>
+      <term><emphasis>Комбинируемыми.</emphasis></term>
       <listitem>
         <para>
-          We should be able to run any number or combination of tests together.
-          This is a corollary of isolation.
+          Мы должны иметь возможность запускать совместно любое количество тестов в любых комбинациях.
+          Это является естественным следствием изоляции.
         </para>
       </listitem>
     </varlistentry>
   </variablelist>
 
   <para>
-    There are two main clashes between these constraints:
+    Существуют два основных противоречия между этими требованиями:
   </para>
 
   <variablelist>
     <varlistentry>
-      <term><emphasis>Easy to learn to write versus easy to write.</emphasis></term>
+      <term><emphasis>Простота изучения против простоты написания</emphasis></term>
       <listitem>
         <para>
-          Tests do not generally require all the flexibility of a programming
-          language. Many testing tools provide their own scripting language
-          that only includes the minimum necessary features for writing tests.
-          The resulting tests are easy to read and write because they have no
-          noise to distract you from the content of the tests. However,
-          learning yet another programming language and set of programming
-          tools is inconvenient and clutters the mind.
+          В основном тесты не требуют всей гибкости языка программирования.
+          Многие инструменты тестирования предоставляют свой скриптовый язык
+          который включает только минимально необходимые функции для написания тестов.
+          В результате тесты становится легко писать и читать т.к. в них нет шума
+          который отвлекал бы вас от содержимого самих тестов. Однако,
+          изучение еще одного языка программирования и набора инструментов неудобно
+          и загромождает ум.
         </para>
       </listitem>
     </varlistentry>
 
     <varlistentry>
-      <term><emphasis>Isolated versus quick to execute.</emphasis></term>
+      <term><emphasis>Изоляция простив скорости исполнения.</emphasis></term>
       <listitem>
         <para>
-          If you want the results of one test to have no effect on the results
-          of another test, each test should create the full state of the world
-          before it begins to execute and return the world to its original
-          state when it finishes. However, setting up the world can take a
-          long time: for example connecting to a database and initializing it
-          to a known state using realistic data.
+          Если вам нужно чтобы результаты одного теста никак не влияли на результаты
+          другого, каждый тест должен запоминать в полном объёме состояние вселенной
+          до своего начала чтобы вернуть вселенную в её оригинальное состояние после
+          своего завершения. Однако, восстановление вселенной может занять долгое время:
+          например, соединение с базой данных и инциализация её в заданном состоянии
+          с использованием реалистичных данных.
         </para>
       </listitem>
     </varlistentry>

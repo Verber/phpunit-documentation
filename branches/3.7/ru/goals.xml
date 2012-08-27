@@ -165,13 +165,8 @@
 
   <para>
     Когда вы тестируете объект с помощью PHPUnit вы делаете это используя
-    только его публичный интерфейс.
-
-
-    When you test an object with PHPUnit, you do so only through the
-    object's public interface. Testing based only on publicly visible
-    behaviour encourages you to confront and solve difficult design problems
-    earlier, before the results of poor design can infect large parts of the
-    system.
+    только его публичный интерфейс. Тестирование только публично доступного
+    поведения способствует выявлению и решению сложных архитектурных проблем раньше,
+    пока последствия плохого дизайна на заразили большую часть системы.
   </para>
 </chapter>

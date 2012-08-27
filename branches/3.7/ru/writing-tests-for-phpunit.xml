@@ -50,7 +50,7 @@ class StackTest extends PHPUnit_Framework_TestCase
   </blockquote>
 
   <section id="writing-tests-for-phpunit.test-dependencies">
-    <title>Зависимости тестов</title>
+    <title>Межтестовые зависимости</title>
 
     <blockquote>
       <!-- TODO: find correct name transliteration -->
@@ -64,35 +64,34 @@ class StackTest extends PHPUnit_Framework_TestCase
         исполнения программы. Один модульный тест обычно покрывает один конкретный путь в
         одной функции или методе. Однако тестовый метод это не обязательно инкапсулированная,
         независимая сущность. Часто существуют неявные зависимости между тестовыми методами, скрытые
-        в сценарии осуществления теста.
+        в сценарии реализации теста.
       </para>
     </blockquote>
 
     <para>
-      <indexterm><primary>Test Dependencies</primary></indexterm>
-
-      PHPUnit supports the declaration of explicit dependencies between test
-      methods. Such dependencies do not define the order in which the test
-      methods are to be executed but they allow the returning of an instance of
-      the test fixture by a producer and passing it to the dependent consumers.
+      <indexterm><primary>Межтестовые зависимости</primary></indexterm>
+      PHPUnit поддерживает опсание явных зависимостей между тестовыми методами.
+      Эти зависимости не определяют порядок в котором тесты будут выполняться, но
+      они позволяют передавать тестовые данные (фикстуры), созданные поставщиком, (producer)
+      потребителям (consumers), котрые от него зависят.
     </para>
 
     <itemizedlist>
-      <listitem><para>A producer is a test method that yields its unit under test as return value.</para></listitem>
-      <listitem><para>A consumer is a test method that depends on one or more producers and their return values.</para></listitem>
+      <listitem><para>Поставщик - это тестовый метод, который предоставляет свой тестируемый модуль в качестве возвращаемого значения.</para></listitem>
+      <listitem><para>Потребитель - это тестовый метод, который зависит от одного или более поставщиков и их возвращаемых значений.</para></listitem>
     </itemizedlist>
 
     <para>
-      <indexterm><primary>Annotation</primary></indexterm>
+      <indexterm><primary>Аннотация</primary></indexterm>
       <indexterm><primary>@depends</primary></indexterm>
 
-      <xref linkend="writing-tests-for-phpunit.examples.StackTest2.php" /> shows
-      how to use the <literal>@depends</literal> annotation to express
-      dependencies between test methods.
+      <xref linkend="writing-tests-for-phpunit.examples.StackTest2.php" /> показывает
+      как использовать аннотацию <literal>@depends</literal> для описания
+      зависимостей между тестовыми методами.
     </para>
 
     <example id="writing-tests-for-phpunit.examples.StackTest2.php">
-      <title>Using the <literal>@depends</literal> annotation to express dependencies</title>
+      <title>Использвание аннотации <literal>@depends</literal> для описания зависимостей</title>
       <programlisting><![CDATA[<?php
 class StackTest extends PHPUnit_Framework_TestCase
 {
@@ -129,12 +128,12 @@ class StackTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      In the example above, the first test, <literal>testEmpty()</literal>,
-      creates a new array and asserts that it is empty. The test then returns
-      the fixture as its result. The second test, <literal>testPush()</literal>,
-      depends on <literal>testEmpty()</literal> and is passed the result of that
-      depended-upon test as its argument. Finally, <literal>testPop()</literal>
-      depends upons <literal>testPush()</literal>.
+      В приведённом выше примере первый тест, <literal>testEmpty()</literal>,
+      создаёт новый массив и утверждает что массив пустой. Затем тест возвращает
+      фикстуру в виде результата. Второй тест, <literal>testPush()</literal>,
+      зависит от <literal>testEmpty()</literal> и получает результат от
+      теста-зависисмости в качестве аргумента. Наконец, <literal>testPop()</literal>
+      зависит от <literal>testPush()</literal>.
     </para>
 
     <para>

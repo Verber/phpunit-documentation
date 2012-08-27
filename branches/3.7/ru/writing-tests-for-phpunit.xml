@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <chapter id="writing-tests-for-phpunit">
-  <title>Writing Tests for PHPUnit</title>
+  <title>Написание тестов на PHPUnit</title>
 
   <para>
     <indexterm><primary>PHPUnit_Framework_TestCase</primary></indexterm>
 
-    <xref linkend="writing-tests-for-phpunit.examples.StackTest.php" /> shows
-    how we can write tests using PHPUnit that exercise PHP's array operations.
-    The example introduces the basic conventions and steps for writing tests
-    with PHPUnit:
+    <xref linkend="writing-tests-for-phpunit.examples.StackTest.php" /> показывает
+    как можно писать тесты на PHPUnit для операций с массивами в PHP.
+    Этот пример представляет базовые соглашения и шаги для написания тестов
+    с помощью PHPUnit:
   </para>
 
   <orderedlist>
-    <listitem><para>The tests for a class <literal>Class</literal> go into a class <literal>ClassTest</literal>.</para></listitem>
-    <listitem><para><literal>ClassTest</literal> inherits (most of the time) from <literal>PHPUnit_Framework_TestCase</literal>.</para></listitem>
-    <listitem><indexterm><primary>Annotation</primary></indexterm><indexterm><primary>@test</primary></indexterm><para>The tests are public methods that are named <literal>test*</literal>.</para><para><indexterm><primary>Annotation</primary></indexterm>Alternatively, you can use the <literal>@test</literal> annotation in a method's docblock to mark it as a test method.</para></listitem>
-    <listitem><para>Inside the test methods, assertion methods such as <literal>assertEquals()</literal> (see <xref linkend="writing-tests-for-phpunit.assertions" />) are used to assert that an actual value matches an expected value.</para></listitem>
+    <listitem><para>Тесты для класса <literal>Class</literal> содержатся в классе <literal>ClassTest</literal>.</para></listitem>
+    <listitem><para><literal>ClassTest</literal> унаследован (чаще всего) от <literal>PHPUnit_Framework_TestCase</literal>.</para></listitem>
+    <listitem><indexterm><primary>Аннотация</primary></indexterm><indexterm><primary>@test</primary></indexterm><para>Тесты это публичные методы с именами <literal>test*</literal>.</para><para><indexterm><primary>Аннотация</primary></indexterm>Кроме этого, можно использовать аннотацию <literal>@test</literal> в док-блоке чтобы пометить метод как тест.</para></listitem>
+    <listitem><para>Внутри тестовых методов для проверки того что реальные данные соответствуют ожидаемым используются функции-утверждения (assertion methods) такие как <literal>assertEquals()</literal> (см. <xref linkend="writing-tests-for-phpunit.assertions" />)</para></listitem>
   </orderedlist>
 
   <example id="writing-tests-for-phpunit.examples.StackTest.php">
-    <title>Testing array operations with PHPUnit</title>
+    <title>Тестирование операций с массивами с использованием PHPUnit</title>
     <programlisting><![CDATA[<?php
 class StackTest extends PHPUnit_Framework_TestCase
 {
@@ -41,28 +41,30 @@ class StackTest extends PHPUnit_Framework_TestCase
   </example>
 
   <blockquote>
-    <attribution>Martin Fowler</attribution>
+    <attribution>Мартин Фаулер</attribution>
     <para>
-      Whenever you are tempted to type something into a
-      <literal>print</literal> statement or a debugger expression, write it
-      as a test instead.
+      <!-- TODO: find exact quote translation -->
+      Всякий раз, когда вы испытываете искушение напечатать что-то внутри оператора <literal>print</literal>
+      или отладочного выражения, напишите это как тест.
     </para>
   </blockquote>
 
   <section id="writing-tests-for-phpunit.test-dependencies">
-    <title>Test Dependencies</title>
+    <title>Зависимости тестов</title>
 
     <blockquote>
+      <!-- TODO: find correct name transliteration -->
       <attribution>Adrian Kuhn et. al.</attribution>
       <para>
-        Unit Tests are primarily written as a good practice to help developers
-        identify and fix bugs, to refactor code and to serve as documentation
-        for a unit of software under test. To achieve these benefits, unit tests
-        ideally should cover all the possible paths in a program. One unit test
-        usually covers one specific path in one function or method. However a
-        test method is not necessary an encapsulated, independent entity. Often
-        there are implicit dependencies between test methods, hidden in the
-        implementation scenario of a test.
+        <!-- TODO: find exact quote translation -->
+        Модульные тесты главным образом в виде практики которая помогает разработчикам
+        идентифицировать и исправить баги, реорганизовывать (refactor) код и служит
+        в качестве документации для модуля тестируемой программы. Для того чтобы достичь
+        этих преимуществ, модульные тесты, в идеале, должны охватывать все возможные пути
+        исполнения программы. Один модульный тест обычно покрывает один конкретный путь в
+        одной функции или методе. Однако тестовый метод это не обязательно инкапсулированная,
+        независимая сущность. Часто существуют неявные зависимости между тестовыми методами, скрытые
+        в сценарии осуществления теста.
       </para>
     </blockquote>
 

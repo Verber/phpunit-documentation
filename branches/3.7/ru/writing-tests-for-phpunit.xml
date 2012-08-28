@@ -77,6 +77,12 @@ class StackTest extends PHPUnit_Framework_TestCase
     </para>
 
     <itemizedlist>
+      <!--
+      Примечания к переводу терминов: слово продьюсер как-то мало ассоциируется в русском с ИТ, и мне кажется неправильным
+      оставить его как есть, поэтому я использовал поставщик/потребитель. Есть еще вариант генератор/приёмник, но
+      он мне нравится меньше т.к. хуже передаёт суть зависимостей, кроме этого генератор, на мой взгляд, предполагает
+      некую последовательность или протяженный по времени процесс, которого здесь нет.
+      -->
       <listitem><para>Поставщик - это тестовый метод, который предоставляет свой тестируемый модуль в качестве возвращаемого значения.</para></listitem>
       <listitem><para>Потребитель - это тестовый метод, который зависит от одного или более поставщиков и их возвращаемых значений.</para></listitem>
     </itemizedlist>
@@ -137,17 +143,16 @@ class StackTest extends PHPUnit_Framework_TestCase
     </para>
 
     <para>
-      <indexterm><primary>Defect Localization</primary></indexterm>
-
-      To quickly localize defects, we want our attention to be focussed on
-      relevant failing tests. This is why PHPUnit skips the execution of a test
-      when a depended-upon test has failed. This improves defect localization by
-      exploiting the dependencies between tests as shown in
+      <indexterm><primary>Локализация дефектов</primary></indexterm>
+      Для того чтобы находить дефекты быстро, нам нужно сконцентрировать внимание
+      на соответствующих тестах. Для этого PHPUnit пропускает исполнение тестов, когда
+      зависимость провалилась. Это улучшает локализацию дефектов за счёт использования
+      зависимостей между тестами как показано в
       <xref linkend="writing-tests-for-phpunit.examples.DependencyFailureTest.php" />.
     </para>
 
     <example id="writing-tests-for-phpunit.examples.DependencyFailureTest.php">
-      <title>Exploiting the dependencies between tests</title>
+      <title>Использование зависимостей между тестами</title>
       <programlisting><![CDATA[<?php
 class DependencyFailureTest extends PHPUnit_Framework_TestCase
 {
@@ -190,36 +195,39 @@ Tests: 1, Assertions: 1, Failures: 1, Skipped: 1.]]></screen>
     </example>
 
     <para>
-      A test may have more than one <literal>@depends</literal> annotation.
-      PHPUnit does not change the order in which tests are executed, you have to
-      ensure that the dependencies of a test can actually be met before the test
-      is run.
+      У теста может быть несколько аннотаций <literal>@depends</literal>.
+      PHPUnit не изменяет порядок в котром будут выполняться тесты, поэтому
+      вы должны убедиться что все зависимости теста удовлетворены до его выполнения.
     </para>
   </section>
 
   <section id="writing-tests-for-phpunit.data-providers">
-    <title>Data Providers</title>
+    <title>Провайдеры данных</title>
+    <!--
+    Примечания к переводу терминов: поскольку слово провайдер уже закрепилось в русском языке
+    причём именно в ИТшной среде то я предлагаю его оставить как есть, заодно чтоб не путать
+    с поставщиком из предыдущего подраздела про зависимости
+    -->
 
     <para>
-      <indexterm><primary>Annotation</primary></indexterm>
+      <indexterm><primary>Аннотация</primary></indexterm>
       <indexterm><primary>@dataProvider</primary></indexterm>
-      A test method can accept arbitrary arguments. These arguments are to be
-      provided by a data provider method (<literal>provider()</literal> in
+      Тестовый метод может принимать произвольные аргументы. Эти аргументы должны быть
+      предоставлены методом - провайдером данных (<literal>provider()</literal> в
       <xref linkend="writing-tests-for-phpunit.data-providers.examples.DataTest.php" />).
-      The data provider method to be used is specified using the
-      <literal>@dataProvider</literal> annotation.
+      Метод, который будет использован в качестве провайдера данных, обозначается
+      с помощью аннотации <literal>@dataProvider</literal>.
     </para>
 
     <para>
-      A data provider method must be <literal>public</literal> and either return
-      an array of arrays or an object that implements the <literal>Iterator</literal>
-      interface and yields an array for each iteration step. For each array that
-      is part of the collection the test method will be called with the contents
-      of the array as its arguments.
+      Метод провайдера данных должен быть <literal>public</literal> и возвращать либо
+      массив массивов либо объект реализующий интерфейс <literal>Iterator</literal>.
+      который возвращает массив при каждой итерации. Для каждого массива являющегося
+      частью коллекции будет вызван тестовый метод с элементами массива в качестве параметров
     </para>
 
     <example id="writing-tests-for-phpunit.data-providers.examples.DataTest.php">
-      <title>Using a data provider that returns an array of arrays</title>
+      <title>Использование провайдера данных, который возвращает массив массивов</title>
       <programlisting><![CDATA[<?php
 class DataTest extends PHPUnit_Framework_TestCase
 {
@@ -262,7 +270,7 @@ Tests: 4, Assertions: 4, Failures: 1.]]></screen>
     </example>
 
     <example id="writing-tests-for-phpunit.data-providers.examples.DataTest2.php">
-      <title>Using a data provider that returns an Iterator object</title>
+      <title>UИспользование провайдера данных, который возвращает объект-итератор</title>
       <programlisting><![CDATA[<?php
 require 'CsvFileIterator.php';
 
@@ -302,7 +310,7 @@ Tests: 4, Assertions: 4, Failures: 1.]]></screen>
     </example>
 
     <example id="writing-tests-for-phpunit.data-providers.examples.CsvFileIterator.php">
-      <title>The CsvFileIterator class</title>
+      <title>Класс CsvFileIterator</title>
       <programlisting><![CDATA[<?php
 class CsvFileIterator implements Iterator {
     protected $file;
@@ -345,7 +353,7 @@ class CsvFileIterator implements Iterator {
 
     <note>
       <para>
-        <indexterm><primary>Annotation</primary></indexterm>
+        <indexterm><primary>Аннотация</primary></indexterm>
         <indexterm><primary>@dataProvider</primary></indexterm>
         <indexterm><primary>@depends</primary></indexterm>
 

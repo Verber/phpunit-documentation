@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <appendix id="appendixes.annotations">
-  <title>Annotations</title>
+  <title>Аннотации</title>
 
   <para>
-    <indexterm><primary>Annotation</primary></indexterm>
+    <indexterm><primary>Аннотации</primary></indexterm>
 
-    An annotation is a special form of syntactic metadata that can be added to
-    the source code of some programming languages. While PHP has no dedicated
-    language feature for annotating source code, the usage of tags such as
-    <literal>@annotation arguments</literal> in documentation block has been
-    established in the PHP community to annotate source code. In PHP
-    documentation blocks are reflective: they can be accessed through the
-    Reflection API's <literal>getDocComment()</literal> method on the function,
-    class, method, and attribute level. Applications such as PHPUnit use this
-    information at runtime to configure their behaviour.
+    Аннотации - это специальная форма метаданных, которая может быть добавлена
+    в исходный код некоторых языков программирования. Так как PHP не имеет
+    возможности аннотирования исходного кода, PHP сообщество приняло
+    использование тегов <literal>@annotation arguments</literal> в docblock
+    для аннотаций. В PHP блоки документации доступны с помощью метода
+    <literal>getDocComment()</literal> из Reflection API, применяемого к классу,
+    методу или атрибуту. Приложения, такие как PHPUnit, используют эту
+    информацию чтобы изменять свое поведение в процессе выполнения.
   </para>
 
   <para>
-    This appendix shows all the varieties of annotations supported by PHPUnit.
+    Это приложение содержит все возможные аннотации, поддерживаемые PHPUnit.
   </para>
 
   <section id="appendixes.annotations.author">
@@ -27,10 +26,10 @@
     <para>
       <indexterm><primary>@author</primary></indexterm>
 
-      The <literal>@author</literal> annotation is an alias for the
-      <literal>@group</literal> annotation (see <xref
-      linkend="appendixes.annotations.group"/>) and allows to filter tests based
-      on their authors.
+      Аннотация <literal>@author</literal> является синонимом аннотации
+      <literal>@group</literal> (см. <xref
+      linkend="appendixes.annotations.group"/>) и позволяет фильтровать тесты по
+      их авторам.
     </para>
   </section>
 
@@ -40,8 +39,9 @@
     <para>
       <indexterm><primary><literal>@backupGlobals</literal></primary></indexterm>
 
-      The backup and restore operations for global variables can be completely
-      disabled for all tests of a test case class like this <programlisting>/**
+      Операции сохранения и восстановления глобальных переменных можно
+      полностью выключить для тест-кейса с помощью следующего:
+      <programlisting>/**
  * @backupGlobals disabled
  */
 class MyTest extends PHPUnit_Framework_TestCase
@@ -53,9 +53,9 @@ class MyTest extends PHPUnit_Framework_TestCase
     <para>
       <indexterm><primary><literal>@backupGlobals</literal></primary></indexterm>
 
-      The <literal>@backupGlobals</literal> annotation can also be used on the
-      test method level. This allows for a fine-grained configuration of the
-      backup and restore operations: <programlisting>/**
+      Аннотацию <literal>@backupGlobals</literal> так же можно использовать на
+      уровне методов тест-кейса. Это позволяет тонко настроить операции
+      сохранения и восстановления: <programlisting>/**
  * @backupGlobals disabled
  */
 class MyTest extends PHPUnit_Framework_TestCase
@@ -77,8 +77,8 @@ class MyTest extends PHPUnit_Framework_TestCase
     <para>
       <indexterm><primary><literal>@backupStaticAttributes</literal></primary></indexterm>
 
-      The backup and restore operations for static attributes of classes can be
-      completely disabled for all tests of a test case class like this
+      Операции сохранения и восстановления статических атрибутов можно
+      выключить для всего класса теста следующим образом:
       <programlisting>/**
  * @backupStaticAttributes disabled
  */
@@ -91,9 +91,9 @@ class MyTest extends PHPUnit_Framework_TestCase
     <para>
       <indexterm><primary><literal>@backupStaticAttributes</literal></primary></indexterm>
 
-      The <literal>@backupStaticAttributes</literal> annotation can also be used
-      on the test method level. This allows for a fine-grained configuration of
-      the backup and restore operations: <programlisting>/**
+      Аннотация <literal>@backupStaticAttributes</literal> может быть
+      использована на уровне методов. Это позволяет тонко настроить операции
+      сохранения и восстановления: <programlisting>/**
  * @backupStaticAttributes disabled
  */
 class MyTest extends PHPUnit_Framework_TestCase
@@ -117,14 +117,14 @@ class MyTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>@codeCoverageIgnoreStart</primary></indexterm>
       <indexterm><primary>@codeCoverageIgnoreEnd</primary></indexterm>
 
-      The <literal>@codeCoverageIgnore</literal>, 
-      <literal>@codeCoverageIgnoreStart</literal> and 
-      <literal>@codeCoverageIgnoreEnd</literal> annotations can be used 
-      to exclude lines of code from the coverage analysis. 
+      Аннотации <literal>@codeCoverageIgnore</literal>,
+      <literal>@codeCoverageIgnoreStart</literal> и
+      <literal>@codeCoverageIgnoreEnd</literal> можно использовать для
+      исключения участков кода из статистики покрытия кода.
     </para>
 
     <para>
-      For usage see <xref
+      Примеры использования можно посмотреть в <xref
       linkend="code-coverage-analysis.ignoring-code-blocks"/>.
     </para>
   </section>
@@ -133,11 +133,11 @@ class MyTest extends PHPUnit_Framework_TestCase
     <title><literal>@covers</literal></title>
 
     <para>
-      <indexterm><primary>Code Coverage</primary></indexterm>
+      <indexterm><primary>Покрытие кода</primary></indexterm>
       <indexterm><primary>@covers</primary></indexterm>
 
-      The <literal>@covers</literal> annotation can be used in the test code to
-      specify which method(s) a test method wants to test: <programlisting>/**
+      Аннотация <literal>@covers</literal> используется для указания того, какие
+      метод(ы) этот тест-метод будет тестировать: <programlisting>/**
  * @covers BankAccount::getBalance
  */
 public function testBalanceIsInitiallyZero()
@@ -147,61 +147,61 @@ public function testBalanceIsInitiallyZero()
     </para>
 
     <para>
-      If provided, only the code coverage information for the specified
-      method(s) will be considered.
+      Если указана эта аннотация, то в статистике покрытия кода этого
+      тест-метода будут учитываться только указанные в аннотации метод(ы).
     </para>
 
     <para>
-      <xref linkend="appendixes.annotations.covers.tables.annotations"/> shows
-      the syntax of the <literal>@covers</literal> annotation.
+      <xref linkend="appendixes.annotations.covers.tables.annotations"/>
+      показывает синтаксис аннотации <literal>@covers</literal>.
     </para>
 
     <table id="appendixes.annotations.covers.tables.annotations">
-      <title>Annotations for specifying which methods are covered by a test</title>
+      <title>Аннотации для указания того, какие методы покрывает тест</title>
 
       <tgroup cols="2" align="left" colsep="1" rowsep="1">
         <thead>
           <row>
-            <entry>Annotation</entry>
-            <entry>Description</entry>
+            <entry>Аннотация</entry>
+            <entry>Описание</entry>
           </row>
         </thead>
         <tbody>
           <row>
             <entry><literal><![CDATA[@covers ClassName::methodName]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers the specified method.</literal></entry>
+            <entry><literal>Указывает что метод теста покрывает указанный метод.</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all methods of a given class.</literal></entry>
+            <entry><literal>Указывает что метод теста покрывает все методы указанного класса.</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName<extended>]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all methods of a given class and its parent class(es) and interface(s).</literal></entry>
+            <entry><literal>Указывает что метод теста покрывает все методы указанного класса, включая родительские класс(ы) и интерфейс(ы).</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName::<public>]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all public methods of a given class.</literal></entry>
+            <entry><literal>Указывает что тест метод покрывает все public методы указанного класса.</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName::<protected>]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all protected methods of a given class.</literal></entry>
+            <entry><literal>Указывает что тест метод покрывает все protected методы указанного класса.</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName::<private>]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all private methods of a given class.</literal></entry>
+            <entry><literal>Указывает что тест метод покрывает все private методы указанного класса.</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName::<!public>]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all methods of a given class that are not public.</literal></entry>
+            <entry><literal>Указывает что тест метод покрывает все методы указанного класса, кроме public</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName::<!protected>]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all methods of a given class that are not protected.</literal></entry>
+            <entry><literal>Указывает что тест метод покрывает все методы указанного класса, кроме protected.</literal></entry>
           </row>
           <row>
             <entry><literal><![CDATA[@covers ClassName::<!private>]]></literal></entry>
-            <entry><literal>Specifies that the annotated test method covers all methods of a given class that are not private.</literal></entry>
+            <entry><literal>Указывает что тест метод покрывает все методы указанного класса, кроме private.</literal></entry>
           </row>
         </tbody>
       </tgroup>
@@ -214,20 +214,19 @@ public function testBalanceIsInitiallyZero()
     <para>
       <indexterm><primary>@coversNothing</primary></indexterm>
 
-      The <literal>@coversNothing</literal> annotation can be used in the 
-      test code to specify that no code coverage information will be 
-      recorded for the annotated test case.
+      Аннотация <literal>@coversNothing</literal> используется в коде теста для
+      указания того, что информация о покрытии кода аннотированным классом не
+      будет записана.
     </para>
 
     <para>
-        This can be used for integration testing. See 
+        Эту аннотацию можно использовать для интеграционных тестов. См.
         <xref linkend="code-coverage-analysis.specifying-covered-methods.examples.GuestbookIntegrationTest.php"/>
-        for an example.
     </para>
 
     <para>    
-        The annotation can be used on the class and the method level and
-        will override any <literal>@covers</literal> tags.
+        Аннотацию можно использовать на уровне класса и метода. Она заменит все
+        другие аннотации <literal>@covers</literal>.
     </para>
   </section>
 
@@ -237,16 +236,15 @@ public function testBalanceIsInitiallyZero()
     <para>
       <indexterm><primary>@dataProvider</primary></indexterm>
 
-      A test method can accept arbitrary arguments. These arguments are to be
-      provided by a data provider method (<literal>provider()</literal> in
+      Метод теста может принимать агрументы. Эти агрументы предоставляет метод
+      поставщика данных (data provider) (<literal>provider()</literal> описан в
       <xref linkend="writing-tests-for-phpunit.data-providers.examples.DataTest.php" />).
-      The data provider method to be used is specified using the
-      <literal>@dataProvider</literal> annotation.
+      Метод поставщика данных указывается с помощью аннотации
+      <literal>@dataProvider</literal> .
     </para>
 
     <para>
-      See <xref linkend="writing-tests-for-phpunit.data-providers"/> for more
-      details.
+      Более детальная информация <xref linkend="writing-tests-for-phpunit.data-providers"/>.
     </para>
   </section>
 
@@ -256,18 +254,17 @@ public function testBalanceIsInitiallyZero()
     <para>
       <indexterm><primary>@depends</primary></indexterm>
 
-      PHPUnit supports the declaration of explicit dependencies between test
-      methods. Such dependencies do not define the order in which the test
-      methods are to be executed but they allow the returning of an instance of
-      the test fixture by a producer and passing it to the dependent consumers.
-      <xref linkend="writing-tests-for-phpunit.examples.StackTest2.php"/> shows
-      how to use the <literal>@depends</literal> annotation to express
-      dependencies between test methods.
+      PHPUnit поддерживает указание зависимостей между методами тестов.
+      Зависимости не указывают порядок выполнения методов теста, но они
+      позволяют передавать объект с тестовыми данными (фикстурами), созданный
+      поставщиком (producer) к потребителям (consumers), котрые от него зависят.
+      <xref linkend="writing-tests-for-phpunit.examples.StackTest2.php"/>
+      показывает пример использования аннотации <literal>@depends</literal>
+      для указания зависимостей между методами теста.
     </para>
 
     <para>
-      See <xref linkend="writing-tests-for-phpunit.test-dependencies"/> for more
-      details.
+      Для более детальной информации см. <xref linkend="writing-tests-for-phpunit.test-dependencies"/>
     </para>
   </section>
 
@@ -278,13 +275,14 @@ public function testBalanceIsInitiallyZero()
       <indexterm><primary>@expectedException</primary></indexterm>
 
       <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest.php" />
-      shows how to use the <literal>@expectedException</literal> annotation to
-      test whether an exception is thrown inside the tested code.
+      показывает пример использования аннотации
+      <literal>@expectedException</literal> для тестирования исключений
+      (exceptions) в тестируемом коде.
     </para>
 
     <para>
-      See <xref linkend="writing-tests-for-phpunit.exceptions"/> for more
-      details.
+        Для более детальной информации см.
+        <xref linkend="writing-tests-for-phpunit.exceptions"/>
     </para>
   </section>
 
@@ -294,10 +292,9 @@ public function testBalanceIsInitiallyZero()
     <para>
       <indexterm><primary>@expectedExceptionCode</primary></indexterm>
 
-      The <literal>@expectedExceptionCode</literal> annotation, in conjunction
-      with the <literal>@expectedException</literal> allows making assertions on
-      the error code of a thrown exception thus being able to narrow down a
-      specific exception.
+      Аннотация <literal>@expectedExceptionCode</literal> совместно с аннотацией
+      <literal>@expectedException</literal> позволяет указать какой именно код
+      исключения следует ожидать.
 
       <programlisting>class MyTest extends PHPUnit_Framework_TestCase
 {
@@ -311,10 +308,10 @@ public function testBalanceIsInitiallyZero()
     }
 }</programlisting>
 
-      To ease testing and reduce duplication a shortcut can be used to
-      specify a class constant as an
-      <literal>@expectedExceptionCode</literal> using the
-      "<literal>@expectedExceptionCode ClassName::CONST</literal>" syntax.
+      Для облегчения тестирования и уменьшения копирования кода можно
+      использовать короткий вариант записи с использованием константы в
+      <literal>@expectedExceptionCode</literal> используя синтаксис:
+      "<literal>@expectedExceptionCode ClassName::CONST</literal>".
 
       <programlisting>class MyTest extends PHPUnit_Framework_TestCase
 {
@@ -342,9 +339,9 @@ class MyClass
     <para>
       <indexterm><primary>@expectedExceptionMessage</primary></indexterm>
 
-      The <literal>@expectedExceptionMessage</literal> annotation works similar
-      to <literal>@expectedExceptionCode</literal> as it lets you make an
-      assertion on the error message of an exception.
+      Аннотация <literal>@expectedExceptionMessage</literal> работает по схожему
+      принципу с <literal>@expectedExceptionCode</literal> и позволяет
+      сделать утверждение (assertion) о сообщении в исключении.
 
       <programlisting>class MyTest extends PHPUnit_Framework_TestCase
 {
@@ -358,10 +355,9 @@ class MyClass
     }
 }</programlisting>
 
-      The expected message can be a substring of the exception Message.
-      This can be useful to only assert that a certain name or parameter that
-      was passed in shows up in the exception and not fixate the whole
-      exception message in the test.
+      Ожидаемое сообщение может быть подстрокой сообщения исключения.
+      Может быть полезным указывать определённое имя или параметр в исключении,
+      чтобы не фиксировать полное исключение в коде теста.
 
       <programlisting>class MyTest extends PHPUnit_Framework_TestCase
 {
@@ -376,12 +372,12 @@ class MyClass
      }
 }</programlisting>
 
-      To ease testing and reduce duplication a shortcut can be used to
-      specify a class constant as an
-      <literal>@expectedExceptionMessage</literal> using the
-      "<literal>@expectedExceptionMessage ClassName::CONST</literal>" syntax.
+      Для облегчения тестирования и уменьшения копирования кода можно
+      использовать короткий вариант записи с использованием константы в
+      <literal>@expectedExceptionMessage</literal> используя синтаксис:
+      "<literal>@expectedExceptionMessage ClassName::CONST</literal>".
 
-      A sample can be found in <xref linkend="appendixes.annotations.expectedExceptionCode"/>.
+      Пример можно посмотреть в <xref linkend="appendixes.annotations.expectedExceptionCode"/>.
     </para>
 
   </section>
@@ -392,8 +388,9 @@ class MyClass
     <para>
       <indexterm><primary>@group</primary></indexterm>
 
-      A test can be tagged as belonging to one or more groups using the
-      <literal>@group</literal> annotation like this <programlisting>class MyTest extends PHPUnit_Framework_TestCase
+      Тест можно присвоить какой-либо группе тестов. Можно указывать одну или
+      несколько групп одновременно. Пример использования аннотации
+      <literal>@group</literal> : <programlisting>class MyTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @group specification
@@ -413,10 +410,9 @@ class MyClass
     </para>
 
     <para>
-      Tests can be selected for execution based on groups using the
-      <literal>--group</literal> and <literal>--exclude-group</literal> switches
-      of the command-line test runner or using the respective directives of the
-      XML configuration file.
+      Выполняемые группы тестов можно выбрать используя параметры
+      <literal>--group</literal> и <literal>--exclude-group</literal>
+      при вызове PHPUnit из командной строки, или с помощью конфигурации XML.
     </para>
   </section>
 
@@ -426,9 +422,9 @@ class MyClass
     <para>
       <indexterm><primary><literal>@outputBuffering</literal></primary></indexterm>
 
-      The <literal>@outputBuffering</literal> annotation can be used to control
-      PHP's <ulink url="http://www.php.net/manual/en/intro.outcontrol.php">output buffering</ulink>
-      like this <programlisting>/**
+      Аннотация <literal>@outputBuffering</literal> используется для
+      <ulink url="http://www.php.net/manual/ru/intro.outcontrol.php">контроля вывода</ulink>
+      в PHP <programlisting>/**
  * @outputBuffering enabled
  */
 class MyTest extends PHPUnit_Framework_TestCase
@@ -440,9 +436,8 @@ class MyTest extends PHPUnit_Framework_TestCase
     <para>
       <indexterm><primary><literal>@outputBuffering</literal></primary></indexterm>
 
-      The <literal>@outputBuffering</literal> annotation can also be used on the
-      test method level. This allows for fine-grained control over the output
-      buffering: <programlisting>/**
+      Аннотацию <literal>@outputBuffering</literal> также можно использовать на
+      уровне методов класса. Это позволяет более точно управлять выводом: <programlisting>/**
  * @outputBuffering disabled
  */
 class MyTest extends PHPUnit_Framework_TestCase
@@ -465,13 +460,13 @@ class MyTest extends PHPUnit_Framework_TestCase
     <para>
       <indexterm><primary><literal>@requires</literal></primary></indexterm>
 
-      The <literal>@requires</literal> annotation can be used skip tests when common
-      preconditions, like the PHP Version or installed extensions, are not met.
+      Аннотация <literal>@requires</literal> используется для пропуска тестов,
+      когда, например, версия PHP не соответствует используемой.
     </para>
 
     <para>
       <indexterm><primary><literal>@requires</literal></primary></indexterm>
-      A complete list of possibilities and examples can be found at
+      Полный список примеров описан в
       <xref linkend="incomplete-and-skipped-tests.requires.tables.api" />
     </para>
   </section>
@@ -502,9 +497,9 @@ class MyTest extends PHPUnit_Framework_TestCase
     <para>
       <indexterm><primary>@test</primary></indexterm>
 
-      As an alternative to prefixing your test method names with
-      <literal>test</literal>, you can use the <literal>@test</literal>
-      annotation in a method's DocBlock to mark it as a test method.
+      Вместо префиксов <literal>test</literal> к методам, можно использовать
+      аннотацию <literal>@test</literal> в DocBlock для пометки метода как
+      теста.
       <programlisting>/**
  * @test
  */

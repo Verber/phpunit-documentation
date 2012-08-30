@@ -1,96 +1,98 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <chapter id="test-doubles">
-  <title>Test Doubles</title>
+  <title>Тестовые дубли</title>
 
   <para>
-    Gerard Meszaros introduces the concept of Test Doubles in
-    <xref linkend="Meszaros2007" /> like this:
+    Жерар Месзарос (Gerard Meszaros) представил новыую идею тестовых дублей в
+    <xref linkend="Meszaros2007" /> следующим образом:
   </para>
 
   <blockquote>
-    <attribution>Gerard Meszaros</attribution>
+    <attribution>Жерар Месзарос (Gerard Meszaros)</attribution>
     <para>
-      <indexterm><primary>System Under Test</primary></indexterm>
+      <indexterm><primary>Работающая система</primary></indexterm>
 
-      Sometimes it is just plain hard to test the system under test (SUT)
-      because it depends on other components that cannot be used in the test
-      environment. This could be because they aren't available, they will not
-      return the results needed for the test or because executing them would
-      have undesirable side effects. In other cases, our test strategy requires
-      us to have more control or visibility of the internal behavior of the SUT.
+      Иногда очень сложно протестировать систему, которая уже работает, потому
+      что она зависит от других компонентов, которые нельзя использовать в
+      тестовом окружении. Это происходит из-за того, что они недоступны, они не
+      вернут нужный результат для теста, или вызов этих компонент повлечёт за
+      собой нежелательные последствия. В других случаях наша стратегия
+      тестирования требует больший контроль и видение того что происходит внутри
+      системы.
     </para>
 
     <para>
-      <indexterm><primary>Depended-On Component</primary></indexterm>
-      <indexterm><primary>Test Double</primary></indexterm>
+      <indexterm><primary>Зависимые компоненты</primary></indexterm>
+      <indexterm><primary>Тестовые дубли</primary></indexterm>
 
-      When we are writing a test in which we cannot (or chose not to) use a real
-      depended-on component (DOC), we can replace it with a Test Double. The
-      Test Double doesn't have to behave exactly like the real DOC; it merely
-      has to provide the same API as the real one so that the SUT thinks it is
-      the real one!
+      Когда мы пишем тест в котором не можем (или не хотим) использовать
+      реальные зависимости, мы можем заменить их тестовыми дублями. Тестовые
+      дубли не должны вести себя в точности как реальные компоненты; они
+      должны предоставлять тот же API, который предоставляет и реальный
+      компонент, так, чтобы тестируемая система думала что они реальны!
     </para>
   </blockquote>
 
   <para>
-    The <literal>getMock($className)</literal> method provided by PHPUnit can be
-    used in a test to automatically generate an object that can act as a test
-    double for the specified original class. This test double object can be used
-    in every context where an object of the original class is expected.
+    Метод <literal>getMock($className)</literal>, предоставляемый в PHPUnit
+    может быть использован в тесте для генерации объекта, который ведёт себя как
+    тестовый дубль для указанного класса. Этот объект-дубль может быть
+    использован в любом месте кода, где ожидается объект оригинального класса.
   </para>
 
   <para>
-    By default, all methods of the original class are replaced with a dummy
-    implementation that just returns <literal>NULL</literal> (without calling
-    the original method). Using the <literal>will($this->returnValue())</literal>
-    method, for instance, you can configure these dummy implementations to
-    return a value when called.
+    По умолчанию все методы оригинального класса заменяются методами-пустышками,
+    которые возвращают <literal>NULL</literal> (без вызова оригинальных методов).
+    Например, используя метод <literal>will($this->returnValue())</literal>,
+    можно настроить эти методы-пустышки таким образом, чтоб они возвращали
+    заданное значение.
   </para>
 
   <note>
-    <title>Limitations</title>
+    <title>Ограничения</title>
 
     <para>
-      Please note that <literal>final</literal>, <literal>private</literal>
-      and <literal>static</literal> methods cannot be stubbed or mocked. They
-      are ignored by PHPUnit's test double functionality and retain their
-      original behavior.
+      Обратите внимание, что для <literal>final</literal>, <literal>private</literal>
+      и <literal>static</literal> методов, нельзя сделать заглушку (stub) и мок (mock).
+      Они игнорируются функциональностью PHPUnit по созданию тестовых дублей и
+      сохраняют изначальное поведение.
     </para>
   </note>
 
   <section id="test-doubles.stubs">
-    <title>Stubs</title>
+    <title>Заглушки (Stubs)</title>
 
     <para>
-      <indexterm><primary>Stub</primary></indexterm>
+      <indexterm><primary>Заглушка (Stub)</primary></indexterm>
 
-      The practice of replacing an object with a test double that (optionally)
-      returns configured return values is refered to as
-      <emphasis>stubbing</emphasis>. You can use a <emphasis>stub</emphasis> to
-      "replace a real component on which the SUT depends so that the test has a
-      control point for the indirect inputs of the SUT. This allows the test to
-      force the SUT down paths it might not otherwise execute".
+      Практика замены объекта тестовым дублем, который (опционально) возвращает
+      заданные значения называется <emphasis>заглушением (stubbing)</emphasis>.
+      Можно использовать <emphasis>заглушку (stub)</emphasis> для того чтобы:
+      "заменить исходный компонент от которого зависит тестируемая система таким
+      образом, что тест будет иметь возможность контролировать тестируемую систему
+      изнутри. Это позволяет заставить тестируемую систему выполнить действия,
+      которые она не выполнила бы в обычных условиях."
     </para>
 
     <para>
-      <indexterm><primary>Fluent Interface</primary></indexterm>
+      <indexterm><primary>Текучий интерфейс</primary></indexterm>
 
-      <xref linkend="test-doubles.stubs.examples.StubTest.php" /> shows how
-      to stub method calls and set up return values. We first use the
-      <literal>getMock()</literal> method that is provided by the
-      <literal>PHPUnit_Framework_TestCase</literal> class to set up a stub
-      object that looks like an object of <literal>SomeClass</literal>
-      (<xref linkend="test-doubles.stubs.examples.SomeClass.php" />). We then
-      use the <ulink url="http://martinfowler.com/bliki/FluentInterface.html">Fluent Interface</ulink>
-      that PHPUnit provides to specify the behavior for the stub. In essence,
-      this means that you do not need to create several temporary objects and
-      wire them together afterwards. Instead, you chain method calls as shown in
-      the example. This leads to more readable and "fluent" code.
+      <xref linkend="test-doubles.stubs.examples.StubTest.php" /> показывает как
+      сделать заглушку метода и задать возвращаемое значение. Первым использован
+      метод <literal>getMock()</literal>, предоставляемый классом
+      <literal>PHPUnit_Framework_TestCase</literal>, для создания заглушки класса
+      <literal>SomeClass</literal>
+      (<xref linkend="test-doubles.stubs.examples.SomeClass.php" />), который
+      выглядит так же как и оригинальный объект. Затем используется
+      <ulink url="http://martinfowler.com/bliki/FluentInterface.html">текучий интерфейс</ulink>,
+      предоставляемый PHPUnit для указания поведения заглушки. В конечном счёте не
+      нужно создавать несколько временных объектов и соединять их после. Это
+      приводит к более читабельному "текучему" коду.
     </para>
 
     <example id="test-doubles.stubs.examples.SomeClass.php">
-      <title>The class we want to stub</title>
+      <title>Класс, заглушку которого мы хотим создать</title>
       <programlisting><![CDATA[<?php
 class SomeClass
 {
@@ -108,7 +110,7 @@ class SomeClass
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>returnValue()</primary></indexterm>
-      <title>Stubbing a method call to return a fixed value</title>
+      <title>Заглушка метода для возвращения фиксированного значения</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -116,15 +118,15 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testStub()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMock('SomeClass');
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->returnValue('foo'));
 
-        // Calling $stub->doSomething() will now return
+        // Вызов $stub->doSomething() теперь вернет
         // 'foo'.
         $this->assertEquals('foo', $stub->doSomething());
     }
@@ -133,36 +135,36 @@ class StubTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      "Behind the scenes", PHPUnit automatically generates a new PHP class that
-      implements the desired behavior when the <literal>getMock()</literal>
-      method is used. The generated test double class can be configured through
-      the optional arguments of the <literal>getMock()</literal> method.
+      "За кулисами" PHPUnit автоматически создаёт новый PHP класс, который,
+      после использования метода <literal>getMock()</literal>,
+      повторяет заданное поведение. Созданный тестовый дубль можно настроить с
+      помощью необязательных аргументов метода <literal>getMock()</literal>.
     </para>
 
     <itemizedlist>
-      <listitem><para>By default, all methods of the given class are replaced with a test double that just returns <literal>NULL</literal> unless a return value is configured using <literal>will($this->returnValue())</literal>, for instance.</para></listitem>
-      <listitem><para>When the second (optional) parameter is provided, only the methods whose names are in the array are replaced with a configurable test double. The behavior of the other methods is not changed.</para></listitem>
-      <listitem><para>The third (optional) parameter may hold a parameter array that is passed to the original class' constructor (which is not replaced with a dummy implementation by default).</para></listitem>
-      <listitem><para>The fourth (optional) parameter can be used to specify a class name for the generated test double class.</para></listitem>
-      <listitem><para>The fifth (optional) parameter can be used to disable the call to the original class' constructor.</para></listitem>
-      <listitem><para>The sixth (optional) parameter can be used to disable the call to the original class' clone constructor.</para></listitem>
-      <listitem><para>The seventh (optional) parameter can be used to disable <literal>__autoload()</literal> during the generation of the test double class.</para></listitem>
+      <listitem><para>По умолчанию все методы заданного класса заменяются дублями, которые возвращают значение <literal>NULL</literal>, если не задано другое значение, например, с помощью метода <literal>will($this->returnValue())</literal>.</para></listitem>
+      <listitem><para>Когда задан второй (необязательный) параметр, заменяются только те методы тестового дубля, которые присутствуют в массиве. Поведение других методов не изменяется.</para></listitem>
+      <listitem><para>Третий (необязательный) параметр может содержать массив аргументов, передаваемых в конструктор оригинального класса (который не заменяется методом-пустышкой по умолчанию).</para></listitem>
+      <listitem><para>Четвертый (необязательный) параметр указывает имя класса для создаваемого тестового дубля.</para></listitem>
+      <listitem><para>Пятый (необязательный) параметр указывает на то, использовать конструктор исходного класса или нет.</para></listitem>
+      <listitem><para>Шестой (необязательный) параметр используется для указания использования метода клонирования исходного класса или нет.</para></listitem>
+      <listitem><para>Седьмой (необязательный) параметр может запретить использование <literal>__autoload()</literal> во время создания тестового дубля.</para></listitem>
     </itemizedlist>
 
     <para>
-      Alternatively, the Mock Builder API can be used to configure the generated
-      test double class. <xref linkend="test-doubles.stubs.examples.StubTest2.php"/>
-      shows an example. Here's a list of the methods that can be used with the
-      Mock Builder's fluent interface:
+      Для настройки создаваемого дубля также можно использовать Mock Builder API .
+      <xref linkend="test-doubles.stubs.examples.StubTest2.php"/> показывает
+      пример использования. Ниже приведён список методов, которые могут быть
+      использованы:
     </para>
 
     <itemizedlist>
-      <listitem><para><literal>setMethods(array $methods)</literal> can be called on the Mock Builder object to specify the methods that are to be replaced with a configurable test double. The behavior of the other methods is not changed.</para></listitem>
-      <listitem><para><literal>setConstructorArgs(array $args)</literal> can be called to provide a parameter array that is passed to the original class' constructor (which is not replaced with a dummy implementation by default).</para></listitem>
-      <listitem><para><literal>setMockClassName($name)</literal> can be used to specify a class name for the generated test double class.</para></listitem>
-      <listitem><para><literal>disableOriginalConstructor()</literal> can be used to disable the call to the original class' constructor.</para></listitem>
-      <listitem><para><literal>disableOriginalClone()</literal> can be used to disable the call to the original class' clone constructor.</para></listitem>
-      <listitem><para><literal>disableAutoload()</literal> can be used to disable <literal>__autoload()</literal> during the generation of the test double class.</para></listitem>
+      <listitem><para><literal>setMethods(array $methods)</literal> вызывается объектом Mock Builder для указания того, какие методы будут заменены в дубле. Поведение других методов не затрагивается.</para></listitem>
+      <listitem><para><literal>setConstructorArgs(array $args)</literal> вызывается для указания массива параметров, передаваемых в конструктор исходного класса (который по умолчанию не заменяется методом-пустышкой).</para></listitem>
+      <listitem><para><literal>setMockClassName($name)</literal> вызывается для указания имени класса создаваемого класса дубля.</para></listitem>
+      <listitem><para><literal>disableOriginalConstructor()</literal> вызывается для отмены использования конструктора исходного  класса.</para></listitem>
+      <listitem><para><literal>disableOriginalClone()</literal> вызывается для отмены вызова оригинального метода клонирования.</para></listitem>
+      <listitem><para><literal>disableAutoload()</literal> вызывается для отмены использования <literal>__autoload()</literal> во время создания дубля класса.</para></listitem>
     </itemizedlist>
 
     <example id="test-doubles.stubs.examples.StubTest2.php">
@@ -171,7 +173,7 @@ class StubTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>returnValue()</primary></indexterm>
-      <title>Using the Mock Builder API can be used to configure the generated test double class</title>
+      <title>Использование Mock Builder API для настройки создаваемого класса дубля</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -179,17 +181,17 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testStub()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMockBuilder('SomeClass')
                      ->disableOriginalConstructor()
                      ->getMock();
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->returnValue('foo'));
 
-        // Calling $stub->doSomething() will now return
+        // Вызов $stub->doSomething() теперь вернет
         // 'foo'.
         $this->assertEquals('foo', $stub->doSomething());
     }
@@ -198,10 +200,9 @@ class StubTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      Sometimes you want to return one of the arguments of a method call
-      (unchanged) as the result of a stubbed method call.
-      <xref linkend="test-doubles.stubs.examples.StubTest3.php"/> shows how you
-      can achieve this using <literal>returnArgument()</literal> instead of
+      Иногда необходимо вернуть (неизмененный) аргумент метода в заглушке.
+      <xref linkend="test-doubles.stubs.examples.StubTest3.php"/> показывает как
+      достичь этого, используя <literal>returnArgument()</literal> вместо
       <literal>returnValue()</literal>.
     </para>
 
@@ -211,7 +212,7 @@ class StubTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>returnArgument()</primary></indexterm>
-      <title>Stubbing a method call to return one of the arguments</title>
+      <title>Стаб метода для возврата одного из аргументов</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -219,18 +220,18 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testReturnArgumentStub()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMock('SomeClass');
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->returnArgument(0));
 
-        // $stub->doSomething('foo') returns 'foo'
+        // $stub->doSomething('foo') вернёт 'foo'
         $this->assertEquals('foo', $stub->doSomething('foo'));
 
-        // $stub->doSomething('bar') returns 'bar'
+        // $stub->doSomething('bar') вернёт 'bar'
         $this->assertEquals('bar', $stub->doSomething('bar'));
     }
 }
@@ -238,10 +239,10 @@ class StubTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      When testing a fluent interface, it is sometimes useful to have a stubbed
-      method return a reference to the stubbed object.
-      <xref linkend="test-doubles.stubs.examples.StubTest4.php"/> shows how you
-      can use <literal>returnSelf()</literal> to achiveve this.
+      Когда тестируется текучий интерфейс, будет полезным если заглушка вернёт
+      ссылку на себя. <xref linkend="test-doubles.stubs.examples.StubTest4.php"/>
+      показывает как использовать <literal>returnSelf()</literal> для того чтобы
+      достичь этого.
     </para>
 
     <example id="test-doubles.stubs.examples.StubTest4.php">
@@ -250,7 +251,7 @@ class StubTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>returnSelf()</primary></indexterm>
-      <title>Stubbing a method call to return a reference to the stub object</title>
+      <title>Заглушка метода для возврата ссылки на себя</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -258,15 +259,15 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testReturnSelf()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMock('SomeClass');
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->returnSelf());
 
-        // $stub->doSomething() returns $stub
+        // $stub->doSomething() возвращает $stub
         $this->assertSame($stub, $stub->doSomething());
     }
 }
@@ -274,12 +275,11 @@ class StubTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      Sometimes a stubbed method should return different values depending on
-      a predefined list of arguments.  You can use
-      <literal>returnValueMap()</literal> to create a map that associates
-      arguments with corresponding return values. See
-      <xref linkend="test-doubles.stubs.examples.StubTest5.php"/> for
-      an example.
+      Иногда нужно чтоб заглушка метода возвращала разные значения в зависимости
+      от предустановленного списка параметров. Для этого можно использовать
+      метод <literal>returnValueMap()</literal> для создания списка, который
+      ассоциирует аргументы с соответствующими значениями. Для примера см.
+      <xref linkend="test-doubles.stubs.examples.StubTest5.php"/>
     </para>
 
     <example id="test-doubles.stubs.examples.StubTest5.php">
@@ -288,7 +288,8 @@ class StubTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>returnValueMap()</primary></indexterm>
-      <title>Stubbing a method call to return the value from a map</title>
+      <title>Заглушка метода для возврата значений из списка в соответствии с
+        аргументами</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -296,22 +297,22 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testReturnValueMapStub()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMock('SomeClass');
 
-        // Create a map of arguments to return values.
+        // Создание списка агрументов и соответствующих значений.
         $map = array(
           array('a', 'b', 'c', 'd'),
           array('e', 'f', 'g', 'h')
         );
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->returnValueMap($map));
 
-        // $stub->doSomething() returns different values depending on
-        // the provided arguments.
+        // $stub->doSomething() возвращает значения в соответствии с
+        // переданными аргументами.
         $this->assertEquals('d', $stub->doSomething('a', 'b', 'c'));
         $this->assertEquals('h', $stub->doSomething('e', 'f', 'g'));
     }
@@ -320,12 +321,12 @@ class StubTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      When the stubbed method call should return a calculated value instead of
-      a fixed one (see <literal>returnValue()</literal>) or an (unchanged)
-      argument (see <literal>returnArgument()</literal>), you can use
-      <literal>returnCallback()</literal> to have the stubbed method return the
-      result of a callback function or method. See
-      <xref linkend="test-doubles.stubs.examples.StubTest6.php"/> for an example.
+      Если заглушка должна возвращать вычисляемое значение вместо фиксированного
+      (см. <literal>returnValue()</literal>) или (неизмененного) аргумента
+      (см. <literal>returnArgument()</literal>), можно использовать метод
+      <literal>returnCallback()</literal> для того чтобы посчитать возвращаемое
+      значение в коллбеке. Для примера см.
+      <xref linkend="test-doubles.stubs.examples.StubTest6.php"/>.
     </para>
 
     <example id="test-doubles.stubs.examples.StubTest6.php">
@@ -334,7 +335,7 @@ class StubTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>returnCallback()</primary></indexterm>
-      <title>Stubbing a method call to return a value from a callback</title>
+      <title>Заглушка метода для возврата значения из коллбэк функции</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -342,15 +343,15 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testReturnCallbackStub()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMock('SomeClass');
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->returnCallback('str_rot13'));
 
-        // $stub->doSomething($argument) returns str_rot13($argument)
+        // $stub->doSomething($argument) возвращает результат str_rot13($argument)
         $this->assertEquals('fbzrguvat', $stub->doSomething('something'));
     }
 }
@@ -358,11 +359,10 @@ class StubTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      A simpler alternative to setting up a callback method may be to
-      specify a list of desired return values. You can do this with
-      the <literal>onConsecutiveCalls()</literal> method. See
-      <xref linkend="test-doubles.stubs.examples.StubTest7.php"/> for
-      an example.
+      Иногда проще задать список значений, которые возвращает заглушка при
+      повторных вызовах. Для этого можно использовать метод
+      <literal>onConsecutiveCalls()</literal>. Для примера см.
+      <xref linkend="test-doubles.stubs.examples.StubTest7.php"/>.
     </para>
 
     <example id="test-doubles.stubs.examples.StubTest7.php">
@@ -371,8 +371,8 @@ class StubTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>onConsecutiveCalls()</primary></indexterm>
-      <title>Stubbing a method call to return a list of values in the
-      specified order</title>
+      <title>Заглушка метода для возврата заданных значений в определенном
+        порядке</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -380,15 +380,16 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testOnConsecutiveCallsStub()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMock('SomeClass');
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->onConsecutiveCalls(2, 3, 5, 7));
 
-        // $stub->doSomething() returns a different value each time
+        // $stub->doSomething() возвращает пределенное значение при каждом
+        // следующем вызове
         $this->assertEquals(2, $stub->doSomething());
         $this->assertEquals(3, $stub->doSomething());
         $this->assertEquals(5, $stub->doSomething());
@@ -399,9 +400,10 @@ class StubTest extends PHPUnit_Framework_TestCase
 
 
     <para>
-      Instead of returning a value, a stubbed method can also raise an
-      exception. <xref linkend="test-doubles.stubs.examples.StubTest8.php"/>
-      shows how to use <literal>throwException()</literal> to do this.
+      Вместо возврата значения метод может выкинуть исключение.
+      <xref linkend="test-doubles.stubs.examples.StubTest8.php"/> показывает
+      пример использования метода <literal>throwException()</literal> для этих
+      целей.
     </para>
 
     <example id="test-doubles.stubs.examples.StubTest8.php">
@@ -410,7 +412,7 @@ class StubTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>method()</primary></indexterm>
       <indexterm><primary>will()</primary></indexterm>
       <indexterm><primary>throwException()</primary></indexterm>
-      <title>Stubbing a method call to throw an exception</title>
+      <title>Заглушка, которая выкидывает исключение</title>
       <programlisting><![CDATA[<?php
 require_once 'SomeClass.php';
 
@@ -418,15 +420,15 @@ class StubTest extends PHPUnit_Framework_TestCase
 {
     public function testThrowExceptionStub()
     {
-        // Create a stub for the SomeClass class.
+        // Создание заглушки класса SomeClass.
         $stub = $this->getMock('SomeClass');
 
-        // Configure the stub.
+        // Настройка заглушки.
         $stub->expects($this->any())
              ->method('doSomething')
              ->will($this->throwException(new Exception));
 
-        // $stub->doSomething() throws Exception
+        // $stub->doSomething() выкидывает Exception
         $stub->doSomething();
     }
 }
@@ -434,58 +436,60 @@ class StubTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      Alternatively, you can write the stub yourself and improve your design
-      along the way. Widely used resources are accessed through a single façade,
-      so you can easily replace the resource with the stub. For example,
-      instead of having direct database calls scattered throughout the code,
-      you have a single <literal>Database</literal> object, an implementor of
-      the <literal>IDatabase</literal> interface. Then, you can create a stub
-      implementation of <literal>IDatabase</literal> and use it for your
-      tests. You can even create an option for running the tests with the
-      stub database or the real database, so you can use your tests for both
-      local testing during development and integration testing with the real
-      database.
+      Можно написать заглушку без использования <literal>getMock($className)</literal>
+      и улучшить дизайн таким образом. Обычно широко используемые ресурсы
+      доступны из одного и того же места, поэтому будет довольно просто заменить
+      ресурс его заглушкой. Например, вместо того чтобы вызывать базу данных из
+      разных мест, можно иметь один объект класса <literal>Database</literal>.
+      Затем, создать заглушку <literal>IDatabase</literal> и использовать
+      ее в тестах. Также можно создать опцию пробега теста с заглушкой и без нее,
+      таким образом вы сможете тестировать все компоненты независимо в юнит
+      тестах, и провести интеграционные тесты с использованием реальной
+      базы данных.
     </para>
 
     <para>
-      Functionality that needs to be stubbed out tends to cluster in the same
+      Функционал, для которого нужна заглушка стремится к внутренней связанности
+      в одном объекте. Предоставляя единую функциональность в одном объекте, вы,
+      тем временем уменьшаете связанность всей системы вцелом.
+      <!--Functionality that needs to be stubbed out tends to cluster in the same
       object, improving cohesion. By presenting the functionality with a
       single, coherent interface you reduce the coupling with the rest of the
-      system.
+      system. -->
     </para>
   </section>
 
   <section id="test-doubles.mock-objects">
-    <title>Mock Objects</title>
+    <title>Моки (mock) объектов</title>
 
     <para>
-      The practice of replacing an object with a test double that verifies
-      expectations, for instance asserting that a method has been called, is
-      refered to as <emphasis>mocking</emphasis>.
+      Методика замены объекта тестовым дублем, который подтверждает ожидания,
+      например, утверждение того, что метод был вызван, называется
+      <emphasis>моками (mocking)</emphasis>.
     </para>
 
     <para>
-      <indexterm><primary>Mock Object</primary></indexterm>
+      <indexterm><primary>Мок объект</primary></indexterm>
 
-      You can use a <emphasis>mock object</emphasis> "as an observation point
-      that is used to verify the indirect outputs of the SUT as it is exercised.
-      Typically, the mock object also includes the functionality of a test stub
-      in that it must return values to the SUT if it hasn't already failed the
-      tests but the emphasis is on the verification of the indirect outputs.
-      Therefore, a mock object is lot more than just a test stub plus
-      assertions; it is used a fundamentally different way".
+      Можно использовать <emphasis>мок объект</emphasis> "как наблюдателя,
+      который используется, для подтверждения косвенных выводов данных
+      тестируемой системы в то время как она выполняется. Обычно, моки включают
+      в себя функциональность заглушек, в том, что они должны возвращать значения
+      в тестируемую систему, если она ещё не провалила тест. Но упор делается на
+      косвенных выводах информации. Поэтому мок объекты это больше чем заглушка
+      плюс утверждение состояния - это фундаментально другой метод тестирования".
     </para>
 
     <para>
-      Here is an example: suppose we want to test that the correct method,
-      <literal>update()</literal> in our example, is called on an object that
-      observes another object. <xref linkend="test-doubles.mock-objects.examples.SUT.php"/>
-      shows the code for the <literal>Subject</literal> and <literal>Observer</literal>
-      classes that are part of the System under Test (SUT).
+      Например, предположим, что необходимо протестировать что верный метод
+      <literal>update()</literal> из примера вызывается в объекте, обозреваемом
+      другим объектом. <xref linkend="test-doubles.mock-objects.examples.SUT.php"/>
+      показывает код для классов <literal>Subject</literal> и <literal>Observer</literal>,
+      которые являются частью тестируемой системы.
     </para>
 
     <example id="test-doubles.mock-objects.examples.SUT.php">
-      <title>The Subject and Observer classes that are part of the System under Test (SUT)</title>
+      <title>Классы Subject и Observer из части тестируемой системы</title>
       <programlisting><![CDATA[<?php
 class Subject
 {
@@ -498,7 +502,7 @@ class Subject
 
     public function doSomething()
     {
-        // Do something.
+        // Что-то происходит.
         // ...
 
         // Notify observers that we did something.
@@ -519,69 +523,68 @@ class Subject
         }
     }
 
-    // Other methods.
+    // Другие методы.
 }
 
 class Observer
 {
     public function update($argument)
     {
-        // Do something.
+        // Сделать что-то.
     }
 
     public function reportError($errorCode, $errorMessage, Subject $subject)
     {
-        // Do something
+        // Сделать что-то
     }
 
-    // Other methods.
+    // Другие методы.
 }
 ?>]]></programlisting>
     </example>
 
     <para>
-      <indexterm><primary>Mock Object</primary></indexterm>
+      <indexterm><primary>Мок объект</primary></indexterm>
 
       <xref linkend="test-doubles.mock-objects.examples.SubjectTest.php" />
-      shows how to use a mock object to test the interaction between
-      <literal>Subject</literal> and <literal>Observer</literal> objects.
+      показывает как использовать моки для тестирования взаимодействия объектов
+      <literal>Subject</literal> и <literal>Observer</literal>.
     </para>
 
     <para>
-      We first use the <literal>getMock()</literal> method that is provided by
-      the <literal>PHPUnit_Framework_TestCase</literal> class to set up a mock
-      object for the <literal>Observer</literal>. Since we give an array as the
-      second (optional) parameter for the <literal>getMock()</literal> method,
-      only the <literal>update()</literal> method of the
-      <literal>Observer</literal> class is replaced by a mock implementation.
+      Сперва используется метод <literal>getMock()</literal>, предоставляемый
+      классом <literal>PHPUnit_Framework_TestCase</literal>, для создания мока
+      класса <literal>Observer</literal>. Так как во втором (необязательном)
+      параметре метода <literal>getMock()</literal> передаётся массив,
+      на реализацию мока будет заменён только метод <literal>update()</literal>
+      из класса <literal>Observer</literal>.
     </para>
 
     <example id="test-doubles.mock-objects.examples.SubjectTest.php">
-      <title>Testing that a method gets called once and with a specified argument</title>
+      <title>Тестирование того что метод будет вызван один раз и будут переданы указанные параметры</title>
       <programlisting><![CDATA[<?php
 class SubjectTest extends PHPUnit_Framework_TestCase
 {
     public function testObserversAreUpdated()
     {
-        // Create a mock for the Observer class,
-        // only mock the update() method.
+        // Создает мок класса Observer,
+        // будет заменен только метод update().
         $observer = $this->getMock('Observer', array('update'));
 
-        // Set up the expectation for the update() method
-        // to be called only once and with the string 'something'
-        // as its parameter.
+        // Настроить что ожидается что метод update()
+        // будет вызван один раз и будет передан аргумент 'something'
         $observer->expects($this->once())
                  ->method('update')
                  ->with($this->equalTo('something'));
 
-        // Create a Subject object and attach the mocked
-        // Observer object to it.
+        // Создать экземпляр класса Subject и прикрепить мок класса
+        // Observer к нему.
         $subject = new Subject;
         $subject->attach($observer);
 
-        // Call the doSomething() method on the $subject object
-        // which we expect to call the mocked Observer object's
-        // update() method with the string 'something'.
+        // Вызвать метод doSomething() объекта $subject,
+        // который должен вызвать мок метода update() из мока класса
+        // Observer с параметром 'something'.
         $subject->doSomething();
     }
 }
@@ -589,22 +592,23 @@ class SubjectTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      The <literal>with()</literal> method can take any number of
-      arguments, corresponding to the number of parameters to the
-      method being mocked. You can specify more advanced constraints
-      on the method argument than a simple match.
+      Метод <literal>with()</literal> принимает любое количество аргументов,
+      соответствующих аргументам метода мока. Можно настроить более продвинутые
+      ограничения, нежели обычное совпадения. Например,
+      <literal>$this->greaterThan(0)</literal> указывает что тест ожидает что
+      аргумент мока вызовется с числом, большим нуля.
     </para>
 
     <example id="test-doubles.mock-objects.examples.MultiParameterTest.php">
-      <title>Testing that a method gets called with a number of
-      arguments constrained in different ways</title>
+      <title>Тестирование того что мок метод будет вызван с определенным
+        количеством аргументов, ограниченых разными способами</title>
       <programlisting><![CDATA[<?php
 class SubjectTest extends PHPUnit_Framework_TestCase
 {
     public function testErrorReported()
     {
-        // Create a mock for the Observer class, mocking the
-        // reportError() method
+        // Создаёт мок класса Observer, мок будет реализован
+        // только для метода reportError()
         $observer = $this->getMock('Observer', array('reportError'));
 
         $observer->expects($this->once())
@@ -616,8 +620,7 @@ class SubjectTest extends PHPUnit_Framework_TestCase
         $subject = new Subject;
         $subject->attach($observer);
 
-        // The doSomethingBad() method should report an error to the observer
-        // via the reportError() method
+        // Вызов метод doSomethingBad() должен вызвать метод reportError()
         $subject->doSomethingBad();
     }
 }
@@ -626,46 +629,46 @@ class SubjectTest extends PHPUnit_Framework_TestCase
 
     <para>
       <xref linkend="writing-tests-for-phpunit.assertions.assertThat.tables.constraints"/>
-      shows the constraints that can be applied to method arguments and
+      показывает все ограничения, которые можно наложить на аргументы метода мока и
       <xref linkend="test-doubles.mock-objects.tables.matchers"/>
-      shows the matchers that are available to specify the number of
-      invocations.
+      показывает методы определяющие совпадения, предназначеные для определения
+      количества вызовов.
     </para>
 
     <table id="test-doubles.mock-objects.tables.matchers">
-      <title>Matchers</title>
+      <title>Методы совпадения</title>
 
       <tgroup cols="2" align="left" colsep="1" rowsep="1">
         <thead>
           <row>
-            <entry>Matcher</entry>
-            <entry>Meaning</entry>
+            <entry>Методы совпадения</entry>
+            <entry>Описание</entry>
           </row>
         </thead>
         <tbody>
           <row>
             <entry><literal>PHPUnit_Framework_MockObject_Matcher_AnyInvokedCount any()</literal></entry>
-            <entry>Returns a matcher that matches when the method it is evaluated for is executed zero or more times.</entry>
+            <entry>Возвращает метод соответствия (matcher), который срабатывает при любом количестве вызовов.</entry>
           </row>
           <row>
             <entry><literal>PHPUnit_Framework_MockObject_Matcher_InvokedCount never()</literal></entry>
-            <entry>Returns a matcher that matches when the method it is evaluated for is never executed.</entry>
+            <entry>Возвращает метод соответствия (matcher), который проверяет что метод никогда не был вызван.</entry>
           </row>
           <row>
             <entry><literal>PHPUnit_Framework_MockObject_Matcher_InvokedAtLeastOnce atLeastOnce()</literal></entry>
-            <entry>Returns a matcher that matches when the method it is evaluated for is executed at least once.</entry>
+            <entry>Возвращает метод соответствия (matcher), который проверяет что метод был вызван хотя-бы один раз.</entry>
           </row>
           <row>
             <entry><literal>PHPUnit_Framework_MockObject_Matcher_InvokedCount once()</literal></entry>
-            <entry>Returns a matcher that matches when the method it is evaluated for is executed exactly once.</entry>
+            <entry>Возвращает метод соответствия (matcher), который проверяет что метод был вызван только один раз.</entry>
           </row>
           <row>
             <entry><literal>PHPUnit_Framework_MockObject_Matcher_InvokedCount exactly(int $count)</literal></entry>
-            <entry>Returns a matcher that matches when the method it is evaluated for is executed exactly <literal>$count</literal> times.</entry>
+            <entry>Возвращает метод соответствия (matcher), который проверяет что метод был вызван <literal>$count</literal> раз.</entry>
           </row>
           <row>
             <entry><literal>PHPUnit_Framework_MockObject_Matcher_InvokedAtIndex at(int $index)</literal></entry>
-            <entry>Returns a matcher that matches when the method it is evaluated for is invoked at the given <literal>$index</literal>.</entry>
+            <entry>Возвращает метод соответствия (matcher), который проверяет дальнейшие условия после достижения <literal>$index</literal> вызовов.</entry>
           </row>
         </tbody>
       </tgroup>
@@ -674,14 +677,13 @@ class SubjectTest extends PHPUnit_Framework_TestCase
     <para>
       <indexterm><primary>getMockForAbstractClass()</primary></indexterm>
 
-      The <literal>getMockForAbstractClass()</literal> method returns a mock
-      object for an abstract class. All abstract methods of the given abstract
-      class are mocked. This allows for testing the concrete methods of an
-      abstract class.
+      Метод <literal>getMockForAbstractClass()</literal> возвращает объект мока
+      для абстрактного класса. Все абстрактные методы класса будут пустышками.
+      Это позволяет протестировать реализованные методы класса.
     </para>
 
     <example id="test-doubles.mock-objects.examples.AbstractClassTest.php">
-      <title>Testing the concrete methods of an abstract class</title>
+      <title>Тестирование реализованых методов абстрактного класса</title>
       <programlisting><![CDATA[<?php
 abstract class AbstractClass
 {
@@ -710,28 +712,29 @@ class AbstractClassTest extends PHPUnit_Framework_TestCase
   </section>
 
   <section id="test-doubles.stubbing-and-mocking-web-services">
-    <title>Stubbing and Mocking Web Services</title>
+    <title>Заглушки и моки для веб сервисов</title>
 
     <para>
       <indexterm><primary>getMockFromWsdl()</primary></indexterm>
 
-      When your application interacts with a web service you want to test it
-      without actually interacting with the web service. To make the stubbing
-      and mocking of web services easy, the <literal>getMockFromWsdl()</literal>
-      can be used just like <literal>getMock()</literal> (see above). The only
-      difference is that <literal>getMockFromWsdl()</literal> returns a stub or
-      mock based on a web service description in WSDL and <literal>getMock()</literal>
-      returns a stub or mock based on a PHP class or interface.
+      Когда в приложении есть взаимодействие с внешними веб сервисами -
+      необходимо тестировать систему без обращения к ним. Чтобы сделать
+      реализацию заглушек и моков простой, используется метод
+      <literal>getMockFromWsdl()</literal>. Он используется таким же способом,
+      как и <literal>getMock()</literal> (см. выше). Единственное отличие
+      состоит в том, что <literal>getMockFromWsdl()</literal> возвращает
+      заглушку или мок опираясь на описание WSDL, когда <literal>getMock()</literal>
+      возвращает заглушку или мок, опираясь на код PHP класса или интерфейса.
     </para>
 
     <para>
       <xref linkend="test-doubles.stubbing-and-mocking-web-services.examples.GoogleTest.php"/>
-      shows how <literal>getMockFromWsdl()</literal> can be used to stub, for
-      example, the web service described in <filename>GoogleSearch.wsdl</filename>.
+      показывает как <literal>getMockFromWsdl()</literal> может быть использован
+      для создания заглушки сервиса описанном в <filename>GoogleSearch.wsdl</filename>.
     </para>
 
     <example id="test-doubles.stubbing-and-mocking-web-services.examples.GoogleTest.php">
-      <title>Stubbing a web service</title>
+      <title>Заглушка для веб сервиса</title>
       <programlisting><![CDATA[<?php
 class GoogleTest extends PHPUnit_Framework_TestCase
 {
@@ -774,8 +777,8 @@ class GoogleTest extends PHPUnit_Framework_TestCase
                      ->will($this->returnValue($result));
 
         /**
-         * $googleSearch->doGoogleSearch() will now return a stubbed result and
-         * the web service's doGoogleSearch() method will not be invoked.
+         * $googleSearch->doGoogleSearch() вернет заглушку и
+         * метод веб сервиса doGoogleSearch() не будет вызван.
          */
         $this->assertEquals(
           $result,
@@ -799,38 +802,39 @@ class GoogleTest extends PHPUnit_Framework_TestCase
   </section>
 
   <section id="test-doubles.mocking-the-filesystem">
-    <title>Mocking the Filesystem</title>
+    <title>Моки для файловой системы</title>
 
     <para>
       <ulink url="http://code.google.com/p/bovigo/wiki/vfsStream">vfsStream</ulink>
-      is a <ulink url="http://www.php.net/streams">stream wrapper</ulink> for a
-      <ulink url="http://en.wikipedia.org/wiki/Virtual_file_system">virtual
-      filesystem</ulink> that may be helpful in unit tests to mock the real
-      filesystem.
+      - это <ulink url="http://ru2.php.net/streams">обёртка потока (stream
+      wrapper)</ulink> для создания
+      <ulink url="http://ru.wikipedia.org/wiki/Virtual_file_system">виртуальной
+      файловой системы</ulink>, которая может быть использована в юнит тестах
+      для файловой системы.
     </para>
 
     <para>
-      To install vfsStream, the PEAR channel
-      (<systemitem role="URL">pear.php-tools.net</systemitem>) that is used for
-      its distribution needs to be registered with the local PEAR environment:
+      Для того чтобы установить vfsStream, необходимо использовать PEAR канал
+      (<systemitem role="URL">pear.php-tools.net</systemitem>).
+      Канал необходимо зарегистрировать в локальном окружении PEAR:
     </para>
 
     <screen><userinput>pear channel-discover pear.php-tools.net</userinput></screen>
 
     <para>
-      This has to be done only once. Now the PEAR Installer can be used to
-      install vfsStream:
+      Это необходимо выполнить только один раз. А затем можно использовать PEAR
+      для установки vfsStream:
     </para>
 
     <screen><userinput>pear install pat/vfsStream-beta</userinput></screen>
 
     <para>
       <xref linkend="test-doubles.mocking-the-filesystem.examples.Example.php"/>
-      shows a class that interacts with the filesystem.
+      показывает пример класса, который взаимодействует с файловой системой. <!-- Ваш КО -->
     </para>
 
     <example id="test-doubles.mocking-the-filesystem.examples.Example.php">
-      <title>A class that interacts with the filesystem</title>
+      <title>Класс, который взаимодействует с файловой системой</title>
       <programlisting><![CDATA[<?php
 class Example
 {
@@ -854,14 +858,14 @@ class Example
     </example>
 
     <para>
-      Without a virtual filesystem such as vfsStream we cannot test the
-      <literal>setDirectory()</literal> method in isolation from external
-      influence (see <xref
+      Без использования виртуальной файловой системы, такой как vfsStream,
+      нельзя протестировать метод <literal>setDirectory()</literal> без
+      изоляции от внешних факторов (см. <xref
       linkend="test-doubles.mocking-the-filesystem.examples.ExampleTest.php"/>).
     </para>
 
     <example id="test-doubles.mocking-the-filesystem.examples.ExampleTest.php">
-      <title>Testing a class that interacts with the filesystem</title>
+      <title>Тестирование класса, который взаимодействует с файловой системой</title>
       <programlisting><![CDATA[<?php
 require_once 'Example.php';
 
@@ -894,23 +898,23 @@ class ExampleTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      The approach above has several drawbacks:
+      Подход, описаный выше, имеет несколько недостатков:
     </para>
 
     <itemizedlist>
-      <listitem><para>As with any external resource, there might be intermittent problems with the filesystem. This makes tests interacting with it flaky.</para></listitem>
-      <listitem><para>In the <literal>setUp()</literal> and <literal>tearDown()</literal> methods we have to ensure that the directory does not exist before and after the test.</para></listitem>
-      <listitem><para>When the test execution terminates before the <literal>tearDown()</literal> method is invoked the directory will stay in the filesystem.</para></listitem>
+      <listitem><para>Как и с любым внешним ресурсом, файловая система может быть недоступна в какой-либо промежуток времени. Это может дать случайные падения тестов. (Вообще-то эти ошибки тоже надо тестировать в этом кейсе, но VFS бывает полезной при тестировании "идеальной ФС" которая стабильна, или тесты на ошибки были сделаны где-то в другом месте (прим. пер.)</para></listitem>
+      <listitem><para>В методах <literal>setUp()</literal> и <literal>tearDown()</literal> необходимо удостоверится, что директория не существует до и после таеста.</para></listitem>
+      <listitem><para>Если выполнение теста прерывается до выполнения метода <literal>tearDown()</literal> - директория может остаться на файловой системе.</para></listitem>
     </itemizedlist>
 
     <para>
       <xref linkend="test-doubles.mocking-the-filesystem.examples.ExampleTest2.php"/>
-      shows how vfsStream can be used to mock the filesystem in a test for a
-      class that interacts with the filesystem.
+      показывает пример использования vfsStream для мока файловой системы во
+      время тестирования класса, взаимодействующего с файловой системой.
     </para>
 
     <example id="test-doubles.mocking-the-filesystem.examples.ExampleTest2.php">
-      <title>Mocking the filesystem in a test for a class that interacts with the filesystem</title>
+      <title>Мок файловой системы в классе, который взаимодействует с ней</title>
       <programlisting><![CDATA[<?php
 require_once 'vfsStream/vfsStream.php';
 require_once 'Example.php';
@@ -936,13 +940,13 @@ class ExampleTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      This has several advantages:
+      Подход, описанный выше имеет несколько плюсов:
     </para>
 
     <itemizedlist>
-      <listitem><para>The test itself is more concise.</para></listitem>
-      <listitem><para>vfsStream gives the test developer full control over what the filesystem environment looks like to the tested code.</para></listitem>
-      <listitem><para>Since the filesystem operations do not operate on the real filesystem anymore, cleanup operations in a <literal>tearDown()</literal> method are no longer required.</para></listitem>
+      <listitem><para>Тест получается более кратким.</para></listitem>
+      <listitem><para>vfsStream дает разработчику полный контроль над поведением и окружением файловой системы.</para></listitem>
+      <listitem><para>Так как операции над файловой системой в действительности не взаимодействуют с ней, то больше нет необходимости в операции очистки в методе <literal>tearDown()</literal>.</para></listitem>
     </itemizedlist>
   </section>
 </chapter>

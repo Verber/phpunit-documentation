@@ -566,7 +566,6 @@ Default to writing to the standard output.
         <listitem>
           <para>
             Устанавливает заданный(е) параметр(ы) конфигурации PHP.
-            <!-- Sets the value of the given PHP configuration option. -->
           </para>
         </listitem>
       </varlistentry>

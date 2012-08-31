@@ -57,7 +57,7 @@ Wrote skeleton for "CalculatorTest" to "/home/sb/CalculatorTest.php".</screen>
   </para>
 
   <note>
-    <title>Классы с именем пространства (namespace) и генератор каркаса</title>
+    <title>Классы с пространствами имен и генератор каркаса</title>
 
     <para>
       Когда PHPUnit создает каркас для класса, который объявлен в
@@ -221,11 +221,11 @@ OK (4 tests, 4 assertions)</screen>
 
     <para>
       Соглашение подразумевает что тесты для класса <literal>Unit</literal>
-      реализованы в классе <literal>UnitTest</literal>. В этом классе ищутся
+      реализованы в классе <literal>UnitTest</literal>. В этом классе находятся
       все переменные, которые ссылаются на класс <literal>Unit</literal> и
       анализируются все методы, вызываемые этими объектами. Например, взгляните
       на код <xref linkend="skeleton-generator.class.examples.BowlingGame.php"/>,
-      который был создан с помощью анализа <xref
+      который был создан при анализе <xref
       linkend="skeleton-generator.class.examples.BowlingGameTest.php"/>.
     </para>
 

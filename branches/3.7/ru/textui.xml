@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
-<!-- <chapter id="textui"> -->
 <chapter id="textui">
-  <title>Интерфейс (утилита) командной строки</title>
+  <title>Запуск тестов из командной строки</title>
 
   <para>
     PHPUnit можно вызвать с помощью консольной команды
@@ -566,7 +565,7 @@ Default to writing to the standard output.
         <term><literal>-d</literal></term>
         <listitem>
           <para>
-            Устанавливает значение переданного параметра конфигурации PHP.
+            Устанавливает заданный(е) параметр(ы) конфигурации PHP.
             <!-- Sets the value of the given PHP configuration option. -->
           </para>
         </listitem>

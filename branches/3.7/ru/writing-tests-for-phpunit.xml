@@ -270,7 +270,7 @@ Tests: 4, Assertions: 4, Failures: 1.]]></screen>
     </example>
 
     <example id="writing-tests-for-phpunit.data-providers.examples.DataTest2.php">
-      <title>UИспользование провайдера данных, который возвращает объект-итератор</title>
+      <title>Использование провайдера данных, который возвращает объект-итератор</title>
       <programlisting><![CDATA[<?php
 require 'CsvFileIterator.php';
 

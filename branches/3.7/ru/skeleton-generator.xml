@@ -221,9 +221,9 @@ OK (4 tests, 4 assertions)</screen>
 
     <para>
       Соглашение подразумевает что тесты для класса <literal>Unit</literal>
-      реализованы в классе <literal>UnitTest</literal>. В этом классе находятся
+      реализованы в классе <literal>UnitTest</literal>. В этом классе генератор ищет
       все переменные, которые ссылаются на класс <literal>Unit</literal> и
-      анализируются все методы, вызываемые этими объектами. Например, взгляните
+      анализирует все методы, вызываемые этими объектами. Например, взгляните
       на код <xref linkend="skeleton-generator.class.examples.BowlingGame.php"/>,
       который был создан при анализе <xref
       linkend="skeleton-generator.class.examples.BowlingGameTest.php"/>.

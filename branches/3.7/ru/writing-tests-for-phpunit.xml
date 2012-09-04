@@ -443,24 +443,8 @@ class CsvFileIterator implements Iterator {
 
         Если тест получает данные как от <literal>@dataProvider</literal> так и
         от теста (или тестов) от которых он зависит (<literal>@depends</literal>),
-        аргументы от провайдера будут переданы раньше чем от тестов зависимостей.
-        <!--
-        Эксперимент уверяет что наоборот. Да и чисто логически это неверно, раз
-        тест зависит от других тестов, то сначала нужно убедиться что прошли
-        эти тесты а потом уже запускать dataProvider
-        -->
-        <!--
-        Если тест получает данные как от <literal>@dataProvider</literal> так и
-        от теста (или тестов) от которых он зависит (<literal>@depends</literal>),
         аргументы от провайдера будут переданы после тех, которые будут получены
         от зависимостей.
-
-
-        When a test receives input from both a <literal>@dataProvider</literal>
-        method and from one or more tests it <literal>@depends</literal> on, the
-        arguments from the data provider will come before the ones from
-        depended-upon tests.
-        -->
       </para>
     </note>
 
@@ -478,15 +462,8 @@ class CsvFileIterator implements Iterator {
         Если один тест зависит от другого теста, который использует провайдер,
         тест-потребитель выполнится если тест-поставщик упешно пройдёт хотя
         бы для одного набора параметров из провайдера. Результат выполнения
-        теста-поставщика, который использует провайдера, не модет быть предан
+        теста-поставщика, который использует провайдера, не может быть передан
         тесту-потребителю.
-
-        <!--
-        When a test depends on a test that uses data providers, the depending
-        test will be executed when the test it depends upon is successful for at
-        least one data set. The result of a test that uses data providers cannot
-        be injected into a depending test.
-        -->
       </para>
     </note>
 
@@ -504,12 +481,6 @@ class CsvFileIterator implements Iterator {
         Все функции-провайдеры выполняются до того как впервые будет вызван
         метод <literal>setUp</literal>. Поэтому, вы не сможете получить
         доступ к переменным которые вы определили в нём изнутри провайдера.
-
-        <!--
-        All data providers are executed before the first call to the
-        <literal>setUp</literal> function. Because of that you can't access
-        any variables you create there from within a data provider.
-        -->
       </para>
     </note>
   </section>
@@ -528,13 +499,6 @@ class CsvFileIterator implements Iterator {
       <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest.php"/>
       показывает как c помощью аннотации <literal>@expectedException</literal>
       проверить было ли вызвано исключение в тестируемом коде.
-
-
-      <!--
-      <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest.php"/>
-      shows how to use the <literal>@expectedException</literal> annotation to
-      test whether an exception is thrown inside the tested code.
-      -->
     </para>
 
     <example id="writing-tests-for-phpunit.exceptions.examples.ExceptionTest.php">
@@ -588,14 +552,6 @@ class ExceptionTest extends PHPUnit_Framework_TestCase
       <literal>@expectedException</literal> для проверки сообщений и кодов
       исключений как показано в
       <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest2.php"/>.
-
-      <!--
-      Additionally, you can use <literal>@expectedExceptionMessage</literal> and
-      <literal>@expectedExceptionCode</literal> in combination with
-      <literal>@expectedException</literal> to test the exception message and
-      exception code as shown in
-      <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest2.php"/>.
-      -->
     </para>
 
     <example id="writing-tests-for-phpunit.exceptions.examples.ExceptionTest2.php">
@@ -648,19 +604,10 @@ Tests: 2, Assertions: 4, Failures: 2.]]>
     </example>
 
     <para>
-      В <xref linkend="appendixes.annotations.expectedExceptionMessage"/> и
+      <xref linkend="appendixes.annotations.expectedExceptionMessage"/> и
       <xref linkend="appendixes.annotations.expectedExceptionCode"/>
-      приведены другие примеры использования <literal>@expectedExceptionMessage</literal>
+      приводят другие примеры использования <literal>@expectedExceptionMessage</literal>
       и <literal>@expectedExceptionCode</literal> соответственно.
-
-
-      <!--
-      More examples of <literal>@expectedExceptionMessage</literal> and
-      <literal>@expectedExceptionCode</literal> are shown in
-      <xref linkend="appendixes.annotations.expectedExceptionMessage"/> and
-      <xref linkend="appendixes.annotations.expectedExceptionCode"/>
-      respectively.
-      -->
     </para>
 
 
@@ -668,12 +615,6 @@ Tests: 2, Assertions: 4, Failures: 2.]]>
       В качестве альтернативы, можно использовать метод
       <literal>setExpectedException()</literal>, чтобы задать ожидаемое исключение
       <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest3.php"/>.
-
-      <!--
-      Alternatively, you can use the <literal>setExpectedException()</literal>
-      method to set the expected exception as shown in
-      <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest3.php"/>.
-      -->
     </para>
 
     <example
@@ -767,21 +708,14 @@ Tests: 3, Assertions: 6, Failures: 3.]]>
     </table>
 
     <para>
-      Еще для тестирования исключения вы можете использовать подход который
+      Также для тестирования исключения вы можете использовать подход который
       иллюстрирует пример
       <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest4.php"/>
-
-      <!--
-      You can also use the approach shown in
-      <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest4.php"/>
-      to test exceptions.
-      -->
     </para>
 
     <example
         id="writing-tests-for-phpunit.exceptions.examples.ExceptionTest4.php">
       <title>Альтернативный подход к тестированию исключений</title>
-      <!-- я б сказал альтернативно одарённый подхлд -->
       <programlisting><![CDATA[<?php
 class ExceptionTest extends PHPUnit_Framework_TestCase {
     public function testException() {
@@ -800,52 +734,42 @@ class ExceptionTest extends PHPUnit_Framework_TestCase {
     </example>
 
     <para>
-      Если код от которого мы ожидали вызов исключения в
       <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest4.php"/>
+      демонстрирует, что если код от которого мы ожидали вызов исключения
       не вызовет его, последующий вызов метода <literal>fail()</literal>
       прервёт тест и сообщит о проблеме в тесте. Если ожидаемое исключение было
       вызвано, блок <literal>catch</literal> будет выполнен и тест завершится
       успешно.
-
-      <!--
-      If the code that is expected to raise an exception in
-      <xref linkend="writing-tests-for-phpunit.exceptions.examples.ExceptionTest4.php"/>
-      does not raise the expected exception, the subsequent call to
-      <literal>fail()</literal> will halt the test and signal a problem with the
-      test. If the expected exception is raised, the <literal>catch</literal>
-      block will be executed, and the test will end successfully.
-      -->
     </para>
   </section>
 
   <section id="writing-tests-for-phpunit.errors">
-    <title>Testing PHP Errors</title>
+    <title>Тестирование ошибок PHP</title>
     <para>
       <indexterm>
-        <primary>Error Handler</primary>
+        <primary>Обработчик ошибок</primary>
       </indexterm>
       <indexterm>
-        <primary>PHP Error</primary>
+        <primary>Ошибка PHP</primary>
       </indexterm>
       <indexterm>
-        <primary>PHP Notice</primary>
+        <primary>Замечание PHP</primary>
       </indexterm>
       <indexterm>
-        <primary>PHP Warning</primary>
+        <primary>Предупреждение PHP</primary>
       </indexterm>
       <indexterm>
         <primary>PHPUnit_Framework_Error</primary>
       </indexterm>
-
-      By default, PHPUnit converts PHP errors, warnings, and notices that are
-      triggered during the execution of a test to an exception. Using these
-      exceptions, you can, for instance, expect a test to trigger a PHP error as
-      shown in<xref
-        linkend="writing-tests-for-phpunit.exceptions.examples.ErrorTest.php"/>.
+      По умолчанию, PHPUnit преобразует ошибки, предупреждения и замечания
+      (PHP Error, PHP Warning, PHP Notice соответственно), которые возникают во
+      время выполнения теста в исключения. Используя эти исключения вы можете,
+      например, что тест вызовет ошибку PHP, как это показывает
+      <xref linkend="writing-tests-for-phpunit.exceptions.examples.ErrorTest.php"/>.
     </para>
 
     <example id="writing-tests-for-phpunit.exceptions.examples.ErrorTest.php">
-      <title>Expecting a PHP error using @expectedException</title>
+      <title>Ожидание ошибки PHP с использованием @expectedException</title>
       <programlisting><![CDATA[<?php
 class ExpectedErrorTest extends PHPUnit_Framework_TestCase
 {
@@ -879,35 +803,27 @@ class ExpectedErrorTest extends PHPUnit_Framework_TestCase
       </indexterm>
 
       <literal>PHPUnit_Framework_Error_Notice</literal>
-      and
-      <literal>PHPUnit_Framework_Error_Warning</literal>
-      represent PHP notices
-      and warnings, respectively.
+      и <literal>PHPUnit_Framework_Error_Warning</literal>
+      представляют замечания и предупреждения PHP соответственно.
     </para>
 
     <note>
       <para>
-        You should be as specific as possible when testing exceptions. Testing
-        for classes that are too generic might lead to undesirable
-        side-effects. Accordingly, testing for the
-        <literal>Exception</literal>
-        class with
-        <literal>@expectedException</literal>
-        or
-        <literal>setExpectedException()</literal>
-        is no longer permitted.
+        Вы должны быть как можно более конкретны когда теститруете исключения.
+        Проверка слишком общих классов может приветси к нежелательным
+        побочным эффектам. Поэтому проверка на встроенный класс
+        <literal>Exception</literal> при помощи <literal>@expectedException</literal>
+        или <literal>setExpectedException()</literal> больше не разрешена.
       </para>
     </note>
 
     <para>
-      When testing that relies on php functions that trigger errors like
-      <literal>fopen</literal>
-      it can sometimes be useful to use error
-      suppression while testing. This allows you to check the return values by
-      suppressing notices that would lead to a phpunit
-      <literal>PHPUnit_Framework_Error_Notice</literal>.
-      <example
-          id="writing-tests-for-phpunit.exceptions.examples.TriggerErrorReturnValue.php">
+      Когда вы тестируете код, который основан на функциях, которые вызывают
+      ошибки, например <literal>fopen</literal> иногда может оказаться полезным
+      подавление ошибок во время тестирования. Это позволит вам проверять
+      возвращаемые значения подавляя замечания, которые иначе привели бы
+      phpunit к <literal>PHPUnit_Framework_Error_Notice</literal>.
+      <example id="writing-tests-for-phpunit.exceptions.examples.TriggerErrorReturnValue.php">
 
         <title>Testing return values of code that uses PHP Errors</title>
         <programlisting><![CDATA[<?php

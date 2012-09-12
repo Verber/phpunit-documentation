@@ -818,7 +818,7 @@ class ExpectedErrorTest extends PHPUnit_Framework_TestCase
     </note>
 
     <para>
-      Когда вы тестируете код, который основан на функциях, которые вызывают
+      Когда вы тестируете код, основаный на функциях, которые вызывают
       ошибки, например <literal>fopen</literal> иногда может оказаться полезным
       подавление ошибок во время тестирования. Это позволит вам проверять
       возвращаемые значения подавляя замечания, которые иначе привели бы
@@ -855,7 +855,7 @@ class FileWriter
 
           OK (1 test, 1 assertion)</screen>
       </example>
-      Without the error suppression the test would fail reporting
+      Без подавления ошибок мы бы получили
       <literal>fopen(/is-not-writeable/file): failed to open stream:
         No such file or directory</literal>.
 
@@ -863,27 +863,25 @@ class FileWriter
   </section>
 
   <section id="writing-tests-for-phpunit.output">
-    <title>Testing Output</title>
+    <title>Тестирование вывода</title>
 
     <para>
-      Sometimes you want to assert that the execution of a method, for
-      instance, generates an expected output (via <literal>echo</literal> or
-      <literal>print</literal>, for example). The
-      <literal>PHPUnit_Framework_TestCase</literal> class uses PHP's
-      <ulink url="http://www.php.net/manual/en/ref.outcontrol.php">Output
-        Buffering</ulink> feature to provide the functionality that is
-      necessary for this.
+      Иногда вам нужно проверить что выполнение метода, например, даёт нам
+      ожидаемый вывод (через <literal>echo</literal> или <literal>print</literal>)
+      Класс <literal>PHPUnit_Framework_TestCase</literal> использует
+      <ulink url="http://www.php.net/manual/en/ref.outcontrol.php">Буферизацию
+      Вывода</ulink> для того чтобы предоставить такую возможность.
     </para>
 
     <para>
       <xref linkend="writing-tests-for-phpunit.output.examples.OutputTest.php" />
-      shows how to use the <literal>expectOutputString()</literal> method to
-      set the expected output. If this expected output is not generated, the
-      test will be counted as a failure.
+      демонстрирует как использовать метод <literal>expectOutputString()</literal>
+      для того чтобы задать ожидаемый вывод. Если это вывод не будет
+      сгенерирован тест отмечен как проваленый.
     </para>
 
     <example id="writing-tests-for-phpunit.output.examples.OutputTest.php">
-      <title>Testing the output of a function or method</title>
+      <title>Тестирование вывода функции или метода</title>
       <programlisting><![CDATA[<?php
 class OutputTest extends PHPUnit_Framework_TestCase
 {
@@ -924,31 +922,35 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
     <para>
       <xref linkend="writing-tests-for-phpunit.output.tables.api" />
-      shows the methods provided for testing output
+      представлены в таблице
     </para>
 
     <table id="writing-tests-for-phpunit.output.tables.api">
-      <title>Methods for testing output</title>
+      <title>Методы для тестирования вывода</title>
 
       <tgroup cols="2" align="left" colsep="1" rowsep="1">
         <thead>
           <row>
-            <entry>Method</entry>
-            <entry>Meaning</entry>
+            <entry>Метод</entry>
+            <entry>Назначение</entry>
           </row>
         </thead>
         <tbody>
           <row>
             <entry><literal>void expectOutputRegex(string $regularExpression)</literal></entry>
-            <entry>Set up the expectation that the output matches a <literal>$regularExpression</literal>.</entry>
+            <entry>Задаёт регулярное выражение <literal>$regularExpression
+            </literal>которому должен соответствовать вывод</entry>
           </row>
           <row>
             <entry><literal>void expectOutputString(string $expectedString)</literal></entry>
-            <entry>Set up the expectation that the output is equal to an <literal>$expectedString</literal>.</entry>
+            <entry>Устанавливает ожидаемое значение
+              <literal>$expectedString</literal> которому должен быть
+              равен вывод.</entry>
           </row>
           <row>
             <entry><literal>bool setOutputCallback(callable $callback)</literal></entry>
-            <entry>Sets up a callback that is used to, for instance, normalize the actual output.</entry>
+            <entry>Устанавливает callback-функцию которая может быть
+              использована, например, для нормализации вывода</entry>
           </row>
         </tbody>
       </tgroup>
@@ -956,17 +958,18 @@ class OutputTest extends PHPUnit_Framework_TestCase
 
     <note>
       <para>
-        Please note that PHPUnit swallows all output that is emitted during the
-        execution of a test. In strict mode, a test that emits output will fail.
+        Обратите внимание, что PHPUnit проглатывает весь вывод который
+        генерируется во время выполнения теста. В строгом режиме (strict mode)
+        тест, кторый генерирует вывод провалится
       </para>
     </note>
   </section>
 
   <section id="writing-tests-for-phpunit.assertions">
-    <title>Assertions</title>
+    <title>Утверждения (Assertions)</title>
 
     <para>
-      This section lists the various assertion methods that are available.
+      Эта секция перечисляет различные доступные методы-утверждения
     </para>
 
     <section id="writing-tests-for-phpunit.assertions.assertArrayHasKey">

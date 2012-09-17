@@ -23,6 +23,7 @@
   <!ENTITY assertions SYSTEM "assertions.xml">
   <!ENTITY annotations SYSTEM "annotations.xml">
   <!ENTITY configuration SYSTEM "configuration.xml">
+  <!ENTITY terms-translation SYSTEM "terms-translation.xml">
   <!ENTITY index SYSTEM "index.xml">
   <!ENTITY bibliographygraphy SYSTEM "bibliography.xml">
   <!ENTITY copyright SYSTEM "copyright.xml">
@@ -79,6 +80,7 @@
   &annotations;
   &configuration;
   &index;
+  &terms-translation;
   &bibliographygraphy;
   &copyright;
 </book>

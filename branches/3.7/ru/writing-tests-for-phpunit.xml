@@ -48,7 +48,7 @@
     </listitem>
     <listitem>
       <para>Внутри тестовых методов для проверки того что реальные данные
-        соответствуют ожидаемым используются функции-утверждения (assertion
+        соответствуют ожидаемым используются методы-утверждения (assertion
         methods) такие как <literal>assertEquals()</literal>
         (см.<xref linkend="writing-tests-for-phpunit.assertions"/>)
       </para>
@@ -81,9 +81,8 @@ class StackTest extends PHPUnit_Framework_TestCase
     <para>
       <!-- TODO: find exact quote translation -->
       Всякий раз, когда вы испытываете искушение напечатать что-то внутри
-      оператора
-      <literal>print</literal>
-      или отладочного выражения, напишите это как тест.
+      оператора <literal>print</literal> или отладочного выражения, напишите
+      это как тест.
     </para>
   </blockquote>
 

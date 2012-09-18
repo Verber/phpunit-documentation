@@ -1,38 +1,38 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <chapter id="organizing-tests">
-  <title>Organizing Tests</title>
+  <title>Организация тестов</title>
 
   <para>
-    <indexterm><primary>Test Suite</primary></indexterm>
+    <indexterm><primary>Тест-комплект</primary></indexterm>
 
-    One of the goals of PHPUnit (see <xref linkend="goals" />) is that tests
-    should be composable: we want to be able to run any number or combination
-    of tests together, for instance all tests for the whole project, or the
-    tests for all classes of a component that is part of the project, or just
-    the tests for a single class.
+    Одной из целей PHPUnit (см. <xref linkend="goals" />) являются составные
+    тесты: возможность запускать тест-кейсы в любом количестве и любой
+    комбинации. Например, все тесты для проекта, тесты для всех классов
+    компонента или же тест для определённого класса.
   </para>
 
   <para>
-    PHPUnit supports different ways of organizing tests and composing them into
-    a test suite. This chapter shows the most commonly used approaches.
+    PHPUnit поддерживает разные пути комбинирования и составления тест-кейсов в
+    тест-комплекты. Эта глава расскажет о наиболее распространённых подходах.
   </para>
 
   <section id="organizing-tests.filesystem">
-    <title>Composing a Test Suite Using the Filesystem</title>
+    <title>Составление тест-комплекта, используя файловую систему</title>
 
     <para>
-      Probably the easiest way to compose a test suite is to keep all test case
-      source files in a test directory. PHPUnit can automatically discover and
-      run the tests by recursively traversing the test directory.
+      Скорее всего, самым простым способом составления тест-комплекта будет
+      выделение всех исходных файлов тест-кейсов в отдельную директорию. PHPUnit
+      может автоматически находить и запускать тест-кейсы при рекурсивном обходе
+      директории с тестами.
     </para>
 
     <para>
-      Lets take a look at the test suite of the <ulink url="http://github.com/sebastianbergmann/php-object-freezer/">Object_Freezer</ulink>
-      library. Looking at this project's directory structure, we see that the
-      test case classes in the <filename>Tests</filename> directory mirror the
-      package and class structure of the System Under Test (SUT) in the
-      <filename>Object</filename> directory:
+      Давайте взглянем на тест-комплект библиотеки <ulink url="http://github.com/sebastianbergmann/php-object-freezer/">Object_Freezer</ulink>.
+      Глядя на структуру директорий этого проекта, видно, что классы тест-кейсов
+      находятся в директории <filename>Tests</filename> и отражают структуру
+      иходных классов тестируемой библиотеки, которая находится в директории
+      <filename>Object</filename>:
     </para>
 
     <screen>Object                              Tests
@@ -53,8 +53,8 @@
 `-- Freezer.php                     `-- FreezerTest.php</screen>
 
     <para>
-      To run all tests for the library we just need to point the PHPUnit
-      command-line test runner to the test directory:
+      Для запуска всех тестов библиотеки с помощью PHPUnit необходимо указать
+      директорию в которой хранятся все тесты библиотеки:
     </para>
 
     <screen><userinput>phpunit Tests</userinput>
@@ -69,15 +69,15 @@ OK (75 tests, 164 assertions)</screen>
 
     <note>
       <para>
-        If you point the PHPUnit command-line test runner to a directory it will
-        look for <filename>*Test.php</filename> files.
+        Если PHPUnit указать директорию, то утилита будет искать файлы с маской
+        <filename>*Test.php</filename>.
       </para>
     </note>
 
     <para>
-      To run only the tests that are declared in the <literal>Object_FreezerTest</literal>
-      test case class in <filename>Tests/FreezerTest.php</filename> we can use
-      the following command:
+      Для запуска тест-кейса, объявленного в классе <literal>Object_FreezerTest</literal>,
+      который находится в файле <filename>Tests/FreezerTest.php</filename>, можно
+      использовать команду:
     </para>
 
     <screen><userinput>phpunit Tests/FreezerTest</userinput>
@@ -90,8 +90,8 @@ Time: 0 seconds
 OK (28 tests, 60 assertions)</screen>
 
     <para>
-      For more fine-grained control of which tests to run we can use the
-      <literal>--filter</literal> switch:
+      Для более точного указания запускаемых тестов можно использовать параметр
+      <literal>--filter</literal>:
     </para>
 
     <screen><userinput>phpunit --filter testFreezingAnObjectWorks Tests</userinput>
@@ -105,30 +105,30 @@ OK (1 test, 2 assertions)</screen>
 
     <note>
       <para>
-        A drawback of this approach is that we have no control over the order in
-        which the test are run. This can lead to problems with regard to test
-        dependencies, see <xref linkend="writing-tests-for-phpunit.test-dependencies"/>.
-        In the next section you will see how you can make the test execution
-        order explicit by using the XML configuration file.
+        Пожалуй, единственным минусом будет то что, при таком пододе, нельзя
+        запускать тесnы в определённом порядке. Это может привести к проблемам в
+        зависимых тестах (см. <xref linkend="writing-tests-for-phpunit.test-dependencies"/>).
+        Следующий раздел покажет как указать точный порядок выполнения
+        тест-кейсов, используя файл настроек XML.
       </para>
     </note>
   </section>
 
   <section id="organizing-tests.xml-configuration">
-    <title>Composing a Test Suite Using XML Configuration</title>
-    <indexterm><primary>XML Configuration</primary></indexterm>
+    <title>Использование файла настроек XML для составления тест-комплектов</title>
+    <indexterm><primary>Файл настроек XML</primary></indexterm>
 
     <para>
-      PHPUnit's XML configuration file (<xref linkend="appendixes.configuration"/>)
-      can also be used to compose a test suite.
+      Также, для составления тест-комплектов, можно использовать
+      файл настроек XML для PHPUnit (<xref linkend="appendixes.configuration"/>).
       <xref linkend="organizing-tests.xml-configuration.examples.phpunit.xml"/>
-      shows a minimal example that will add all <literal>*Test</literal> classes
-      that are found in <filename>*Test.php</filename> files when the
-      <filename>Tests</filename> is recursively traversed.
+      показывает элементарный пример, который добавит все классы с маской <literal>*Test</literal>,
+      которые находятся в файлах <filename>*Test.php</filename>. При поиске
+      тест-кейсов директория <filename>Tests</filename> обходится рекурсивно.
     </para>
 
     <example id="organizing-tests.xml-configuration.examples.phpunit.xml">
-      <title>Composing a Test Suite Using XML Configuration</title>
+      <title>Использование файла настроек XML для составления тест-комплектов</title>
       <programlisting><![CDATA[<phpunit>
   <testsuites>
     <testsuite name="Object_Freezer">
@@ -139,11 +139,11 @@ OK (1 test, 2 assertions)</screen>
     </example>
 
     <para>
-      The order in which tests are executed can be made explicit:
+      Порядок, в котором будут выполнены тест-кейсы, можно указать следующим образом:
     </para>
 
     <example id="organizing-tests.xml-configuration.examples.phpunit.xml2">
-      <title>Composing a Test Suite Using XML Configuration</title>
+      <title>Использование файла настроек XML для составления тест-комплектов с указанием точного порядка выполнения тест-кейсов</title>
       <programlisting><![CDATA[<phpunit>
   <testsuites>
     <testsuite name="Object_Freezer">

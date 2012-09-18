@@ -92,6 +92,26 @@
     </para>
   </section>
 
+  <section> <!-- id="appendixes.configuration.testsuites" -->
+    <title><literal>Тест-кейс</literal></title>
+
+    <para>
+      <indexterm><primary>Тест-кейс</primary></indexterm>
+
+      Test case - Тест-кейс
+    </para>
+  </section>
+
+  <section> <!--  id="appendixes.configuration.testsuites" -->
+    <title><literal>Тест-комплект</literal></title>
+
+    <para>
+      <indexterm><primary>Тест-комплект</primary></indexterm>
+
+      Test suite - Тест-комплект
+    </para>
+  </section>
+
   <section id="appendixes.terms-translation.test-double">
     <title><literal>Тестовый макет</literal></title>
 

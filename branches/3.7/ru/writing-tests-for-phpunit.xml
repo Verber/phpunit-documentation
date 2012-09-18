@@ -976,10 +976,16 @@ class OutputTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertArrayHasKey()</primary></indexterm>
       <indexterm><primary>assertArrayNotHasKey()</primary></indexterm>
       <para><literal>assertArrayHasKey(mixed $key, array $array[, string $message = ''])</literal></para>
-      <para>Reports an error identified by <literal>$message</literal> if <literal>$array</literal> does not have the <literal>$key</literal>.</para>
-      <para><literal>assertArrayNotHasKey()</literal> is the inverse of this assertion and takes the same arguments.</para>
+      <para>
+        Сообщает об ошибке <literal>$message</literal> если
+        <literal>$array</literal> не содержит ключа <literal>$key</literal>.
+      </para>
+      <para>
+        <literal>assertArrayNotHasKey()</literal> утверждает
+        обратное и принимает тот же набор аргументов
+      </para>
       <example id="writing-tests-for-phpunit.assertions.assertArrayHasKey.example">
-        <title>Usage of assertArrayHasKey()</title>
+        <title>Использование assertArrayHasKey()</title>
         <programlisting><![CDATA[<?php
 class ArrayHasKeyTest extends PHPUnit_Framework_TestCase
 {
@@ -1013,10 +1019,16 @@ class ArrayHasKeyTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertClassHasAttribute()</primary></indexterm>
       <indexterm><primary>assertClassNotHasAttribute()</primary></indexterm>
       <para><literal>assertClassHasAttribute(string $attributeName, string $className[, string $message = ''])</literal></para>
-      <para>Reports an error identified by <literal>$message</literal> if <literal>$className::attributeName</literal> does not exist.</para>
-      <para><literal>assertClassNotHasAttribute()</literal> is the inverse of this assertion and takes the same arguments.</para>
+      <para>
+        Сообщает об ошибке <literal>$message</literal> если
+        <literal>$className::attributeName</literal> не существует.
+      </para>
+      <para>
+        <literal>assertClassNotHasAttribute()</literal>
+        утверждает обратное и принимает тот же набор аргументов.
+      </para>
       <example id="writing-tests-for-phpunit.assertions.assertClassHasAttribute.example">
-        <title>Usage of assertClassHasAttribute()</title>
+        <title>Использование assertClassHasAttribute()</title>
         <programlisting><![CDATA[<?php
 class ClassHasAttributeTest extends PHPUnit_Framework_TestCase
 {
@@ -1050,10 +1062,17 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertClassHasStaticAttribute()</primary></indexterm>
       <indexterm><primary>assertClassNotHasStaticAttribute()</primary></indexterm>
       <para><literal>assertClassHasStaticAttribute(string $attributeName, string $className[, string $message = ''])</literal></para>
-      <para>Reports an error identified by <literal>$message</literal> if <literal>$className::attributeName</literal> does not exist.</para>
-      <para><literal>assertClassNotHasStaticAttribute()</literal> is the inverse of this assertion and takes the same arguments.</para>
+      <para>
+        Сообщает об ошибке <literal>$message</literal> если
+        статический аттрибут <literal>$className::attributeName</literal>
+        не существет.
+      </para>
+      <para>
+        <literal>assertClassNotHasStaticAttribute()</literal>
+        утверждает обратное и принимает тот же набор аргументов.
+      </para>
       <example id="writing-tests-for-phpunit.assertions.assertClassHasStaticAttribute.example">
-        <title>Usage of assertClassHasStaticAttribute()</title>
+        <title>Использование assertClassHasStaticAttribute()</title>
         <programlisting><![CDATA[<?php
 class ClassHasStaticAttributeTest extends PHPUnit_Framework_TestCase
 {
@@ -1089,11 +1108,22 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertAttributeContains()</primary></indexterm>
       <indexterm><primary>assertAttributeNotContains()</primary></indexterm>
       <para><literal>assertContains(mixed $needle, Iterator|array $haystack[, string $message = ''])</literal></para>
-      <para>Reports an error identified by <literal>$message</literal> if <literal>$needle</literal> is not an element of <literal>$haystack</literal>.</para>
-      <para><literal>assertNotContains()</literal> is the inverse of this assertion and takes the same arguments.</para>
-      <para><literal>assertAttributeContains()</literal> and <literal>assertAttributeNotContains()</literal> are convenience wrappers that use a <literal>public</literal>, <literal>protected</literal>, or <literal>private</literal> attribute of a class or object as the haystack.</para>
+      <para>
+        Сообщает об ошибке <literal>$message</literal> если <literal>$needle</literal>
+        не является элементом <literal>$haystack</literal>.
+      </para>
+      <para>
+        <literal>assertNotContains()</literal>
+        утверждает обратное и принимает тот же набор аргументов.
+      </para>
+      <para>
+        <literal>assertAttributeContains()</literal> и <literal>assertAttributeNotContains()</literal>
+        это удобные обёртки, которые используют <literal>публичные</literal>, 
+        <literal>защищенные</literal>, или <literal>приватные</literal> 
+        аттрибуты класса или объекта в качестве области поиска.
+      </para>
       <example id="writing-tests-for-phpunit.assertions.assertContains.example">
-        <title>Usage of assertContains()</title>
+        <title>Использование assertContains()</title>
         <programlisting><![CDATA[<?php
 class ContainsTest extends PHPUnit_Framework_TestCase
 {
@@ -1122,9 +1152,12 @@ class ContainsTest extends PHPUnit_Framework_TestCase
       </example>
 
       <para><literal>assertContains(string $needle, string $haystack[, string $message = ''])</literal></para>
-      <para>Reports an error identified by <literal>$message</literal> if <literal>$needle</literal> is not a substring of <literal>$haystack</literal>.</para>
+      <para>
+        Сообщает об ошибке <literal>$message</literal> если <literal>$needle</literal>
+        не является подстрокой <literal>$haystack</literal>.
+      </para>
       <example id="writing-tests-for-phpunit.assertions.assertContains.example2">
-        <title>Usage of assertContains()</title>
+        <title>Использование assertContains()</title>
         <programlisting><![CDATA[<?php
 class ContainsTest extends PHPUnit_Framework_TestCase
 {
@@ -1160,12 +1193,22 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertAttributeContainsOnly()</primary></indexterm>
       <indexterm><primary>assertAttributeNotContainsOnly()</primary></indexterm>
       <para><literal>assertContainsOnly(string $type, Iterator|array $haystack[, boolean $isNativeType = NULL, string $message = ''])</literal></para>
-      <para>Reports an error identified by <literal>$message</literal> if <literal>$haystack</literal> does not contain only variables of type <literal>$type</literal>.</para>
-      <para><literal>$isNativeType</literal> is a flag used to indicate whether <literal>$type</literal> is a native PHP type or not.</para>
-      <para><literal>assertNotContainsOnly()</literal> is the inverse of this assertion and takes the same arguments.</para>
-      <para><literal>assertAttributeContainsOnly()</literal> and <literal>assertAttributeNotContainsOnly()</literal> are convenience wrappers that use a <literal>public</literal>, <literal>protected</literal>, or <literal>private</literal> attribute of a class or object as the actual value.</para>
+      <para>
+        Сообщает об ошибке <literal>$message</literal> если <literal>$haystack</literal>
+        содержит элементы отличные по типу от <literal>$type</literal>.
+      </para>
+      <para>
+        <literal>$isNativeType</literal> флаг который определяет является
+        ли <literal>$type</literal> встроенным типом PHP или нет.</para>
+      <para><literal>assertNotContainsOnly()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
+      <para>
+        <literal>assertAttributeContainsOnly()</literal> и <literal>assertAttributeNotContainsOnly()</literal>
+        это удобные обёртки, которые используют <literal>публичные</literal>,
+        <literal>защищенные</literal>, или <literal>приватные</literal>
+        аттрибуты класса или объекта в качестве области поиска.
+      </para>
       <example id="writing-tests-for-phpunit.assertions.assertContainsOnly.example">
-        <title>Usage of assertContainsOnly()</title>
+        <title>Использование assertContainsOnly()</title>
         <programlisting><![CDATA[<?php
 class ContainsOnlyTest extends PHPUnit_Framework_TestCase
 {

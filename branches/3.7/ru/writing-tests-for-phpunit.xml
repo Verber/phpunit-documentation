@@ -1557,8 +1557,9 @@ class EqualsTest extends PHPUnit_Framework_TestCase
       </para>
 
       <para><literal>assertEquals(float $expected, float $actual[, string $message = '', float $delta = 0])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если два числ
-        а с плавающей запятой <literal>$expected</literal> и <literal>$actual</literal>
+      <para>Сообщает об ошибке <literal>$message</literal> если два чиса
+        с плавающей запятой <literal>$expected</literal> и
+        <literal>$actual</literal>
         отличаются более чем на <literal>$delta</literal> друг от друга.
       </para>
       <para>Смотрите
@@ -1652,8 +1653,8 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       </example>
 
       <para><literal>assertEquals(object $expected, object $actual[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если два объ
-        екта <literal>$expected</literal> и <literal>$actual</literal>
+      <para>Сообщает об ошибке <literal>$message</literal> если два объекта
+        <literal>$expected</literal> и <literal>$actual</literal>
        имеют неодинаковые аттрибуты.
       </para>
       <example id="writing-tests-for-phpunit.assertions.assertEquals.example4">
@@ -2059,7 +2060,8 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertJsonFileNotEqualsJsonFile()</primary></indexterm>
       <para><literal>assertJsonFileEqualsJsonFile(mixed $expectedFile, mixed $actualFile[, string $message = ''])</literal></para>
       <para>
-        Сообщает об ошибке <literal>$message</literal> если the value of <literal>$actualFile</literal> matches the value of
+        Сообщает об ошибке <literal>$message</literal> если значение
+        <literal>$actualFile</literal> совпадает с
         <literal>$expectedFile</literal>.
       </para>
       <example id="writing-tests-for-phpunit.assertions.assertJsonFileEqualsJsonFile.example">
@@ -2099,7 +2101,8 @@ class JsonFileEqualsJsonFileTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertJsonStringNotEqualsJsonFile()</primary></indexterm>
       <para><literal>assertJsonStringEqualsJsonFile(mixed $expectedFile, mixed $actualJson[, string $message = ''])</literal></para>
       <para>
-        Сообщает об ошибке <literal>$message</literal> если the value of <literal>$actualJson</literal> matches the value of
+        Сообщает об ошибке <literal>$message</literal> если строка
+        <literal>$actualJson</literal> не совпадает с содержимым
         <literal>$expectedFile</literal>.
       </para>
       <example id="writing-tests-for-phpunit.assertions.assertJsonStringEqualsJsonFile.example">
@@ -2139,7 +2142,9 @@ class JsonStringEqualsJsonFileTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertJsonStringNotEqualsJsonString()</primary></indexterm>
       <para><literal>assertJsonStringEqualsJsonString(mixed $expectedJson, mixed $actualJson[, string $message = ''])</literal></para>
       <para>
-        Сообщает об ошибке <literal>$message</literal> если the value of <literal>$actualJson</literal> matches the value of
+        Сообщает об ошибке <literal>$message</literal> если
+        десериализованая строка
+        <literal>$actualJson</literal> не равна десериализованой строке
         <literal>$expectedJson</literal>.
       </para>
       <example id="writing-tests-for-phpunit.assertions.assertJsonStringEqualsJsonString.example">
@@ -2185,8 +2190,13 @@ class JsonStringEqualsJsonStringTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertLessThan()</primary></indexterm>
       <indexterm><primary>assertAttributeLessThan()</primary></indexterm>
       <para><literal>assertLessThan(mixed $expected, mixed $actual[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the value of <literal>$actual</literal> is not less than the value of <literal>$expected</literal>.</para>
-      <para><literal>assertAttributeLessThan()</literal> is a convenience wrapper that uses a <literal>public</literal>, <literal>protected</literal>, or <literal>private</literal> attribute of a class or object as the actual value.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если значение
+        <literal>$actual</literal> больше или равно значению
+        <literal>$expected</literal>.</para>
+      <para><literal>assertAttributeLessThan()</literal> удобная обёртка,
+        которая позволяет применять <literal>assertLessThan</literal> к
+        <literal>public</literal>, <literal>protected</literal>, или
+        <literal>private</literal> аттрибута класса или объекта.</para>
       <example id="writing-tests-for-phpunit.assertions.assertLessThan.example">
         <title>Использование assertLessThan()</title>
         <programlisting><![CDATA[<?php
@@ -2222,8 +2232,13 @@ class LessThanTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertLessThanOrEqual()</primary></indexterm>
       <indexterm><primary>assertAttributeLessThanOrEqual()</primary></indexterm>
       <para><literal>assertLessThanOrEqual(mixed $expected, mixed $actual[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the value of <literal>$actual</literal> is not less than or equal to the value of <literal>$expected</literal>.</para>
-      <para><literal>assertAttributeLessThanOrEqual()</literal> is a convenience wrapper that uses a <literal>public</literal>, <literal>protected</literal>, or <literal>private</literal> attribute of a class or object as the actual value.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если значение
+        <literal>$actual</literal> строго больше чем
+        <literal>$expected</literal>.</para>
+      <para><literal>assertAttributeLessThanOrEqual()</literal> удобная обёртка,
+        которая позволяет применять <literal>assertLessThanOrEqual</literal> к
+        <literal>public</literal>, <literal>protected</literal>, или
+        <literal>private</literal> аттрибута класса или объекта.</para>
       <example id="writing-tests-for-phpunit.assertions.assertLessThanOrEqual.example">
         <title>Использование assertLessThanOrEqual()</title>
         <programlisting><![CDATA[<?php
@@ -2259,8 +2274,10 @@ class LessThanOrEqualTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertNull()</primary></indexterm>
       <indexterm><primary>assertNotNull()</primary></indexterm>
       <para><literal>assertNull(mixed $variable[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если <literal>$variable</literal> is not <literal>NULL</literal>.</para>
-      <para><literal>assertNotNull()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если <literal>
+        $variable</literal> не <literal>NULL</literal>.</para>
+      <para><literal>assertNotNull()</literal> утверждает обратное и принимает
+        тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertNull.example">
         <title>Использование assertNull()</title>
         <programlisting><![CDATA[<?php
@@ -2296,8 +2313,10 @@ class NullTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertObjectHasAttribute()</primary></indexterm>
       <indexterm><primary>assertObjectNotHasAttribute()</primary></indexterm>
       <para><literal>assertObjectHasAttribute(string $attributeName, object $object[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если <literal>$object-&gt;attributeName</literal> does not exist.</para>
-      <para><literal>assertObjectNotHasAttribute()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если
+        <literal>$object-&gt;attributeName</literal> не существует.</para>
+      <para><literal>assertObjectNotHasAttribute()</literal> утверждает обратное
+        и принимает тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertObjectHasAttribute.example">
         <title>Использование assertObjectHasAttribute()</title>
         <programlisting><![CDATA[<?php
@@ -2333,8 +2352,11 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertRegExp()</primary></indexterm>
       <indexterm><primary>assertNotRegExp()</primary></indexterm>
       <para><literal>assertRegExp(string $pattern, string $string[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если <literal>$string</literal> does not match the regular expression <literal>$pattern</literal>.</para>
-      <para><literal>assertNotRegExp()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если
+      строка <literal>$string</literal> не соответствует регулярному выражению
+        <literal>$pattern</literal>.</para>
+      <para><literal>assertNotRegExp()</literal> утверждает обратное и принимает
+        тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertRegExp.example">
         <title>Использование assertRegExp()</title>
         <programlisting><![CDATA[<?php
@@ -2370,8 +2392,11 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertStringMatchesFormat()</primary></indexterm>
       <indexterm><primary>assertStringNotMatchesFormat()</primary></indexterm>
       <para><literal>assertStringMatchesFormat(string $format, string $string[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the <literal>$string</literal> does not match the <literal>$format</literal> string.</para>
-      <para><literal>assertStringNotMatchesFormat()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если строка
+        <literal>$string</literal> не соответствует формату
+        <literal>$format</literal></para>
+      <para><literal>assertStringNotMatchesFormat()</literal> утверждает обратное
+        и принимает тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertStringMatchesFormat.example">
         <title>Использование assertStringMatchesFormat()</title>
         <programlisting><![CDATA[<?php
@@ -2400,19 +2425,19 @@ Failed asserting that 'foo' matches PCRE pattern "/^[+-]?\d+$/s".
 FAILURES!
 Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       </example>
-      <para>The format string may contain the following placeholders:</para>
+      <para>Строка формата может содержать следующие шаблоны:</para>
       <itemizedlist>
-        <listitem><para><literal>%e</literal>: Represents a directory separator, for example <literal>/</literal> on Linux. </para></listitem>
-        <listitem><para><literal>%s</literal>: One or more of anything (character or white space) except the end of line character.</para></listitem>
-        <listitem><para><literal>%S</literal>: Zero or more of anything (character or white space) except the end of line character.</para></listitem>
-        <listitem><para><literal>%a</literal>: One or more of anything (character or white space) including the end of line character.</para></listitem>
-        <listitem><para><literal>%A</literal>: Zero or more of anything (character or white space) including the end of line character.</para></listitem>
-        <listitem><para><literal>%w</literal>: Zero or more white space characters.</para></listitem>
-        <listitem><para><literal>%i</literal>: A signed integer value, for example <literal>+3142</literal>, <literal>-3142</literal>.</para></listitem>
-        <listitem><para><literal>%d</literal>: An unsigned integer value, for example <literal>123456</literal>.</para></listitem>
-        <listitem><para><literal>%x</literal>: One or more hexadecimal character. That is, characters in the range <literal>0-9</literal>, <literal>a-f</literal>, <literal>A-F</literal>.</para></listitem>
-        <listitem><para><literal>%f</literal>: A floating point number, for example: <literal>3.142</literal>, <literal>-3.142</literal>, <literal>3.142E-10</literal>, <literal>3.142e+10</literal>.</para></listitem>
-        <listitem><para><literal>%c</literal>: A single character of any sort.</para></listitem>
+        <listitem><para><literal>%e</literal>: Обозначает разделитель папок, например <literal>/</literal> для Linux. </para></listitem>
+        <listitem><para><literal>%s</literal>: Один или более любых символов (включая пробелы) кроме символа конца строки.</para></listitem>
+        <listitem><para><literal>%S</literal>: Любое количество (ноль или больше)  любых символов (включая пробелы) кроме символа конца строки.</para></listitem>
+        <listitem><para><literal>%a</literal>: Один или более любых символов включая пробелы и символ конца строки.</para></listitem>
+        <listitem><para><literal>%A</literal>: Любое количество (ноль или больше)  любых символов, включая пробелы и символ конца строки.</para></listitem>
+        <listitem><para><literal>%w</literal>: Любое количество (ноль или больше) пробельных символов.</para></listitem>
+        <listitem><para><literal>%i</literal>: Целое число со знаком, например<literal>+3142</literal>, <literal>-3142</literal>.</para></listitem>
+        <listitem><para><literal>%d</literal>: Целое число без знака, например<literal>123456</literal>.</para></listitem>
+        <listitem><para><literal>%x</literal>: Один или более One or more шестнадцатиричных символов. Т.е. символов <literal>0-9</literal>, <literal>a-f</literal>, <literal>A-F</literal>.</para></listitem>
+        <listitem><para><literal>%f</literal>: Число с плавающей запятой, например: <literal>3.142</literal>, <literal>-3.142</literal>, <literal>3.142E-10</literal>, <literal>3.142e+10</literal>.</para></listitem>
+        <listitem><para><literal>%c</literal>: Один любой символ.</para></listitem>
       </itemizedlist>
     </section>
 
@@ -2421,7 +2446,7 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertStringMatchesFormatFile()</primary></indexterm>
       <indexterm><primary>assertStringNotMatchesFormatFile()</primary></indexterm>
       <para><literal>assertStringMatchesFormatFile(string $formatFile, string $string[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the <literal>$string</literal> does not match the contents of the <literal>$formatFile</literal>.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если строка <literal>$string</literal> не удовлетворяет формату из <literal>$formatFile</literal>.</para>
       <para><literal>assertStringNotMatchesFormatFile()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertStringMatchesFormatFile.example">
         <title>Использование assertStringMatchesFormatFile()</title>
@@ -2461,9 +2486,10 @@ Tests: 1, Assertions: 2, Failures: 1.]]></screen>
       <indexterm><primary>assertAttributeSame()</primary></indexterm>
       <indexterm><primary>assertAttributeNotSame()</primary></indexterm>
       <para><literal>assertSame(mixed $expected, mixed $actual[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the two variables <literal>$expected</literal> and <literal>$actual</literal> do not have the same type and value.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если две переменных <literal>$expected</literal> и <literal>$actual</literal> не совпадают одновременно по типу и значению.</para>
       <para><literal>assertNotSame()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
-      <para><literal>assertAttributeSame()</literal> and <literal>assertAttributeNotSame()</literal> are convenience wrappers that use a <literal>public</literal>, <literal>protected</literal>, or <literal>private</literal> attribute of a class or object as the actual value.</para>
+      <para><literal>assertAttributeSame()</literal> и <literal>assertAttributeNotSame()</literal> удобные обёртки
+        для сравнения <literal>public</literal>, <literal>protected</literal>, or <literal>private</literal> аттрибутов классов или объектов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertSame.example">
         <title>Использование assertSame()</title>
         <programlisting><![CDATA[<?php
@@ -2494,7 +2520,7 @@ class SameTest extends PHPUnit_Framework_TestCase
       </example>
 
       <para><literal>assertSame(object $expected, object $actual[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the two variables <literal>$expected</literal> and <literal>$actual</literal> do not reference the same object.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если две переменные <literal>$expected</literal> и <literal>$actual</literal> не ссылаются на один и тот же объект.</para>
 
       <example id="writing-tests-for-phpunit.assertions.assertSame.example2">
         <title>Использование assertSame() with objects</title>
@@ -2530,12 +2556,12 @@ class SameTest extends PHPUnit_Framework_TestCase
       <title><literal>assertSelectCount()</literal></title>
       <indexterm><primary>assertSelectCount()</primary></indexterm>
       <para><literal>assertSelectCount(array $selector, integer $count, mixed $actual[, string $message = '', boolean $isHtml = TRUE])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the CSS selector <literal>$selector</literal> does not match <literal>$count</literal> elements in the DOMNode <literal>$actual</literal>.</para>
-      <para><literal>$count</literal> can be one of the following types:</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если CSS селектор <literal>$selector</literal> выбирает из DOMNode <literal>$actual</literal> отличное от <literal>$count</literal> количество элементов.</para>
+      <para><literal>$count</literal> может быть одного из перечисленных типов:</para>
       <itemizedlist>
-        <listitem><literal>boolean</literal>: Asserts for presence of elements matching the selector (<literal>TRUE</literal>) or absence of elements (<literal>FALSE</literal>).</listitem>
-        <listitem><literal>integer</literal>: Asserts the count of elements.</listitem>
-        <listitem><literal>array</literal>: Asserts that the count is in a range specified by using <literal>&lt;</literal>, <literal>&gt;</literal>, <literal>&lt;=</literal>, and <literal>&gt;=</literal> as keys.</listitem>
+        <listitem><literal>boolean</literal>: Проверяет простое наличие (<literal>TRUE</literal>) или отсутствие (<literal>FALSE</literal>) элементов соответствующих селектору.</listitem>
+        <listitem><literal>integer</literal>: Проверяет количество элементов.</listitem>
+        <listitem><literal>array</literal>: Проверяет что количество элементов находится в заданном диапазоне заданном ключами массива в виде <literal>&lt;</literal>, <literal>&gt;</literal>, <literal>&lt;=</literal>, и <literal>&gt;=</literal>.</listitem>
       </itemizedlist>
       <example id="writing-tests-for-phpunit.assertions.assertSelectCount.example">
         <title>Использование assertSelectCount()</title>
@@ -2607,12 +2633,12 @@ class SelectCountTest extends PHPUnit_Framework_TestCase
       <title><literal>assertSelectEquals()</literal></title>
       <indexterm><primary>assertSelectEquals()</primary></indexterm>
       <para><literal>assertSelectEquals(array $selector, string $content, integer $count, mixed $actual[, string $message = '', boolean $isHtml = TRUE])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the CSS selector <literal>$selector</literal> does not match <literal>$count</literal> elements in the DOMNode <literal>$actual</literal> with the value <literal>$content</literal>.</para>
-      <para><literal>$count</literal> can be one of the following types:</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если CSS селектор <literal>$selector</literal> выбирает из DOMNode <literal>$actual</literal> отличное от <literal>$count</literal> количество элементов со значением <literal>$content</literal>.</para>
+      <para><literal>$count</literal> может быть одного из перечисленных типов:</para>
       <itemizedlist>
-        <listitem><literal>boolean</literal>: Asserts for presence of elements matching the selector (<literal>TRUE</literal>) or absence of elements (<literal>FALSE</literal>).</listitem>
-        <listitem><literal>integer</literal>: Asserts the count of elements.</listitem>
-        <listitem><literal>array</literal>: Asserts that the count is in a range specified by using <literal>&lt;</literal>, <literal>&gt;</literal>, <literal>&lt;=</literal>, and <literal>&gt;=</literal> as keys.</listitem>
+        <listitem><literal>boolean</literal>: Проверяет простое наличие (<literal>TRUE</literal>) или отсутствие (<literal>FALSE</literal>) элементов соответствующих селектору.</listitem>
+        <listitem><literal>integer</literal>: Проверяет количество элементов.</listitem>
+        <listitem><literal>array</literal>: Проверяет что количество элементов находится в заданном диапазоне заданном ключами массива в виде <literal>&lt;</literal>, <literal>&gt;</literal>, <literal>&lt;=</literal>, и <literal>&gt;=</literal>.</listitem>
       </itemizedlist>
       <example id="writing-tests-for-phpunit.assertions.assertSelectEquals.example">
         <title>Использование assertSelectEquals()</title>
@@ -2684,12 +2710,12 @@ class SelectEqualsTest extends PHPUnit_Framework_TestCase
       <title><literal>assertSelectRegExp()</literal></title>
       <indexterm><primary>assertSelectRegExp()</primary></indexterm>
       <para><literal>assertSelectRegExp(array $selector, string $pattern, integer $count, mixed $actual[, string $message = '', boolean $isHtml = TRUE])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the CSS selector <literal>$selector</literal> does not match <literal>$count</literal> elements in the DOMNode <literal>$actual</literal> with a value that matches <literal>$pattern</literal>.</para>
-      <para><literal>$count</literal> can be one of the following types:</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если CSS селектор <literal>$selector</literal> выбирает из DOMNode <literal>$actual</literal> отличное от <literal>$count</literal> количество элементов со значением которое соответствуе регулярному выражению <literal>$pattern</literal>.</para>
+      <para><literal>$count</literal> может быть одного из перечисленных типов:</para>
       <itemizedlist>
-        <listitem><literal>boolean</literal>: Asserts for presence of elements matching the selector (<literal>TRUE</literal>) or absence of elements (<literal>FALSE</literal>).</listitem>
-        <listitem><literal>integer</literal>: Asserts the count of elements.</listitem>
-        <listitem><literal>array</literal>: Asserts that the count is in a range specified by using <literal>&lt;</literal>, <literal>&gt;</literal>, <literal>&lt;=</literal>, and <literal>&gt;=</literal> as keys.</listitem>
+        <listitem><literal>boolean</literal>: Проверяет простое наличие (<literal>TRUE</literal>) или отсутствие (<literal>FALSE</literal>) элементов соответствующих селектору.</listitem>
+        <listitem><literal>integer</literal>: Проверяет количество элементов.</listitem>
+        <listitem><literal>array</literal>: Проверяет что количество элементов находится в заданном диапазоне заданном ключами массива в виде <literal>&lt;</literal>, <literal>&gt;</literal>, <literal>&lt;=</literal>, и <literal>&gt;=</literal>.</listitem>
       </itemizedlist>
       <example id="writing-tests-for-phpunit.assertions.assertSelectRegExp.example">
         <title>Использование assertSelectRegExp()</title>
@@ -2762,7 +2788,7 @@ class SelectRegExpTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertStringEndsWith()</primary></indexterm>
       <indexterm><primary>assertStringEndsNotWith()</primary></indexterm>
       <para><literal>assertStringEndsWith(string $suffix, string $string[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the <literal>$string</literal> does not end with <literal>$suffix</literal>.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если строка <literal>$string</literal> не заканчивается строкой <literal>$suffix</literal>.</para>
       <para><literal>assertStringEndsNotWith()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertStringEndsWith.example">
         <title>Использование assertStringEndsWith()</title>
@@ -2799,7 +2825,7 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertStringEqualsFile()</primary></indexterm>
       <indexterm><primary>assertStringNotEqualsFile()</primary></indexterm>
       <para><literal>assertStringEqualsFile(string $expectedFile, string $actualString[, string $message = ''])</literal></para>
-      <para>Reports an error identified by <literal>$message</literal>  if the file specified by <literal>$expectedFile</literal> does not have <literal>$actualString</literal> as its contents.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если файл указанный <literal>$expectedFile</literal> не содержит строки <literal>$actualString</literal>.</para>
       <para><literal>assertStringNotEqualsFile()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertStringEqualsFile.example">
         <title>Использование assertStringEqualsFile()</title>
@@ -2842,7 +2868,7 @@ class StringEqualsFileTest extends PHPUnit_Framework_TestCase
       <indexterm><primary>assertStringStartsWith()</primary></indexterm>
       <indexterm><primary>assertStringStartsNotWith()</primary></indexterm>
       <para><literal>assertStringStartsWith(string $prefix, string $string[, string $message = ''])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если the <literal>$string</literal> does not start with <literal>$prefix</literal>.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если строка <literal>$string</literal> не начинается строкой <literal>$prefix</literal>.</para>
       <para><literal>assertStringStartsNotWith()</literal> утверждает обратное и принимает тот же набор аргументов.</para>
       <example id="writing-tests-for-phpunit.assertions.assertStringStartsWith.example">
         <title>Использование assertStringStartsWith()</title>
@@ -2879,7 +2905,7 @@ Tests: 1, Assertions: 1, Failures: 1.]]></screen>
       <indexterm><primary>assertTag()</primary></indexterm>
       <indexterm><primary>assertNotTag()</primary></indexterm>
       <para><literal>assertTag(array $matcher, string $actual[, string $message = '', boolean $isHtml = TRUE])</literal></para>
-      <para>Сообщает об ошибке <literal>$message</literal> если <literal>$actual</literal> is not matched by the <literal>$matcher</literal>.</para>
+      <para>Сообщает об ошибке <literal>$message</literal> если <literal>$actual</literal> не соответствует  <literal>$matcher</literal>.</para>
       <para><literal>$matcher</literal> is an associative array that specifies the match criteria for the assertion:</para>
       <itemizedlist>
         <listitem><literal>id</literal>: The node with the given <literal>id</literal> attribute must match the corresponsing value.</listitem>

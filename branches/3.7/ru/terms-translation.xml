@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<appendix id="appendixes.terms-translation">
+  <title>Перевод терминов</title>
+
+  <para>
+    В этом файле содержится принятый в этой документации перевод терминов с
+    английского на русский.
+  </para>
+
+  <section id="appendixes.terms-translation.annotation">
+    <title><literal>Аннотация</literal></title>
+
+    <para>
+      <indexterm><primary>Аннотация</primary></indexterm>
+
+      Annotation - аннотация (см. <xref linkend="appendixes.annotations" />)
+    </para>
+  </section>
+
+  <section id="appendixes.terms-translation.stub">
+    <title><literal>Заглушка</literal></title>
+
+    <para>
+      <indexterm><primary>Заглушка</primary></indexterm>
+
+      Stub - заглушка (см. <xref linkend="test-doubles.stubs" />)
+    </para>
+  </section>
+
+  <section id="appendixes.terms-translation.mock-object">
+    <title><literal>Объект-имитация</literal></title>
+
+    <para>
+      <indexterm><primary>Объект-имитация</primary></indexterm>
+
+      Mock-object - объект-имитация (см. <xref linkend="test-doubles.mock-objects" />)
+      <note>
+        TBD: Возможно для этого термина стоит придумать лучший перевод или
+        оставить просто транслитерацию
+      </note>
+    </para>
+  </section>
+
+  <section id="appendixes.terms-translation.producer">
+    <title><literal>Поставщик</literal></title>
+
+    <para>
+      <indexterm><primary>Поставщик</primary></indexterm>
+
+      Producer - поставщик (см.
+      <xref linkend="writing-tests-for-phpunit.test-dependencies" /> и
+      <xref linkend="appendixes.annotations.depends" />)
+      <note>
+        Слово продьюсер как-то мало ассоциируется в русском с ИТ, и нам
+        кажется неправильным оставить его как есть, поэтому мы использовали
+        поставщик/потребитель. Есть еще вариант генератор/приёмник,
+        но он не подходит т.к. хуже передаёт суть зависимостей, кроме
+        этого генератор, на наш взгляд, предполагает некую последовательность
+        или протяженный по времени процесс, которого здесь нет.
+      </note>
+    </para>
+  </section>
+
+  <section id="appendixes.terms-translation.consumer">
+    <title><literal>Потребитель</literal></title>
+
+    <para>
+      <indexterm><primary>Потребитель</primary></indexterm>
+
+      Consumer - потребитель (см.
+      <xref linkend="writing-tests-for-phpunit.test-dependencies" /> и
+      <xref linkend="appendixes.annotations.depends" />)
+    </para>
+  </section>
+
+  <section id="appendixes.terms-translation.dataProvider">
+    <title><literal>Провайдер данных</literal></title>
+
+    <para>
+      <indexterm><primary>Провайдер данных</primary></indexterm>
+
+      Data provider - провайдер данных (см.
+      <xref linkend="writing-tests-for-phpunit.data-providers" />
+      <xref linkend="appendixes.annotations.dataProvider" />)
+      <note>
+        Поскольку слово провайдер уже закрепилось в русском языке причём именно
+        в ИТшной среде то мы предлагаем его оставить как есть, к тому же
+        таким образом мы избежим двусмысленности c поставщиком
+        (см.<xref linkend="appendixes.terms-translation.producer" />)
+      </note>
+    </para>
+  </section>
+
+  <section> <!-- id="appendixes.configuration.testsuites" -->
+    <title><literal>Тест-кейс</literal></title>
+
+    <para>
+      <indexterm><primary>Тест-кейс</primary></indexterm>
+
+      Test case - Тест-кейс
+    </para>
+  </section>
+
+  <section> <!--  id="appendixes.configuration.testsuites" -->
+    <title><literal>Тест-комплект</literal></title>
+
+    <para>
+      <indexterm><primary>Тест-комплект</primary></indexterm>
+
+      Test suite - Тест-комплект
+    </para>
+  </section>
+
+  <section id="appendixes.terms-translation.test-double">
+    <title><literal>Тестовый макет</literal></title>
+
+    <para>
+      <indexterm><primary>Тестовый макет</primary></indexterm>
+
+      Test double - тестовый макет (см. <xref linkend="test-doubles" />)
+      <note>
+        На наш взгляд практически идеально передаёт суть и назначение test
+        doubles с инженерной точки зрения.
+      </note>
+    </para>
+  </section>
+
+  <section id="appendixes.terms-translation.assertion">
+    <title><literal>Утверждение</literal></title>
+
+    <para>
+      <indexterm><primary>Утверждение</primary></indexterm>
+
+      Assertion - утверждение (см. <xref linkend="appendixes.assertions" />)
+      <note>
+        TBD: Возможно для этого термина стоит придумать лучший перевод.
+        Как вариант можно использовать слово "предикат", правда есть
+        опасность сбить этим переводом с толку четателей, т.к. у этого слова
+        есть вполне неоднозначный перевод predicate и возможно сложнее будет
+        запомнить что предикат это функция assertSomeThing. В крайнем случае
+        можно оставить  просто транслитерацию, если не придумается ничего
+        лучшего.
+      </note>
+    </para>
+  </section>
+
+</appendix>

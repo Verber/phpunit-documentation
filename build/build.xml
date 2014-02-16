@@ -259,6 +259,13 @@
     </antcall>
   </target>
 
+  <target name="build-ru-3.7" depends="check-ru-3.7">
+    <antcall target="build">
+      <param name="language" value="ru"/>
+      <param name="version" value="3.7"/>
+    </antcall>
+  </target>
+
   <target name="check-en-2.3">
     <antcall target="check">
       <param name="language" value="en"/>
@@ -452,6 +459,13 @@
     <antcall target="check">
       <param name="language" value="de"/>
       <param name="version" value="2.3"/>
+    </antcall>
+  </target>
+
+  <target name="check-ru-3.7">
+    <antcall target="check">
+      <param name="language" value="ru"/>
+      <param name="version" value="3.7"/>
     </antcall>
   </target>
 </project>

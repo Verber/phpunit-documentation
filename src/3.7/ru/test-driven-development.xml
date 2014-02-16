@@ -54,60 +54,62 @@
     объектно-ориентированному программированию интерфейсов вместо программирования
     имплементации: когда вы пишете тест вы думаете об интерфейсе объекта, который вы тестируете,
     о том как будет выглядеть ваш объект снаружи. Когда вы заставляете тест работать, вы
-    думаете только о чистой имплементации.
-    Интерфейс зафиксирован проавльными тестами <!-- TODO: эм... херня какая-то или я что-то недопонял в оригинале-->
+    думаете только о чистой имплементации. В то же время интерфейс чётко определён вашими проваленными тестами.
   </para>
 
   <blockquote>
     <attribution>Dan North</attribution>
     <para>
-      The point of <ulink url="http://en.wikipedia.org/wiki/Test-driven_development">Test-Driven Development</ulink>
-      is to drive out the functionality the software actually needs, rather
-      than what the programmer thinks it probably ought to have. The way it
-      does this seems at first counterintuitive, if not downright silly, but
-      it not only makes sense, it also quickly becomes a natural and elegant
-      way to develop software.
+      Идея
+      <ulink url="http://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">
+      разработки через тестирование
+      </ulink>
+      в том чтобы выдавать фунциональность которая действительно нужна в
+      программе, а не то что программист считает она должна возможно делать.
+      Способ, которым она это делает, кажется сперва контр-интуитивным, если
+      не сказать дурацким, однако он не только имеет смысл, он быстро становится
+      естественным и элегантным способом разрабатывать программное обеспечение.
     </para>
   </blockquote>
 
   <para>
-    What follows is necessarily an abbreviated introduction to Test-Driven
-    Development. You can explore the topic further in other books, such as
+    Далее следует краткое введение в разработку через тестирование.
+    Вы можете изучить эту тему более подробно в книгах
     <emphasis>Test-Driven Development</emphasis> <xref linkend="Beck2002" />
-    by Kent Beck or Dave Astels' <emphasis>A Practical Guide to Test-Driven
+    Кента Бека (Kent Beck) и Дейва Астелса (Dave Astels) <emphasis>A Practical Guide to Test-Driven
     Development</emphasis> <xref linkend="Astels2003" />.
   </para>
 
   <section id="test-driven-development.bankaccount-example">
-    <title>BankAccount Example</title>
+    <title>Пример: банковский счёт (BankAccount)</title>
 
     <para>
-      In this section, we will look at the example of a class that represents
-      a bank account. The contract for the <literal>BankAccount</literal>
-      class not only requires methods to get and set the bank account's
-      balance, as well as methods to deposit and withdraw money. It also
-      specifies the following two conditions that must be ensured:
+      В этом разделе мы рассмотрим пример класса, который представляет
+      банковский счёт. Контракт для <literal>BankAccount</literal>
+      требует не только методы для установи и получения баланса банковского
+      счёта, но и методы для пополнения и вывода денег. Кроме этого он
+      устанавливает следующие два условия, которые должны соблюдаться:
     </para>
 
     <itemizedlist>
       <listitem>
-        <para>The bank account's initial balance must be zero.</para>
+        <para>Начальный баланс счёта должен быть равен нулю.</para>
       </listitem>
 
       <listitem>
-        <para>The bank account's balance cannot become negative.</para>
+        <para>Баланс не может стать отрицательным.</para>
       </listitem>
     </itemizedlist>
 
     <para>
-      We write the tests for the <literal>BankAccount</literal> class before we
-      write the code for the class itself. We use the contract conditions as the
-      basis for the tests and name the test methods accordingly, as shown in
+      Мы пишем тесты для класса <literal>BankAccount</literal> до того как
+      писать код самого класса. Мы используем условия контракта как
+      основу для тестов и именуем тестовые методы соответственно, как показано в
       <xref linkend="test-driven-development.bankaccount-example.examples.BankAccountTest.php" />.
     </para>
 
     <example id="test-driven-development.bankaccount-example.examples.BankAccountTest.php">
-      <title>Tests for the BankAccount class</title>
+      <title>Тесты для класса BankAccount</title>
       <programlisting><![CDATA[<?php
 require_once 'BankAccount.php';
 
@@ -159,15 +161,15 @@ class BankAccountTest extends PHPUnit_Framework_TestCase
     </example>
 
     <para>
-      We now write the minimal amount of code needed for the first test,
-      <literal>testBalanceIsInitiallyZero()</literal>, to pass. In our
-      example this amounts to implementing the <literal>getBalance()</literal>
-      method of the <literal>BankAccount</literal> class, as shown in
+      Теперь мы пишем минимально необходимое количество кода,
+      для того чтобы первый тест <literal>testBalanceIsInitiallyZero()</literal>, прошёл.
+      В нашем примере это имплементация метода <literal>getBalance()</literal>
+      класса <literal>BankAccount</literal> как показано
       <xref linkend="test-driven-development.bankaccount-example.examples.BankAccount.php" />.
     </para>
 
     <example id="test-driven-development.bankaccount-example.examples.BankAccount.php">
-      <title>Code needed for the testBalanceIsInitiallyZero() test to pass</title>
+      <title>Код необходимый для того, чтобы тест testBalanceIsInitiallyZero() прошёл</title>
       <programlisting><![CDATA[<?php
 class BankAccount
 {
@@ -182,9 +184,9 @@ class BankAccount
     </example>
 
     <para>
-      The test for the first contract condition now passes, but the tests for
-      the second contract condition fail because we have yet to implement the
-      methods that these tests call.
+      Тест для первого условия контракта сейчас проходит, но тесты для
+      второго условия контракта падают, так как мы еще не реализовали методы
+      которые вызывают эти тесты.
     </para>
 
     <screen><userinput>phpunit BankAccountTest</userinput>
@@ -194,18 +196,18 @@ PHPUnit 3.7.0 by Sebastian Bergmann.
 Fatal error: Call to undefined method BankAccount::withdrawMoney()</screen>
 
     <para>
-      For the tests that ensure the second contract condition to pass, we now
-      need to implement the <literal>withdrawMoney()</literal>,
-      <literal>depositMoney()</literal>, and <literal>setBalance()</literal>
-      methods, as shown in
+      Для тестов, которые обеспечивают второе условие контракта, мы
+      должны реализовать методы <literal>withdrawMoney()</literal>,
+      <literal>depositMoney()</literal>, и <literal>setBalance()</literal>
+      как показано в
       <xref linkend="test-driven-development.bankaccount-example.examples.BankAccount2.php" />.
-      These methods are written in a such a way that they raise an
-      <literal>BankAccountException</literal> when they are called with
-      illegal values that would violate the contract conditions.
+      Эти методы написаны таким образом чтобы вызывать исключение
+      <literal>BankAccountException</literal> когда они вызваны с
+      неверными значениями, которые могут нарушить условия контракта.
     </para>
 
     <example id="test-driven-development.bankaccount-example.examples.BankAccount2.php">
-      <title>The complete BankAccount class</title>
+      <title>Законченый класс BankAccount</title>
       <programlisting><![CDATA[<?php
 class BankAccount
 {
@@ -243,7 +245,7 @@ class BankAccount
     </example>
 
     <para>
-      The tests that ensure the second contract condition now pass, too:
+      Теперь тесты, которые проверяют второе условие контракта тоже проходят:
     </para>
 
     <screen><userinput>phpunit BankAccountTest</userinput>

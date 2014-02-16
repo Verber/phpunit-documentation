@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<chapter id="skeleton-generator">
+  <title>Генератор каркаса</title>
+
+  <para>
+    Генератор каркаса в PHPUnit это утилита, позволяющая создавать каркасы
+    классов тестов исходя из рабочих классов и наоборот. Его можно установить
+    с помощью следующей команды:
+  </para>
+
+  <screen><userinput>pear install phpunit/PHPUnit_SkeletonGenerator</userinput></screen>
+
+  <section id="skeleton-generator.test">
+    <title>Создание каркаса тест класса</title>
+
+  <para>
+    <indexterm><primary>Генератор каркаса</primary></indexterm>
+
+    Когда тестируется уже готовый код приходится писать одинаковые фрагменты
+    теста, такие как <programlisting>public function testMethod()
+{
+}</programlisting>. Генератор каркасов PHPUnit может помочь в этом. он создаёт
+    шаблон для класса теста, анализируя код существующего класса .
+  </para>
+
+  <example id="skeleton-generator.examples.Calculator.php">
+    <title>Класс Calculator</title>
+    <programlisting><![CDATA[<?php
+class Calculator
+{
+    public function add($a, $b)
+    {
+        return $a + $b;
+    }
+}
+?>]]></programlisting>
+  </example>
+
+  <para>
+    Следующий пример показывает как создать шаблон тестового класса
+    <literal>Calculator</literal>
+    (см. <xref linkend="skeleton-generator.examples.Calculator.php" />).
+  </para>
+
+  <screen><userinput>phpunit-skelgen --test Calculator</userinput>
+PHPUnit Skeleton Generator 1.0.0 by Sebastian Bergmann.
+
+Wrote skeleton for "CalculatorTest" to "/home/sb/CalculatorTest.php".</screen>
+
+  <para>
+    <indexterm><primary>Незаконченный тест</primary></indexterm>
+
+    Для каждого метода исходного класса будут созданы незаконченные (incomplete)
+    тест кейсы (см. <xref linkend="incomplete-and-skipped-tests" />) в созданном
+    генератором классе.
+  </para>
+
+  <note>
+    <title>Классы с пространствами имен и генератор каркаса</title>
+
+    <para>
+      Когда PHPUnit создает каркас для класса, который объявлен в
+      <ulink url="http://ru2.php.net/namespace">пространстве имён</ulink>,
+      необходимо предоставить полное имя класса и путь к файлу исходного класса.
+    </para>
+
+    <para>
+      Например, для класса <literal>Calculator</literal>, который объявлен в
+      пространстве имён <literal>project</literal> следует вызвать генератор
+      каркаса следующим образом:
+      <screen><userinput>phpunit-skelgen --test -- &quot;project\Calculator&quot; Calculator.php</userinput>
+PHPUnit Skeleton Generator 1.0.0 by Sebastian Bergmann.
+
+Wrote skeleton for "project\CalculatorTest" to "/home/sb/CalculatorTest.php".</screen>
+    </para>
+  </note>
+
+  <para>
+    Ниже представлен вывод запуска тестирования для нового созданного класса:
+  </para>
+
+  <screen><userinput>phpunit --bootstrap Calculator.php --verbose CalculatorTest</userinput>
+PHPUnit 3.7.0 by Sebastian Bergmann.
+
+I
+
+Time: 0 seconds, Memory: 3.50Mb
+
+There was 1 incomplete test:
+
+1) CalculatorTest::testAdd
+This test has not been implemented yet.
+
+/home/sb/CalculatorTest.php:38
+OK, but incomplete or skipped tests!
+Tests: 1, Assertions: 0, Incomplete: 1.</screen>
+
+    <para>
+      <indexterm><primary>Аннотации</primary></indexterm>
+      <indexterm><primary>@assert</primary></indexterm>
+
+      Используя аннотацию <literal>@assert</literal> в блоке документации
+      исходного метода можно создать простой, но все же работающий тест вместо
+      незавершённого тест кейса.
+      <xref linkend="skeleton-generator.test.examples.Calculator.php" />
+      показывает пример использования аннотации.
+    </para>
+
+    <example id="skeleton-generator.test.examples.Calculator.php">
+      <title>Класс Calculator c аннотациями @assert</title>
+      <programlisting><![CDATA[<?php
+class Calculator
+{
+    /**
+     * @assert (0, 0) == 0
+     * @assert (0, 1) == 1
+     * @assert (1, 0) == 1
+     * @assert (1, 1) == 2
+     */
+    public function add($a, $b)
+    {
+        return $a + $b;
+    }
+}
+?>]]></programlisting>
+    </example>
+
+    <para>
+      Каждый метод исходного класса проверяется на наличие аннотации
+      <literal>@assert</literal>, и они преобразуются в тестовый код, такой как
+      <programlisting>    /**
+     * Generated from @assert (0, 0) == 0.
+     */
+    public function testAdd() {
+        $o = new Calculator;
+        $this->assertEquals(0, $o->add(0, 0));
+    }</programlisting>
+    </para>
+
+    <para>
+      Ниже представлен пример запуска созданного класса тест кейса.
+    </para>
+
+    <screen><userinput>phpunit --bootstrap Calculator.php --verbose CalculatorTest</userinput>
+PHPUnit 3.7.0 by Sebastian Bergmann.
+
+....
+
+Time: 0 seconds, Memory: 3.50Mb
+
+OK (4 tests, 4 assertions)</screen>
+
+    <para>
+      <xref linkend="skeleton-generator.test.tables.assert-annotations" />
+      показывает все возможные варианты аннотации <literal>@assert</literal>
+      и то как они преобразуются в код теста.
+    </para>
+
+    <table id="skeleton-generator.test.tables.assert-annotations">
+      <title>Поддерживаемые варианты аннотации @assert</title>
+
+      <tgroup cols="2" align="left" colsep="1" rowsep="1">
+        <thead>
+          <row>
+            <entry>Аннотация</entry>
+            <entry>Преобразуется в</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry><literal>@assert (...) == X</literal></entry>
+            <entry><literal>assertEquals(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) != X</literal></entry>
+            <entry><literal>assertNotEquals(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) === X</literal></entry>
+            <entry><literal>assertSame(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) !== X</literal></entry>
+            <entry><literal>assertNotSame(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) &gt; X</literal></entry>
+            <entry><literal>assertGreaterThan(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) &gt;= X</literal></entry>
+            <entry><literal>assertGreaterThanOrEqual(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) &lt; X</literal></entry>
+            <entry><literal>assertLessThan(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) &lt;= X</literal></entry>
+            <entry><literal>assertLessThanOrEqual(X, method(...))</literal></entry>
+          </row>
+          <row>
+            <entry><literal>@assert (...) throws X</literal></entry>
+            <entry><literal>@expectedException X</literal></entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </section>
+
+  <section id="skeleton-generator.class">
+    <title>Создание рабочего класса из класса тест кейса</title>
+
+    <para>
+      Когда вы используете Test-Driven Development (см. <xref linkend="test-driven-development"/>)
+      и пишете тесты перед тем как писать код, который выполняется тестами,
+      PHPUnit может помочь создать каркасы рабочих классов из классов тест
+      кейсов.
+    </para>
+
+    <para>
+      Соглашение подразумевает что тесты для класса <literal>Unit</literal>
+      реализованы в классе <literal>UnitTest</literal>. В этом классе генератор ищет
+      все переменные, которые ссылаются на класс <literal>Unit</literal> и
+      анализирует все методы, вызываемые этими объектами. Например, взгляните
+      на код <xref linkend="skeleton-generator.class.examples.BowlingGame.php"/>,
+      который был создан при анализе <xref
+      linkend="skeleton-generator.class.examples.BowlingGameTest.php"/>.
+    </para>
+
+    <example id="skeleton-generator.class.examples.BowlingGameTest.php">
+      <title>Класс BowlingGameTest</title>
+      <programlisting><![CDATA[<?php
+class BowlingGameTest extends PHPUnit_Framework_TestCase
+{
+    protected $game;
+
+    protected function setUp()
+    {
+        $this->game = new BowlingGame;
+    }
+
+    protected function rollMany($n, $pins)
+    {
+        for ($i = 0; $i < $n; $i++) {
+            $this->game->roll($pins);
+        }
+    }
+
+    public function testScoreForGutterGameIs0()
+    {
+        $this->rollMany(20, 0);
+        $this->assertEquals(0, $this->game->score());
+    }
+}
+?>]]></programlisting>
+    </example>
+
+    <screen><userinput>phpunit-skelgen --class BowlingGameTest</userinput>
+PHPUnit Skeleton Generator 1.0.0 by Sebastian Bergmann.
+
+Wrote skeleton for "BowlingGame" to "./BowlingGame.php".</screen>
+
+    <example id="skeleton-generator.class.examples.BowlingGame.php">
+      <title>Сгенерированный каркас класса BowlingGame</title>
+      <programlisting><![CDATA[<?php
+/**
+ * Generated by PHPUnit_SkeletonGenerator on 2012-01-09 at 16:55:58.
+ */
+class BowlingGame
+{
+    /**
+     * @todo Implement roll().
+     */
+    public function roll()
+    {
+        // Remove the following line when you implement this method.
+        throw new RuntimeException('Not yet implemented.');
+    }
+
+    /**
+     * @todo Implement score().
+     */
+    public function score()
+    {
+        // Remove the following line when you implement this method.
+        throw new RuntimeException('Not yet implemented.');
+    }
+}
+?>]]></programlisting>
+    </example>
+
+    <para>
+      Ниже приведён вывод запуска тестов для созданного класса
+    </para>
+
+    <screen><userinput>phpunit --bootstrap BowlingGame.php BowlingGameTest</userinput>
+PHPUnit 3.7.0 by Sebastian Bergmann.
+
+E
+
+Time: 0 seconds, Memory: 3.50Mb
+
+There was 1 error:
+
+1) BowlingGameTest::testScoreForGutterGameIs0
+RuntimeException: Not yet implemented.
+
+/home/sb/BowlingGame.php:13
+/home/sb/BowlingGameTest.php:14
+/home/sb/BowlingGameTest.php:20
+
+FAILURES!
+Tests: 1, Assertions: 0, Errors: 1.</screen>
+  </section>
+</chapter>

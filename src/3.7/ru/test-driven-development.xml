@@ -261,19 +261,18 @@ OK (3 tests, 3 assertions)</screen>
     <para>
       <indexterm><primary>PHPUnit_Framework_Assert</primary></indexterm>
 
-      Alternatively, you can use the static assertion methods provided by the
-      <literal>PHPUnit_Framework_Assert</literal> class to write the contract
-      conditions as design-by-contract style assertions into your code, as
-      shown in <xref linkend="test-driven-development.bankaccount-example.examples.BankAccount3.php" />.
-      When one of these assertions fails, an
-      <literal>PHPUnit_Framework_AssertionFailedError</literal> exception
-      will be raised. With this approach, you write less code for the contract
-      condition checks and the tests become more readable. However, you add a
-      runtime dependency on PHPUnit to your project.
+      Как альтернативу, можно использовать статические методы-утверждения класса
+      <literal>PHPUnit_Framework_Assert</literal> для описания условий контракта
+      в коде в виде утверждений в стиле программирования по контракту, как показано в
+      <xref linkend="test-driven-development.bankaccount-example.examples.BankAccount3.php" />.
+      Когда какое-то из утверждений не верно будет вызвано исключение
+      <literal>PHPUnit_Framework_AssertionFailedError</literal>. В этом случае
+      вы пишете меньнше кода для проверки уловий контракта и тесты становятся более
+      читабельными. Однако, вы добавляете в ваш рабочий код зависимость от PHPUnit.
     </para>
 
     <example id="test-driven-development.bankaccount-example.examples.BankAccount3.php">
-      <title>The BankAccount class with Design-by-Contract assertions</title>
+      <title>Класс BankAccount с утверждениями в стиле контрактного программирования</title>
       <programlisting><![CDATA[<?php
 class BankAccount
 {

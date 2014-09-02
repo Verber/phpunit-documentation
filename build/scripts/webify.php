@@ -2,7 +2,7 @@
 <?php
 require dirname(__FILE__) . DIRECTORY_SEPARATOR . 'HTMLFilterIterator.php';
 
-function webify_directory($directory, $edition)
+function webify_directory($directory, $language, $version)
 {
     $toc = get_substring(
       file_get_contents($directory . DIRECTORY_SEPARATOR . 'index.html'),
@@ -13,77 +13,86 @@ function webify_directory($directory, $edition)
       TRUE
     );
 
-    $_editions = '';
-    //$base_url = 'http://www.phpunit.de/manual';
-    $base_url = 'http://phpunit-doc.verber.kh.ua';
+    $toc = str_replace(
+      'class="toc"',
+      'class="toc nav hidden-print"',
+      $toc
+    );
+
     $editions  = array(
       'en'    => array('3.8', '3.7'),
       'fr'    => array('3.8', '3.7'),
       'ja'    => array('3.8', '3.7'),
       'pt_br' => array('3.8', '3.7'),
-      'ru'    => array('3.7')
+      'zh_cn' => array('3.8', '3.7')
     );
 
-    foreach ($editions as $language => $versions) {
-        foreach ($versions as $version) {
-            if ($language . '-' . $version == $edition) {
-                $active = ' class="active"';
-            } else {
-                $active = '';
+    $languageList = '';
+    $versionList  = '';
+
+    foreach ($editions as $_language => $versions) {
+        switch ($_language) {
+            case 'de': {
+                $_languageName = 'German';
             }
+            break;
 
-            switch ($language) {
-                case 'de': {
-                    $_language = 'German';
-                }
-                break;
-
-                case 'en': {
-                    $_language = 'English';
-                }
-                break;
-
-                case 'fr': {
-                    $_language = 'French';
-                }
-                break;
-
-                case 'ru': {
-                    $_language = 'Russian';
-                }
-                break;
-
-                case 'de': {
-                    $_language = 'German';
-                case 'ja': {
-                    $_language = 'Japanese';
-                }
-                break;
-
-                case 'pt_br': {
-                    $_language = 'Brazilian Portuguese';
-                }
-                break;
+            case 'en': {
+                $_languageName = 'English';
             }
+            break;
 
-            $_editions .= sprintf(
-              '<li><a href="%s/%s/%s/index.html"%s>PHPUnit %s <span><small>%s</small></span></a></li>',
-              $base_url,
-              $version,
-              $language,
-              $active,
-              $version,
-              $_language
-            );
+            case 'fr': {
+                $_languageName = 'French';
+            }
+            break;
+
+            case 'ja': {
+                $_languageName = 'Japanese';
+            }
+            break;
+
+            case 'pt_br': {
+                $_languageName = 'Brazilian Portuguese';
+            }
+            break;
+
+            case 'zh_cn': {
+                $_languageName = 'Simplified Chinese';
+            }
+            break;
+
         }
+
+        $languageList .= sprintf(
+          '<li%s><a href="../%s/index.html">%s</a></li>',
+          $language == $_language ? ' class="active"' : '',
+          $_language,
+          $_languageName
+        );
+
+    }
+
+
+    //$versionList:
+    //only list available version in current language, default-language = en.
+    $versions = $editions[ array_key_exists($language, $editions) ? $language : 'en' ];
+    foreach ($versions as $_version) {
+        $versionList .= sprintf(
+          '<li%s><a href="../../%s/%s/index.html">PHPUnit %s</a></li>',
+          $version == $_version ? ' class="active"' : '',
+          $_version,
+          $language,
+          $_version
+        );
     }
 
     foreach (new HTMLFilterIterator(new DirectoryIterator($directory)) as $file) {
-        webify_file($file->getPathName(), $toc, $_editions);
+        webify_file($file->getPathName(), $toc, $languageList, $versionList, $language);
     }
 }
 
-function webify_file($file, $toc, $editions)
+function webify_file($file, $toc, $languageList, $versionList, $language)
 {
     $filename = basename($file);
 
@@ -101,10 +110,25 @@ function webify_file($file, $toc, $editions)
       dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'page.html'
     );
 
-    $title   = '';
-    $content = '';
-    $prev    = '';
-    $next    = '';
+    $title       = '';
+    $content     = '';
+    $prev        = '';
+    $next        = '';
+    $suggestions = '';
+
+    // i18n for text on page.
+    $prev_text = array(
+        'en' => 'Prev',
+        'zh_cn' => '上一章',
+    );
+    $next_text = array(
+        'en' => 'Next',
+        'zh_cn' => '下一章',
+    );
+    $suggestions_text = array(
+        'en' => 'Please <a href="https://github.com/sebastianbergmann/phpunit-documentation/issues">open a ticket</a> on GitHub to suggest improvements to this page. Thanks!',
+        'zh_cn' => '请在 GitHub 上 <a href="https://github.com/sebastianbergmann/phpunit-documentation/issues">开启任务单</a> 来对本页提出改进建议。万分感谢！',
+    );
 
     if ($filename !== 'index.html') {
         if (strpos($filename, 'appendixes') === 0) {
@@ -119,40 +143,39 @@ function webify_file($file, $toc, $editions)
             $type = 'chapter';
         }
 
-        $buffer  = file_get_contents($file);
-        $title   = get_substring($buffer, '<title>', '</title>', FALSE, FALSE);
-        $content = get_substring($buffer, '<div class="' . $type . '"', '<div class="navfooter">', TRUE, FALSE);
-        $prev    = get_substring($buffer, '<link rel="prev" href="', '" title', FALSE, FALSE);
-        $next    = get_substring($buffer, '<link rel="next" href="', '" title', FALSE, FALSE);
+        $buffer      = file_get_contents($file);
+        $title       = get_substring($buffer, '<title>', '</title>', FALSE, FALSE);
+        $content     = get_substring($buffer, '<div class="' . $type . '"', '<div class="navfooter">', TRUE, FALSE);
+        $prev        = get_substring($buffer, '<link rel="prev" href="', '" title', FALSE, FALSE);
+        $next        = get_substring($buffer, '<link rel="next" href="', '" title', FALSE, FALSE);
+        $suggestions = '<div class="row"><div class="col-md-2"></div><div class="col-md-8"><div class="alert alert-info" style="text-align: center;">' . get_text_in_language($suggestions_text, $language) . '</div></div><div class="col-md-2"></div></div>';
 
         if (!empty($prev)) {
-            $prev = '<a accesskey="p" href="' . $prev . '">Prev</a>';
+            $prev = '<a accesskey="p" href="' . $prev . '">' . get_text_in_language($prev_text, $language) . '</a>';
         }
 
         if (!empty($next)) {
-            $next = '<a accesskey="n" href="' . $next . '">Next</a>';
+            $next = '<a accesskey="n" href="' . $next . '">' . get_text_in_language($next_text, $language) . '</a>';
         }
     }
 
     $buffer = str_replace(
-      array('{title}', '{content}', '{toc}', '{editions}', '{prev}', '{next}'),
-      array($title, $content, $toc, $editions, $prev, $next),
+      array('{title}', '{content}', '{toc}', '{languages}', '{versions}', '{prev}', '{next}', '<div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">', '<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">', '{suggestions}'),
+      array($title, $content, $toc, $languageList, $versionList, $prev, $next, '<div class="alert alert-error">', '<div class="alert alert-info">', $suggestions),
       $template
     );
 
-    if (function_exists('tidy_repair_string')) {
-        $buffer = tidy_repair_string(
-          $buffer,
-          array(
-            'indent'       => TRUE,
-            'output-xhtml' => TRUE,
-            'wrap'         => 0
-          ),
-          'utf8'
-        );
-    }
-
     file_put_contents($file, $buffer);
+}
+
+function get_text_in_language($text_list, $lang)
+{
+    if(array_key_exists($lang, $text_list)){
+        return $text_list[$lang];
+    }
+    else{
+        return $text_list['en'];
+    }
 }
 
 function get_substring($buffer, $start, $end, $includeStart = TRUE, $includeEnd = TRUE, $strrpos = FALSE)
@@ -188,4 +211,4 @@ function get_substring($buffer, $start, $end, $includeStart = TRUE, $includeEnd 
     }
 }
 
-webify_directory($argv[1], $argv[2]);
+webify_directory($argv[1], $argv[2], $argv[3]);

@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<chapter id="test-driven-development">
+  <title>Test-Driven Development</title>
+
+  <para>
+    <indexterm><primary>Контрактное программирование</primary></indexterm>
+    <indexterm><primary>Экстремальное программирование</primary></indexterm>
+    <indexterm><primary>Разработка через тестирование</primary></indexterm>
+    <indexterm><primary>Тесты до кода</primary></indexterm>
+    <indexterm><primary>Модульное тестирование</primary></indexterm>
+
+    Модульные тесты это существенная часть таких процессов и практик разработки
+    как тестирование до кода,
+    <ulink url="http://ru.wikipedia.org/wiki/%D0%AD%D0%BA%D1%81%D1%82%D1%80%D0%B5%D0%BC%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">
+      экстремальное программирование
+    </ulink>,
+    и <ulink url="http://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">
+      разработка через тестирование
+    </ulink>.
+    Кроме этого, они позволяют реализовать
+    <ulink url="http://ru.wikipedia.org/wiki/%D0%9A%D0%BE%D0%BD%D1%82%D1%80%D0%B0%D0%BA%D1%82%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">
+      контрактное программирование
+    </ulink>
+    для тех языков, которые не поддерживают эту методологию на уровне
+    языковых конструкций.
+  </para>
+
+  <para>
+    Вы можете использовать PHPUnit после того как программа написана.
+    Онднако, чем раньше вы напишите тест после внесения ошибки тем больше
+    пользы этот тест принесёт. Поэтому, вместо того чтобы писать тесты месяцы спустя
+    после того как код "закончен", мы можем писать тесты спустя дни или часы или даже минуты
+    после того как был внесён дефект. Но зачем останавливаться на этом? Почему бы не писать
+    тесты немного раньше возможного внесения дефекта?
+  </para>
+
+  <para>
+    Тестирование до программирования, которое является частью экстремального программирования
+    и разработки управляемой тестами (TDD - Test-Driven-Development), построено на этой идее,
+    которая возведенной в абсолют. При сегодняшней вычислительной мощности у нас есть возможность
+    запускать тысячи тестов тысячи раз в день. Мы можем использовать
+    обратную связь полученную от этих тестов для программирования маленькими шагами, каждый
+    из которых несёт с собой уверенность нового автотеста в доплнение ко всем
+    тестам написаным ранее. Тесты как страховочные крючья - они не дадут вам упасть ниже того
+    места до котрого уже продвинулись.
+  </para>
+
+  <para>
+    Когда вы пишете тест сначала он может пройти, потому что вы обращаетесь
+    к объектам и методам которые не были еще запрограммированы. Возможно это покажется
+    странным поначалу, но спустя некоторое время это войдёт в привычку.
+    Думайте о тестировании до программирования как о прагматичном подходе к
+    объектно-ориентированному программированию интерфейсов вместо программирования
+    имплементации: когда вы пишете тест вы думаете об интерфейсе объекта, который вы тестируете,
+    о том как будет выглядеть ваш объект снаружи. Когда вы заставляете тест работать, вы
+    думаете только о чистой имплементации. В то же время интерфейс чётко определён вашими проваленными тестами.
+  </para>
+
+  <blockquote>
+    <attribution>Dan North</attribution>
+    <para>
+      Идея
+      <ulink url="http://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">
+      разработки через тестирование
+      </ulink>
+      в том чтобы выдавать фунциональность которая действительно нужна в
+      программе, а не то что программист считает она должна возможно делать.
+      Способ, которым она это делает, кажется сперва контр-интуитивным, если
+      не сказать дурацким, однако он не только имеет смысл, он быстро становится
+      естественным и элегантным способом разрабатывать программное обеспечение.
+    </para>
+  </blockquote>
+
+  <para>
+    Далее следует краткое введение в разработку через тестирование.
+    Вы можете изучить эту тему более подробно в книгах
+    <emphasis>Test-Driven Development</emphasis> <xref linkend="Beck2002" />
+    Кента Бека (Kent Beck) и Дейва Астелса (Dave Astels) <emphasis>A Practical Guide to Test-Driven
+    Development</emphasis> <xref linkend="Astels2003" />.
+  </para>
+
+  <section id="test-driven-development.bankaccount-example">
+    <title>Пример: банковский счёт (BankAccount)</title>
+
+    <para>
+      В этом разделе мы рассмотрим пример класса, который представляет
+      банковский счёт. Контракт для <literal>BankAccount</literal>
+      требует не только методы для установи и получения баланса банковского
+      счёта, но и методы для пополнения и вывода денег. Кроме этого он
+      устанавливает следующие два условия, которые должны соблюдаться:
+    </para>
+
+    <itemizedlist>
+      <listitem>
+        <para>Начальный баланс счёта должен быть равен нулю.</para>
+      </listitem>
+
+      <listitem>
+        <para>Баланс не может стать отрицательным.</para>
+      </listitem>
+    </itemizedlist>
+
+    <para>
+      Мы пишем тесты для класса <literal>BankAccount</literal> до того как
+      писать код самого класса. Мы используем условия контракта как
+      основу для тестов и именуем тестовые методы соответственно, как показано в
+      <xref linkend="test-driven-development.bankaccount-example.examples.BankAccountTest.php" />.
+    </para>
+
+    <example id="test-driven-development.bankaccount-example.examples.BankAccountTest.php">
+      <title>Тесты для класса BankAccount</title>
+      <programlisting><![CDATA[<?php
+require_once 'BankAccount.php';
+
+class BankAccountTest extends PHPUnit_Framework_TestCase
+{
+    protected $ba;
+
+    protected function setUp()
+    {
+        $this->ba = new BankAccount;
+    }
+
+    public function testBalanceIsInitiallyZero()
+    {
+        $this->assertEquals(0, $this->ba->getBalance());
+    }
+
+    public function testBalanceCannotBecomeNegative()
+    {
+        try {
+            $this->ba->withdrawMoney(1);
+        }
+
+        catch (BankAccountException $e) {
+            $this->assertEquals(0, $this->ba->getBalance());
+
+            return;
+        }
+
+        $this->fail();
+    }
+
+    public function testBalanceCannotBecomeNegative2()
+    {
+        try {
+            $this->ba->depositMoney(-1);
+        }
+
+        catch (BankAccountException $e) {
+            $this->assertEquals(0, $this->ba->getBalance());
+
+            return;
+        }
+
+        $this->fail();
+    }
+}
+?>]]></programlisting>
+    </example>
+
+    <para>
+      Теперь мы пишем минимально необходимое количество кода,
+      для того чтобы первый тест <literal>testBalanceIsInitiallyZero()</literal>, прошёл.
+      В нашем примере это имплементация метода <literal>getBalance()</literal>
+      класса <literal>BankAccount</literal> как показано
+      <xref linkend="test-driven-development.bankaccount-example.examples.BankAccount.php" />.
+    </para>
+
+    <example id="test-driven-development.bankaccount-example.examples.BankAccount.php">
+      <title>Код необходимый для того, чтобы тест testBalanceIsInitiallyZero() прошёл</title>
+      <programlisting><![CDATA[<?php
+class BankAccount
+{
+    protected $balance = 0;
+
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+}
+?>]]></programlisting>
+    </example>
+
+    <para>
+      Тест для первого условия контракта сейчас проходит, но тесты для
+      второго условия контракта падают, так как мы еще не реализовали методы
+      которые вызывают эти тесты.
+    </para>
+
+    <screen><userinput>phpunit BankAccountTest</userinput>
+PHPUnit 3.7.0 by Sebastian Bergmann.
+
+.
+Fatal error: Call to undefined method BankAccount::withdrawMoney()</screen>
+
+    <para>
+      Для тестов, которые обеспечивают второе условие контракта, мы
+      должны реализовать методы <literal>withdrawMoney()</literal>,
+      <literal>depositMoney()</literal>, и <literal>setBalance()</literal>
+      как показано в
+      <xref linkend="test-driven-development.bankaccount-example.examples.BankAccount2.php" />.
+      Эти методы написаны таким образом чтобы вызывать исключение
+      <literal>BankAccountException</literal> когда они вызваны с
+      неверными значениями, которые могут нарушить условия контракта.
+    </para>
+
+    <example id="test-driven-development.bankaccount-example.examples.BankAccount2.php">
+      <title>Законченый класс BankAccount</title>
+      <programlisting><![CDATA[<?php
+class BankAccount
+{
+    protected $balance = 0;
+
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    protected function setBalance($balance)
+    {
+        if ($balance >= 0) {
+            $this->balance = $balance;
+        } else {
+            throw new BankAccountException;
+        }
+    }
+
+    public function depositMoney($balance)
+    {
+        $this->setBalance($this->getBalance() + $balance);
+
+        return $this->getBalance();
+    }
+
+    public function withdrawMoney($balance)
+    {
+        $this->setBalance($this->getBalance() - $balance);
+
+        return $this->getBalance();
+    }
+}
+?>]]></programlisting>
+    </example>
+
+    <para>
+      Теперь тесты, которые проверяют второе условие контракта тоже проходят:
+    </para>
+
+    <screen><userinput>phpunit BankAccountTest</userinput>
+PHPUnit 3.7.0 by Sebastian Bergmann.
+
+...
+
+Time: 0 seconds
+
+
+OK (3 tests, 3 assertions)</screen>
+
+    <para>
+      <indexterm><primary>PHPUnit_Framework_Assert</primary></indexterm>
+
+      Как альтернативу, можно использовать статические методы-утверждения класса
+      <literal>PHPUnit_Framework_Assert</literal> для описания условий контракта
+      в коде в виде утверждений в стиле программирования по контракту, как показано в
+      <xref linkend="test-driven-development.bankaccount-example.examples.BankAccount3.php" />.
+      Когда какое-то из утверждений не верно будет вызвано исключение
+      <literal>PHPUnit_Framework_AssertionFailedError</literal>. В этом случае
+      вы пишете меньнше кода для проверки уловий контракта и тесты становятся более
+      читабельными. Однако, вы добавляете в ваш рабочий код зависимость от PHPUnit.
+    </para>
+
+    <example id="test-driven-development.bankaccount-example.examples.BankAccount3.php">
+      <title>Класс BankAccount с утверждениями в стиле контрактного программирования</title>
+      <programlisting><![CDATA[<?php
+class BankAccount
+{
+    private $balance = 0;
+
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    protected function setBalance($balance)
+    {
+        PHPUnit_Framework_Assert::assertTrue($balance >= 0);
+
+        $this->balance = $balance;
+    }
+
+    public function depositMoney($amount)
+    {
+        PHPUnit_Framework_Assert::assertTrue($amount >= 0);
+
+        $this->setBalance($this->getBalance() + $amount);
+
+        return $this->getBalance();
+    }
+
+    public function withdrawMoney($amount)
+    {
+        PHPUnit_Framework_Assert::assertTrue($amount >= 0);
+        PHPUnit_Framework_Assert::assertTrue($this->balance >= $amount);
+
+        $this->setBalance($this->getBalance() - $amount);
+
+        return $this->getBalance();
+    }
+}
+?>]]></programlisting>
+    </example>
+
+    <para>
+      By writing the contract conditions into the tests, we have used
+      Design-by-Contract to program the <literal>BankAccount</literal> class.
+      We then wrote, following the Test-First Programming approach, the
+      code needed to make the tests pass. However, we forgot to write
+      tests that call <literal>setBalance()</literal>,
+      <literal>depositMoney()</literal>, and <literal>withdrawMoney()</literal>
+      with legal values that do not violate the contract conditions.
+      We need a means to test our tests or at least to measure their quality.
+      Such a means is the analysis of code-coverage information that we will
+      discuss next.
+    </para>
+  </section>
+</chapter>

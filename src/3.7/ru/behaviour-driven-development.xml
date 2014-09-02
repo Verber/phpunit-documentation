@@ -1,58 +1,58 @@
 <?xml version="1.0" encoding="utf-8" ?>
 
 <chapter id="behaviour-driven-development">
-  <title>Behaviour-Driven Development</title>
+  <title>Разработка через поведение (Behaviour-Driven Development)</title>
 
   <para>
-    <indexterm><primary>Extreme Programming</primary></indexterm>
-    <indexterm><primary>Test-Driven Development</primary></indexterm>
+    <indexterm><primary>Экстремальное программирование</primary></indexterm>
+    <indexterm><primary>Разработка через тестирование</primary></indexterm>
 
-    In <xref linkend="Astels2006" />, Dave Astels makes the following points:
+    В <xref linkend="Astels2006" />, Дейв Астелс (Dave Astels) отметил:
   </para>
 
   <itemizedlist>
     <listitem>
       <para>
-        <ulink url="http://en.wikipedia.org/wiki/Extreme_Programming">Extreme Programming</ulink>
-        originally had the rule to test everything that could possibly break.
+        В <ulink url="http://ru.wikipedia.org/wiki/%D0%AD%D0%BA%D1%81%D1%82%D1%80%D0%B5%D0%BC%D0%B0%D0%BB%D1%8C%D0%BD%D0%BE%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">экстремальном программировании</ulink>
+        изначально было правило, тестировать всё что может сломаться.
       </para>
     </listitem>
     <listitem>
       <para>
-        Now, however, the practice of testing in Extreme Programming has evolved
-        into <ulink url="http://en.wikipedia.org/wiki/Test-driven_development">Test-Driven Development</ulink>
-        (see <xref linkend="test-driven-development" />).
+        Сейчас, однако, практики тестирования в экстремальном программировании эволюционировали
+        в  <ulink url="https://ru.wikipedia.org/wiki/%D0%A0%D0%B0%D0%B7%D1%80%D0%B0%D0%B1%D0%BE%D1%82%D0%BA%D0%B0_%D1%87%D0%B5%D1%80%D0%B5%D0%B7_%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5">разработку через тестирование</ulink>
+        (см. <xref linkend="test-driven-development" />).
       </para>
     </listitem>
     <listitem>
       <para>
-        But the tools still force developers to think in terms of tests and
-        assertions instead of specifications.
+        Но инструменты до сих пор заставляют разработчиков думать в терминах
+        тестов и утверждений вместо спецификаций.
       </para>
     </listitem>
   </itemizedlist>
 
   <blockquote>
-    <attribution>Dave Astels</attribution>
-    <title>So if it's not about testing, what's it about?</title>
+    <attribution>Дейв Астелс (Dave Astels)</attribution>
+    <title>Итак, если речь не о тестировании, то о чём?</title>
     <para>
+      Речь идёт выяснении, что вы пытаетесь сделать, прежде чем строчить что-то
+      наполовину готовое что пытается сделать это.
       It's about figuring out what you are trying to do before you run off
-      half-cocked to try to do it. You write a specification that nails down a
-      small aspect of behaviour in a concise, unambiguous, and executable form.
-      It's that simple. Does that mean you write tests? No. It means you write
-      specifications of what your code will have to do. It means you specify the
-      behaviour of your code ahead of time. But not far ahead of time. In fact,
-      just before you write the code is best because that's when you have as
-      much information at hand as you will up to that point. Like well done TDD,
-      you work in tiny increments... specifying one small aspect of behaviour at
-      a time, then implementing it.
+      half-cocked to try to do it. Вы пишете спецификацию, которая закрепляет
+      небольшой аспект поведения в краткой, однозначной, и исполняемой форме.
+      Это так просто. Означает ли, что вы пишете тесты? Нет, это означает, что
+      вы пишете спецификации того, что ваш код будет делать. Это означает, что вы
+      указываете поведение вашего кода загодя. Но не слишком далеко вперед. На самом деле,
+      просто прежде чем писать код, потому что в этот момент у вас есть максимум
+      информации под рукой. Как и при правильном TDD, вы работаете крошечными шагами ...
+      указав один маленький аспект поведения, тут же его реализуете.
     </para>
     <para>
-      When you realize that it's all about specifying behaviour and not writing
-      tests, your point of view shifts. Suddenly the idea of having a Test class
-      for each of your production classes is ridiculously limiting. And the
-      thought of testing each of your methods with its own test method (in a 1-1
-      relationship) will be laughable.
+      Когда вы поймёте что речь об спецификации поведения а не о написании тестов
+      ваша точка зрения изменится. Внезапно идея наличия тестового класса для каждого
+      вашего класса станет нелепо ограничивающей. И мысль о тестировании каждого
+      из ваших методов его собственным тестом (в соотношении 1-к-1) будет смехотворной.
     </para>
   </blockquote>
 

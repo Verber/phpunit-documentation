@@ -21,6 +21,14 @@ Time: 0 seconds
 OK (2 tests, 2 assertions)</screen>
 
   <para>
+    このように実行すると、PHPUnit のコマンドラインテストランナーは、
+    まず現在の作業ディレクトリにあるソースファイル
+    <filename>ArrayTest.php</filename> を探してそれを読み込み、テストケースクラス
+    <literal>ArrayTest</literal> を探します。
+    そして、そのクラス内のテストを実行します。
+  </para>
+
+  <para>
     テストがひとつ実行されるたびに、PHPUnit
     コマンドラインツールはその経過を示す文字を出力します。
   </para>
@@ -93,14 +101,14 @@ OK (2 tests, 2 assertions)</screen>
     <title>Command-Line switches</title>
 
     <para>
-      以下のコードで、コマンドライン版テストランナーのスイッチの一覧を見てみましょう。
+      以下のコードで、コマンドライン版テストランナーのオプションの一覧を見てみましょう。
     </para>
 
     <screen><userinput>phpunit --help</userinput>
 <![CDATA[PHPUnit 3.7.0 by Sebastian Bergmann.
 
-Usage: phpunit [switches] UnitTest [UnitTest.php]
-       phpunit [switches] <directory>
+Usage: phpunit [options] UnitTest [UnitTest.php]
+       phpunit [options] <directory>
 
   --log-junit <file>        Log test execution in JUnit XML format to file.
   --log-tap <file>          Log test execution in TAP format to file.
@@ -472,7 +480,7 @@ class TestCaseClass extends \PHPUnit_Framework_TestCase
             標準のテストスイートローダーは、現在の作業ディレクトリおよび PHP
             の設定項目 <literal>include_path</literal>
             で指定されているディレクトリからソースファイルを探します。
-            PEAR の命名規則に従い、<literal>Project_Package_Class</literal>
+            <literal>Project_Package_Class</literal>
             クラスがソースファイル <filename>Project/Package/Class.php</filename>
             に対応します。
           </para>
@@ -529,6 +537,8 @@ class TestCaseClass extends \PHPUnit_Framework_TestCase
         <listitem>
           <para>
             出力に色を使用します。
+            Windows では、<ulink url="https://github.com/adoxa/ansicon">ANSICON</ulink> あるいは <ulink url="https://github.com/Maximus5/ConEmu">ConEmu</ulink>
+            を利用します。
           </para>
         </listitem>
       </varlistentry>

@@ -20,13 +20,17 @@ function webify_directory($directory, $language, $version)
     );
 
     $editions  = array(
-      'en'    => array('3.8', '3.7'),
-      'fr'    => array('3.8', '3.7'),
-      'ja'    => array('3.8', '3.7'),
-      'pt_br' => array('3.8', '3.7'),
-      'zh_cn' => array('3.8', '3.7')
+      'en'    => array('4.3', '4.2', '3.7'),
+      //'fr'    => array('4.2', '4.1', '3.7'),
+      'ja'    => array('4.3', '4.2', '3.7'),
+      //'pt_br' => array('4.2', '4.1', '3.7'),
+      'zh_cn' => array('4.3', '4.2', '3.7')
     );
 
+    $old          = '3.7';
+    $stable       = '4.2';
+    $beta         = '4.3';
+    $alpha        = null;
     $languageList = '';
     $versionList  = '';
 
@@ -73,17 +77,32 @@ function webify_directory($directory, $language, $version)
 
     }
 
+    $versions = $editions[array_key_exists($language, $editions) ? $language : 'en'];
 
-    //$versionList:
-    //only list available version in current language, default-language = en.
-    $versions = $editions[ array_key_exists($language, $editions) ? $language : 'en' ];
     foreach ($versions as $_version) {
+        if ($_version == $stable) {
+            $type = '<strong>stable</strong>';
+        }
+
+        if ($_version == $old) {
+            $type = 'old, but stable';
+        }
+
+        if ($_version == $beta) {
+            $type = 'beta';
+        }
+
+        if ($_version == $alpha) {
+            $type = 'alpha';
+        }
+
         $versionList .= sprintf(
-          '<li%s><a href="../../%s/%s/index.html">PHPUnit %s</a></li>',
+          '<li%s><a href="../../%s/%s/index.html">%s (%s)</a></li>',
           $version == $_version ? ' class="active"' : '',
           $_version,
           $language,
-          $_version
+          $_version,
+          $type
         );
     }
 
@@ -110,7 +129,15 @@ function webify_file($file, $toc, $languageList, $versionList, $language)
       dirname(__FILE__) . DIRECTORY_SEPARATOR . 'templates' . DIRECTORY_SEPARATOR . 'page.html'
     );
 
-    $title       = '';
+
+	//i18n for title
+	$title_text = array(
+        'en' => 'PHPUnit Manual',
+        'zh_cn' => 'PHPUnit 手册',
+		'ja' => 'PHPUnit マニュアル',
+    );
+
+    $title       = get_text_in_language($title_text, $language);
     $content     = '';
     $prev        = '';
     $next        = '';
@@ -120,14 +147,17 @@ function webify_file($file, $toc, $languageList, $versionList, $language)
     $prev_text = array(
         'en' => 'Prev',
         'zh_cn' => '上一章',
+        'ja' => '戻る',
     );
     $next_text = array(
         'en' => 'Next',
         'zh_cn' => '下一章',
+        'ja' => '次へ',
     );
     $suggestions_text = array(
         'en' => 'Please <a href="https://github.com/sebastianbergmann/phpunit-documentation/issues">open a ticket</a> on GitHub to suggest improvements to this page. Thanks!',
-        'zh_cn' => '请在 GitHub 上 <a href="https://github.com/sebastianbergmann/phpunit-documentation/issues">开启任务单</a> 来对本页提出改进建议。万分感谢！',
+        'zh_cn' => '如果对本页有改进建议，请 <a href="https://github.com/sebastianbergmann/phpunit-documentation/issues">在 GitHub 上开启任务单</a>。万分感谢！',
+        'ja' => 'このページの改善案を<a href="https://github.com/sebastianbergmann/phpunit-documentation/issues">GitHubで提案</a>してください!',
     );
 
     if ($filename !== 'index.html') {
@@ -144,7 +174,7 @@ function webify_file($file, $toc, $languageList, $versionList, $language)
         }
 
         $buffer      = file_get_contents($file);
-        $title       = get_substring($buffer, '<title>', '</title>', FALSE, FALSE);
+        $_title      = get_substring($buffer, '<title>', '</title>', FALSE, FALSE);
         $content     = get_substring($buffer, '<div class="' . $type . '"', '<div class="navfooter">', TRUE, FALSE);
         $prev        = get_substring($buffer, '<link rel="prev" href="', '" title', FALSE, FALSE);
         $next        = get_substring($buffer, '<link rel="next" href="', '" title', FALSE, FALSE);
@@ -157,11 +187,15 @@ function webify_file($file, $toc, $languageList, $versionList, $language)
         if (!empty($next)) {
             $next = '<a accesskey="n" href="' . $next . '">' . get_text_in_language($next_text, $language) . '</a>';
         }
+
+        if (!empty($_title)) {
+            $title .= ' &#8211; ' . $_title;
+        }
     }
 
     $buffer = str_replace(
-      array('{title}', '{content}', '{toc}', '{languages}', '{versions}', '{prev}', '{next}', '<div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">', '<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">', '{suggestions}'),
-      array($title, $content, $toc, $languageList, $versionList, $prev, $next, '<div class="alert alert-error">', '<div class="alert alert-info">', $suggestions),
+      array('{filename}', '{title}', '{content}', '{toc}', '{languages}', '{language}', '{versions}', '{prev}', '{next}', '<div class="caution" style="margin-left: 0.5in; margin-right: 0.5in;">', '<div class="warning" style="margin-left: 0.5in; margin-right: 0.5in;">', '<div class="note" style="margin-left: 0.5in; margin-right: 0.5in;">', '{suggestions}'),
+      array($filename, $title, $content, $toc, $languageList, $language, $versionList, $prev, $next, '<div class="alert alert-warning">', '<div class="alert alert-danger">', '<div class="alert alert-info">', $suggestions),
       $template
     );
 

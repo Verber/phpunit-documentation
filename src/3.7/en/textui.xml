@@ -21,6 +21,13 @@ Time: 0 seconds
 OK (2 tests, 2 assertions)</screen>
 
   <para>
+    When invoked as shown above, the PHPUnit command-line test runner will look
+    for a <filename>ArrayTest.php</filename> sourcefile in the current working
+    directory, load it, and expect to find a <literal>ArrayTest</literal> test
+    case class. It will then execute the tests of that class.
+  </para>
+
+  <para>
     For each test run, the PHPUnit command-line tool prints one character to
     indicate progress:
   </para>
@@ -89,18 +96,18 @@ OK (2 tests, 2 assertions)</screen>
   </para>
 
   <section id="textui.clioptions">
-    <title>Command-Line switches</title>
+    <title>Command-Line Options</title>
 
     <para>
-      Let's take a look at the command-line test runner's switches in
+      Let's take a look at the command-line test runner's options in
       the following code:
     </para>
 
     <screen><userinput>phpunit --help</userinput>
 <![CDATA[PHPUnit 3.7.0 by Sebastian Bergmann.
 
-Usage: phpunit [switches] UnitTest [UnitTest.php]
-       phpunit [switches] <directory>
+Usage: phpunit [options] UnitTest [UnitTest.php]
+       phpunit [options] <directory>
 
   --log-junit <file>        Log test execution in JUnit XML format to file.
   --log-tap <file>          Log test execution in TAP format to file.
@@ -476,9 +483,9 @@ class TestCaseClass extends \PHPUnit_Framework_TestCase
             The standard test suite loader will look for the sourcefile in the
             current working directory and in each directory that is specified in
             PHP's <literal>include_path</literal> configuration directive.
-            Following the PEAR Naming Conventions, a class name such as
-            <literal>Project_Package_Class</literal> is mapped to the
-            sourcefile name <filename>Project/Package/Class.php</filename>.
+            A class name such as <literal>Project_Package_Class</literal> is
+            mapped to the source filename
+            <filename>Project/Package/Class.php</filename>.
           </para>
         </listitem>
       </varlistentry>
@@ -531,6 +538,7 @@ class TestCaseClass extends \PHPUnit_Framework_TestCase
         <listitem>
           <para>
             Use colors in output.
+            On Windows, use <ulink url="https://github.com/adoxa/ansicon">ANSICON</ulink> or <ulink url="https://github.com/Maximus5/ConEmu">ConEmu</ulink>.
           </para>
         </listitem>
       </varlistentry>

@@ -19,6 +19,14 @@
     この情報をもとに実行時の振る舞いを設定するのです。
   </para>
 
+  <note>
+    <para>
+      PHP の doc コメントは、<literal>/**</literal> で始めて
+      <literal>*/</literal> で終わる必要があります。
+      その他の形式のコメントで書いたアノテーションは、無視されます。
+    </para>
+  </note>
+
   <para>
     本章では、PHPUnit がサポートするすべてのアノテーションについて解説します。
   </para>
@@ -450,8 +458,8 @@ class MyClass
     <para>
       特定のグループに属するテストのみを選んで実行するには、
       コマンドラインのテストランナーの場合は
-      <literal>--group</literal> スイッチあるいは <literal>--exclude-group</literal>
-      スイッチを指定します。XML 設定ファイルの場合は、
+      <literal>--group</literal> オプションあるいは <literal>--exclude-group</literal>
+      オプションを指定します。XML 設定ファイルの場合は、
       それぞれ対応するディレクティブを指定します。
     </para>
   </section>

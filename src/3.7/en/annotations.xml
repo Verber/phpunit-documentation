@@ -17,6 +17,14 @@
     information at runtime to configure their behaviour.
   </para>
 
+  <note>
+    <para>
+      A doc comment in PHP must start with <literal>/**</literal> and end with
+      <literal>*/</literal>. Annotations in any other style of comment will be
+      ignored.
+    </para>
+  </note>
+
   <para>
     This appendix shows all the varieties of annotations supported by PHPUnit.
   </para>
@@ -451,7 +459,7 @@ class MyClass
 
     <para>
       Tests can be selected for execution based on groups using the
-      <literal>--group</literal> and <literal>--exclude-group</literal> switches
+      <literal>--group</literal> and <literal>--exclude-group</literal> options
       of the command-line test runner or using the respective directives of the
       XML configuration file.
     </para>

@@ -140,7 +140,7 @@ class TemplateMethodsTest extends PHPUnit_Framework_TestCase
 }
 ?>]]></programlisting>
      <screen><userinput>phpunit TemplateMethodsTest</userinput><![CDATA[
-PHPUnit 3.8.0 by Sebastian Bergmann.
+PHPUnit 3.7.0 by Sebastian Bergmann.
 
 TemplateMethodsTest::setUpBeforeClass
 TemplateMethodsTest::setUp
@@ -277,9 +277,6 @@ class DatabaseTest extends PHPUnit_Framework_TestCase
     </para>
 
     <note>
-      <para>
-        对类的静态属性的备份与还原操作其实现方案需要 PHP 5.3（或更高版本）.
-      </para>
       <para>
         对全局变量和类的静态属性的备份与还原操作其实现方案使用了 <literal>serialize()</literal> 与 <literal>unserialize()</literal>。
       </para>

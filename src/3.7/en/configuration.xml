@@ -11,7 +11,10 @@
       be used to configure PHPUnit's core functionality.
     </para>
 
-    <screen><![CDATA[<phpunit backupGlobals="true"
+    <screen><![CDATA[<phpunit
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd"
+         backupGlobals="true"
          backupStaticAttributes="false"
          <!--bootstrap="/path/to/bootstrap.php"-->
          cacheTokens="false"
@@ -44,7 +47,7 @@
     </para>
 
     <para>
-      Additional options that are not available as command-line switches are:
+      Additional options that are not available as command-line options are:
     </para>
 
     <variablelist>
@@ -203,7 +206,9 @@
       <literal><![CDATA[<include>]]></literal>,
       <literal><![CDATA[<exclude>]]></literal>, and
       <literal><![CDATA[<group>]]></literal> children can be used to select
-      groups of tests from a suite of tests that should (not) be run.
+      groups of tests marked with the <literal>@group</literal> annotation
+      (documented in <xref linkend="appendixes.annotations.group" />)
+      that should (not) be run.
     </para>
 
     <screen><![CDATA[<groups>
@@ -217,7 +222,7 @@
 
     <para>
       The XML configuration above corresponds to invoking the TextUI test runner
-      with the following switches:
+      with the following options:
     </para>
 
     <itemizedlist>
@@ -285,7 +290,7 @@
 
     <para>
       The XML configuration above corresponds to invoking the TextUI test runner
-      with the following switches:
+      with the following options:
     </para>
 
     <itemizedlist>
@@ -306,7 +311,7 @@
       <literal>lowUpperBound</literal>, <literal>highLowerBound</literal>,
       <literal>logIncompleteSkipped</literal> and
       <literal>showUncoveredFiles</literal> attributes have no equivalent TextUI
-      test runner switch.
+      test runner option.
     </para>
 
     <itemizedlist>

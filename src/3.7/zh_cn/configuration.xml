@@ -10,7 +10,10 @@
       <literal><![CDATA[<phpunit>]]></literal> 元素的属性用于配置 PHPUnit 的核心功能。
     </para>
 
-    <screen><![CDATA[<phpunit backupGlobals="true"
+    <screen><![CDATA[<phpunit
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://schema.phpunit.de/3.7/phpunit.xsd"
+         backupGlobals="true"
          backupStaticAttributes="false"
          <!--bootstrap="/path/to/bootstrap.php"-->
          cacheTokens="false"
@@ -170,7 +173,7 @@
     <para>
       <indexterm><primary>Test Groups （测试分组）</primary></indexterm>
 
-      <literal><![CDATA[<groups>]]></literal> 元素及其 <literal><![CDATA[<include>]]></literal>、<literal><![CDATA[<exclude>]]></literal>、<literal><![CDATA[<group>]]></literal> 子元素用于从测试套件中选择需要运行（或不运行）的分组。
+      <literal><![CDATA[<groups>]]></literal> 元素及其 <literal><![CDATA[<include>]]></literal>、<literal><![CDATA[<exclude>]]></literal>、<literal><![CDATA[<group>]]></literal> 子元素用于从带有 <literal>@group</literal> 标注（相关文档参见 <xref linkend="appendixes.annotations.group" />）的测试中选择需要运行（或不运行）的分组。
     </para>
 
     <screen><![CDATA[<groups>

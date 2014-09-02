@@ -24,7 +24,8 @@ function webify_directory($directory, $language, $version)
       //'fr'    => array('4.2', '4.1', '3.7'),
       'ja'    => array('4.3', '4.2', '3.7'),
       //'pt_br' => array('4.2', '4.1', '3.7'),
-      'zh_cn' => array('4.3', '4.2', '3.7')
+      'zh_cn' => array('4.3', '4.2', '3.7'),
+      'ru' => array('3.7')
     );
 
     $old          = '3.7';
@@ -63,6 +64,11 @@ function webify_directory($directory, $language, $version)
 
             case 'zh_cn': {
                 $_languageName = 'Simplified Chinese';
+            }
+            break;
+
+            case 'ru': {
+                $_languageName = 'Russian';
             }
             break;
 

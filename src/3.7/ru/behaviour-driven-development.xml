@@ -57,7 +57,7 @@
   <para>
     <indexterm><primary>BDD</primary></indexterm>
     <indexterm><primary>Проблемно-ориентированное проектирование</primary></indexterm>
-    В центре внимания <ulink url="http://en.wikipedia.org/wiki/Behavior-driven_development">разработки через поведение</ulink>
+    В центре внимания <ulink url="http://en.wikipedia.org/wiki/Behavior-driven_development">BDD</ulink>
     "язык и взаимодействия используемые в процессе разработки программного обеспечения".
     Разработчики, которые программируют от поведения, используют свой естественный язык
     в сочетании с общеупотребительном языком
